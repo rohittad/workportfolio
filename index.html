@@ -51,10 +51,11 @@ h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.
 @media (max-width:720px){ .top nav{display:none} .draft{margin-left:auto} .top{padding-inline:16px} }
 
 /* ---------- drive: sticky stage + chapters ---------- */
-.drive{display:grid; grid-template-columns:minmax(0,7fr) minmax(0,4fr)}
+.drive{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .stage-wrap{grid-column:2; grid-row:1; position:sticky; align-self:start; display:flex; flex-direction:column;
-  top:calc(env(safe-area-inset-top,0px) + var(--header-h) + 16px); margin:16px 24px 16px 0; height:min(64svh, 580px);
-  border:1px solid var(--line); background:var(--paper)}
+  top:calc(env(safe-area-inset-top,0px) + var(--header-h)); margin:0;
+  height:calc(100svh - var(--header-h) - env(safe-area-inset-top,0px));
+  border-left:1px solid var(--line); background:var(--paper)}
 .chapters{grid-column:1; grid-row:1; padding-inline:clamp(16px,4vw,56px)}
 .stage{position:relative; width:100%; flex:1; min-height:0; overflow:hidden; touch-action:pan-y; cursor:grab}
 .stage:active{cursor:grabbing}
@@ -107,7 +108,8 @@ h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.
 .name span:last-child{color:var(--signal)}
 .lede{font-size:clamp(1.05rem,1.35vw,1.2rem); line-height:1.55; max-width:32rem; margin:0}
 .chapter h2{font-stretch:115%; font-weight:780; font-size:clamp(1.7rem,2.6vw,2.4rem); letter-spacing:-.005em}
-.chapter h2.stop-title{font-stretch:118%; font-weight:820; font-size:clamp(1.9rem,3.1vw,3rem); line-height:1.06; letter-spacing:-.01em}
+.chapter h2.stop-title{font-stretch:114%; font-weight:800; font-size:clamp(1.3rem,1.9vw,1.85rem); line-height:1.15; letter-spacing:0}
+.stop-title .role-line{display:block; margin-top:5px; font-stretch:105%; font-weight:600; font-size:.62em; line-height:1.3; color:var(--muted)}
 .stop-title .n{color:var(--signal)}
 .period{color:var(--muted); margin:0}
 .chapter p.summary{font-size:clamp(1.12rem,1.5vw,1.3rem); line-height:1.5; color:var(--ink); max-width:44rem}
@@ -244,7 +246,7 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
     </article>
 
     <article class="chapter" data-ch="1">
-      <h2 class="stop-title"><span class="n">Stop 1</span> - 2018 BMW - Paint Shop &amp; Quality Engineering Co-op</h2>
+      <h2 class="stop-title"><span class="n">Stop 1</span> - 2018 BMW<span class="role-line">Paint Shop &amp; Quality Engineering Co-op</span></h2>
       <p class="period mono">Jan – Dec 2018 · New Vehicle Programs</p>
       <p class="summary">Validated paint processes and traced fit-and-finish defects on the plant floor for upcoming and existing BMW models.</p>
       <h3 class="ach">Achievements</h3>
@@ -258,7 +260,7 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
     </article>
 
     <article class="chapter" data-ch="2">
-      <h2 class="stop-title"><span class="n">Stop 2</span> - 2020 Daimler Trucks - Mechanical Design Engineer, Freightliner</h2>
+      <h2 class="stop-title"><span class="n">Stop 2</span> - 2020 Daimler Trucks<span class="role-line">Mechanical Design Engineer, Freightliner</span></h2>
       <p class="period mono">Aug 2020 – Oct 2021 · Design intern, summer 2019</p>
       <p class="summary">Designed service, suspension, and towing hardware for Freightliner trucks and supported the next-generation electric truck platform.</p>
       <h3 class="ach">Achievements</h3>
@@ -272,7 +274,7 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
     </article>
 
     <article class="chapter" data-ch="3">
-      <h2 class="stop-title"><span class="n">Stop 3</span> - 2021 Rivian - Mechanical Engineer II, Brakes &amp; Suspension</h2>
+      <h2 class="stop-title"><span class="n">Stop 3</span> - 2021 Rivian<span class="role-line">Mechanical Engineer II, Brakes &amp; Suspension</span></h2>
       <p class="period mono">Nov 2021 – Apr 2023 · R1T and R1S</p>
       <p class="summary">Owned brake and suspension components from CAD through plant launch on the R1T and R1S, then followed field issues back into the design.</p>
       <h3 class="ach">Achievements</h3>
@@ -292,7 +294,7 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
     </article>
 
     <article class="chapter" data-ch="4">
-      <h2 class="stop-title"><span class="n">Stop 4</span> - 2023 Tesla - Technical Program Manager II, Cybertruck Chassis</h2>
+      <h2 class="stop-title"><span class="n">Stop 4</span> - 2023 Tesla<span class="role-line">Technical Program Manager II, Cybertruck Chassis</span></h2>
       <p class="period mono">Sep 2023 – Jun 2024 · Cybertruck</p>
       <p class="summary">Owned the integrated chassis roadmap for Cybertruck from concept through serial production, and unblocked launch issues across engineering, supply chain, and manufacturing.</p>
       <h3 class="ach">Achievements</h3>
@@ -308,7 +310,7 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
     </article>
 
     <article class="chapter" data-ch="5">
-      <h2 class="stop-title"><span class="n">Stop 5</span> - 2024 Zoox - Technical Program Manager, Autonomous Vehicles</h2>
+      <h2 class="stop-title"><span class="n">Stop 5</span> - 2024 Zoox<span class="role-line">Technical Program Manager, Autonomous Vehicles</span></h2>
       <p class="period mono">Nov 2024 – Mar 2026 · L5 program</p>
       <p class="summary">Owned requirements, roadmap, and schedule for the vehicle- and system-level test assets that carry a robotaxi program from prototype to validation.</p>
       <h3 class="ach">Achievements</h3>
@@ -324,7 +326,7 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
     </article>
 
     <article class="chapter" data-ch="6">
-      <h2 class="stop-title"><span class="n">Stop 6</span> - 2026 Nomadic AI - Member of Product Staff</h2>
+      <h2 class="stop-title"><span class="n">Stop 6</span> - 2026 Nomadic AI<span class="role-line">Member of Product Staff</span></h2>
       <p class="period mono">Jun 2026 – present · Video intelligence platform</p>
       <p class="summary">Own product for a video intelligence platform that finds edge cases in driving and robotics footage, from security and search to docs and customer demos.</p>
       <h3 class="ach">Achievements</h3>
@@ -722,7 +724,7 @@ let T = tokens();
 
 /* ---------------- chapters (camera keyframes) ---------------- */
 const CH = [
-  { name: "Studio",             model: "bmw",          az: 38,  el: 11, dist: 7.4,  ty: 0.62, explode: 0,    mode: "paint" },
+  { name: "Studio",             model: "bmw",          az: 38,  el: 11, dist: 8.8,  ty: 0.62, explode: 0,    mode: "paint" },
   { name: "Sta 1 · BMW",        model: "bmw",          az: 90,  el: 3,  dist: 9.8,  ty: 0.62, explode: 0,    mode: "wire"  },
   { name: "Sta 2 · Daimler",    model: "freightliner", az: 125, el: 14, dist: 9.4,  ty: 0.55, explode: 0,    mode: "paint" },
   { name: "Sta 3 · Rivian",     model: "rivian",       az: 48,  el: 24, dist: 9.4,  ty: 0.5,  explode: 0.45, mode: "paint" },
@@ -869,7 +871,7 @@ const MODELS = {
     credit: 'Model "FREIGHTLINER CASCADIA 2020" by liebherr996litronic (CC BY 4.0), sketchfab.com/3d-models/freightliner-cascadia-2020-2dd8eb87823c4eacabfb9d145eff5450.',
     lengthMm: null,                                                            // keep the file's own scale (about 10 m)
     paintMaterials: ["azul"], paintColor: null,
-    fit: { dist: 2.3, ty: 1.55 },
+    fit: { dist: 2.0, ty: 1.55 },
     caption: "2020 Freightliner Cascadia", sub: "3D model by liebherr996litronic · CC BY 4.0",
   },
   cybertruck: {
