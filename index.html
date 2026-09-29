@@ -1,0 +1,1316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rohit Tadikamalla — Work Portfolio</title>
+<meta name="description" content="Program leader turned hands-on builder. Career from BMW to Daimler, Rivian, Tesla, Zoox, and Nomadic AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#E8E9E4; --paper-2:#DDDFD9; --ink:#15181A; --muted:#5B605E; --line:#C3C6BF;
+  --clay:#B8936A; --signal:#D4461C; --paint:#2E3937; --good:#3F7D58;
+  --display:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --header-h:56px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#111314; --paper-2:#1A1D1E; --ink:#E5E6E0; --muted:#989D99; --line:#2D3233;
+    --clay:#C7A57F; --signal:#EF6639; --paint:#8E9995; --good:#6FBF8B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#111314; --paper-2:#1A1D1E; --ink:#E5E6E0; --muted:#989D99; --line:#2D3233;
+  --clay:#C7A57F; --signal:#EF6639; --paint:#8E9995; --good:#6FBF8B;
+}
+
+*{box-sizing:border-box}
+body{background:var(--paper); color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+a{color:inherit; text-decoration-color:var(--signal); text-underline-offset:3px; text-decoration-thickness:1.5px}
+a:hover{color:var(--signal)}
+:focus-visible{outline:2px solid var(--signal); outline-offset:3px}
+.mono{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.02}
+
+/* ---------- header ---------- */
+.top{position:sticky; top:env(safe-area-inset-top,0px); z-index:20; height:var(--header-h);
+  display:flex; align-items:center; gap:20px; padding-inline:24px; background:var(--paper);
+  border-bottom:1px solid var(--line)}
+.mark{font-family:var(--display); font-stretch:125%; font-weight:850; font-size:18px; letter-spacing:.02em; text-decoration:none}
+.mark span{color:var(--signal)}
+.top nav{display:flex; gap:18px; margin-left:auto}
+.top nav a{text-decoration:none; color:var(--muted)}
+.top nav a:hover{color:var(--ink)}
+.draft{border:1px solid var(--line); padding:3px 8px; border-radius:2px; color:var(--muted); white-space:nowrap}
+@media (max-width:720px){ .top nav{display:none} .draft{margin-left:auto} .top{padding-inline:16px} }
+
+/* ---------- drive: sticky stage + chapters ---------- */
+.drive{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.stage-wrap{grid-column:2; grid-row:1; position:sticky; top:calc(env(safe-area-inset-top,0px) + var(--header-h));
+  height:calc(100svh - var(--header-h) - env(safe-area-inset-top,0px)); border-left:1px solid var(--line)}
+.chapters{grid-column:1; grid-row:1; padding-inline:clamp(16px,4vw,56px)}
+.stage{position:relative; width:100%; height:100%; overflow:hidden; touch-action:pan-y; cursor:grab}
+.stage:active{cursor:grabbing}
+.stage canvas{display:block; width:100%; height:100%}
+.labels{position:absolute; inset:0; pointer-events:none}
+.tag{position:absolute; left:0; top:0; display:flex; align-items:center; gap:6px; white-space:nowrap;
+  color:var(--ink); will-change:transform; opacity:0; background:color-mix(in srgb, var(--paper) 88%, transparent); padding:2px 6px 2px 0; border-radius:2px}
+.tag::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--signal); box-shadow:0 0 0 3px color-mix(in srgb, var(--signal) 22%, transparent)}
+.tag.dim::before{display:none}
+.tag.dim{padding:1px 5px}
+
+.readout{position:absolute; left:16px; top:14px; display:flex; flex-direction:column; gap:2px; color:var(--muted); pointer-events:none}
+.readout b{color:var(--ink); font-weight:500}
+.controls{position:absolute; left:16px; right:16px; bottom:14px; display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px}
+.seg{display:flex; border:1px solid var(--line); background:var(--paper); border-radius:3px; overflow:hidden}
+.seg button{font:inherit; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  background:transparent; color:var(--muted); border:0; padding:7px 10px; cursor:pointer}
+.seg button + button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+.seg button:hover:not([aria-pressed="true"]){color:var(--ink)}
+.explode{display:flex; align-items:center; gap:8px; color:var(--muted); background:var(--paper); border:1px solid var(--line); border-radius:3px; padding:4px 10px}
+.explode input{width:110px; accent-color:var(--signal)}
+.follow{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; background:none; border:0; color:var(--signal); cursor:pointer; padding:4px 0; text-decoration:underline; text-underline-offset:3px}
+.hint{position:absolute; right:16px; top:14px; max-width:50%; text-align:right; color:var(--muted); pointer-events:none}
+.status[hidden]{display:none}
+.status{position:absolute; inset:0; display:grid; place-items:center; color:var(--muted); text-align:center; padding:24px; pointer-events:none}
+
+.chapter{min-height:78svh; display:flex; flex-direction:column; justify-content:center; gap:18px; padding-block:64px; max-width:34rem}
+.chapter:first-child{min-height:calc(100svh - var(--header-h)); justify-content:flex-start; padding-top:clamp(40px,9vh,96px)}
+.chapter:last-child{min-height:88svh}
+.eyebrow{display:flex; align-items:center; gap:10px; color:var(--muted)}
+.eyebrow .sta{color:var(--signal); font-weight:500}
+.eyebrow::after{content:""; flex:1; height:1px; background:var(--line)}
+.name{font-stretch:122%; font-weight:850; font-size:clamp(2rem,3.6vw,3.6rem); letter-spacing:-.01em; text-transform:uppercase; line-height:.95}
+.name span{display:block}
+.name span:last-child{color:var(--signal)}
+.lede{font-size:clamp(1.05rem,1.35vw,1.2rem); line-height:1.55; max-width:32rem; margin:0}
+.chapter h2{font-stretch:115%; font-weight:780; font-size:clamp(1.7rem,2.6vw,2.4rem); letter-spacing:-.005em}
+.chapter p{margin:0; max-width:65ch; color:color-mix(in srgb, var(--ink) 86%, var(--paper))}
+.role{display:flex; flex-wrap:wrap; gap:6px 14px; color:var(--muted)}
+.role b{color:var(--ink); font-weight:500}
+
+.spec{width:100%; border-collapse:collapse; margin-top:8px; font-variant-numeric:tabular-nums}
+.spec th,.spec td{text-align:left; vertical-align:top; padding:9px 0; border-top:1px solid var(--line)}
+.spec tr:last-child th,.spec tr:last-child td{border-bottom:1px solid var(--line)}
+.spec th{width:34%; padding-right:12px; color:var(--muted); font-weight:400}
+.spec td{font-size:15px}
+
+.chips{display:flex; flex-wrap:wrap; gap:6px; padding:0; margin:0; list-style:none}
+.chips li{border:1px solid var(--line); padding:4px 9px; border-radius:2px; font-size:14px}
+
+@media (max-width:900px){
+  .drive{grid-template-columns:minmax(0,1fr)}
+  .stage-wrap{grid-column:1; grid-row:1; height:46svh; border-left:0; border-bottom:1px solid var(--line); z-index:5; background:var(--paper)}
+  .chapters{grid-row:2}
+  .chapter,.chapter:first-child{min-height:62svh; padding-top:40px; padding-block:40px}
+  .hint{display:none}
+  .explode input{width:80px}
+}
+
+/* ---------- sections below the drive ---------- */
+.section{padding-inline:clamp(16px,4vw,56px); padding-block:88px; border-top:1px solid var(--line)}
+.section-head{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:24px 48px; align-items:end; margin-bottom:36px}
+.section-head h2{font-stretch:118%; font-weight:820; font-size:clamp(2rem,4vw,3.4rem); text-transform:uppercase; letter-spacing:-.005em}
+.section-head p{margin:0; max-width:60ch; color:var(--muted)}
+@media (max-width:900px){ .section-head{grid-template-columns:minmax(0,1fr)} }
+
+/* contact */
+.contact{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:0; border-top:2px solid var(--ink)}
+.contact a{display:flex; flex-direction:column; gap:6px; padding:20px 16px 22px 0; border-bottom:1px solid var(--line); text-decoration:none}
+.contact a .mono{color:var(--muted)}
+.contact a strong{font-family:var(--display); font-stretch:112%; font-weight:700; font-size:1.25rem; user-select:all}
+.contact a:hover strong{color:var(--signal)}
+footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(--muted); font-size:13px; display:flex; flex-wrap:wrap; gap:8px 24px; border-top:1px solid var(--line)}
+
+
+
+/* ---------- selected work ---------- */
+.work{display:grid; gap:28px; padding-block:40px; border-top:1px solid var(--line)}
+.work:first-of-type{border-top:2px solid var(--ink)}
+.work h3{font-stretch:112%; font-weight:760; font-size:clamp(1.5rem,2.3vw,2.1rem); letter-spacing:-.005em; margin:6px 0 14px}
+.work p{margin:0 0 12px; max-width:65ch; color:color-mix(in srgb, var(--ink) 86%, var(--paper))}
+.work .cols{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 36px; margin-bottom:14px}
+.work .eyebrow{margin-bottom:6px}
+@media (max-width:900px){ .work .cols{grid-template-columns:minmax(0,1fr)} }
+.nomadic-head{padding-top:44px; border-top:2px solid var(--ink); margin-top:8px}
+.grid2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 36px}
+.grid2 .work{border-top:1px solid var(--line); align-content:start}
+.work.small h3{font-size:1.35rem}
+@media (max-width:900px){ .grid2{grid-template-columns:minmax(0,1fr)} }
+.spec.wide-spec{max-width:60rem}
+
+/* figures: engineering-drawing sheets that reuse the diagram markup */
+.fig{margin:0; --accent:var(--signal); --surface:var(--paper); --bad:var(--signal); --warn:var(--clay)}
+.fig .viz{border:1px solid var(--line); background:var(--paper-2); padding:20px; border-radius:2px}
+.fig figcaption{margin-top:8px; color:var(--muted)}
+.fig svg{display:block; width:100%; height:auto}
+.fig svg text{font-family:var(--body); fill:var(--ink)}
+.fig svg .m{fill:var(--muted)}
+.fig svg .box{fill:var(--paper); stroke:var(--line); stroke-width:1.5}
+.fig svg .acc{fill:var(--signal)}
+.fig svg .accS{stroke:var(--signal); fill:none; stroke-width:2}
+.fig svg .badF{fill:var(--signal)}
+.fig svg .goodF{fill:var(--good)}
+.fig svg .warnF{fill:var(--clay)}
+.fig svg .soft{fill:var(--line)}
+.fig svg .onacc{fill:#fff}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="#top" aria-label="Rohit Tadikamalla, top of page">R<span>/</span>T</a>
+  <nav class="mono" aria-label="Sections">
+    <a href="#work">Career</a><a href="#selected">Selected work</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+  </nav>
+  <span class="draft mono" title="Work in progress. Figures, images and animations are still being refined.">Draft</span>
+</header>
+
+<main id="top">
+<section class="drive" id="work" aria-label="Career">
+  <div class="stage-wrap">
+    <div class="stage" id="stage">
+      <div class="labels" id="labels" aria-hidden="true"></div>
+      <div class="readout mono" id="readout" aria-live="off"><span>Studio</span><b>Paint · explode 0%</b></div>
+      <div class="hint mono">Drag to rotate</div>
+      <div class="status mono" id="status">Loading the 3D model…</div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Surface mode">
+          <button type="button" data-mode="paint" aria-pressed="true">Paint</button>
+          <button type="button" data-mode="clay" aria-pressed="false">Clay</button>
+          <button type="button" data-mode="zebra" aria-pressed="false">Zebra</button>
+          <button type="button" data-mode="wire" aria-pressed="false">Tape</button>
+        </div>
+        <label class="explode mono" for="explode">Explode <input id="explode" type="range" min="0" max="100" value="0"></label>
+        <button type="button" class="follow" id="follow" hidden>Follow scroll</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chapters">
+    <article class="chapter" data-ch="0">
+      <div class="eyebrow mono"><span class="sta">Studio</span><span>Hardware · Programs · Product</span></div>
+      <h1 class="name"><span>Rohit</span><span>Tadikamalla</span></h1>
+      <p class="lede">Program leader turned hands-on builder. Six-plus years shipping vehicles at BMW, Daimler, Rivian, Tesla, and Zoox, and now writing and shipping product at a seed-stage AI startup.</p>
+      <table class="spec">
+        <tr><th class="mono">Now</th><td>Member of Product Staff, Nomadic AI (Jun 2026 – present)</td></tr>
+        <tr><th class="mono">Before</th><td>Zoox TPM · Tesla Cybertruck TPM II · Rivian R1T/R1S engineer</td></tr>
+        <tr><th class="mono">Focus</th><td>Hardware programs, test assets, launch readiness, video intelligence for AV and robotics</td></tr>
+        <tr><th class="mono">School</th><td>B.S. Mechanical Engineering, Virginia Tech (2020)</td></tr>
+        <tr><th class="mono">Based</th><td>San Francisco, CA</td></tr>
+      </table>
+      <p class="mono" style="color:var(--muted)">Scroll to drive through the career ↓</p>
+    </article>
+
+    <article class="chapter" data-ch="1">
+      <div class="eyebrow mono"><span class="sta">Station 1 · 2018</span><span>BMW Manufacturing</span></div>
+      <h2>Learning how a vehicle is really built</h2>
+      <p>Quality Engineering Intern on New Vehicle Programs. Rohit spent the year on the plant floor, where design intent meets the reality of paint, fit, and finish.</p>
+      <p>He supervised four quarters of wax tests that validated paint-process specifications, and ran root-cause analysis on gap and squeak issues using 3D measurement scans of parts fitted to vehicle bodies.</p>
+      <table class="spec">
+        <tr><th class="mono">Role</th><td>Quality Engineering Intern · Jan – Dec 2018</td></tr>
+        <tr><th class="mono">Takt time</th><td>4–5 s saved with 400+ visual aids of new models</td></tr>
+        <tr><th class="mono">Tooling</th><td>Casters for overweight X7s, designed in CATIA V5</td></tr>
+      </table>
+    </article>
+
+    <article class="chapter" data-ch="2">
+      <div class="eyebrow mono"><span class="sta">Station 2 · 2020</span><span>Daimler Trucks · Freightliner</span></div>
+      <h2>Designing for the people who service the truck</h2>
+      <p>Mechanical Design Engineer on Freightliner (with a design internship in 2019). Rohit designed a decking-towing provision that made vocational and highway trucks easier to service and transport, saving over $10,000 a year.</p>
+      <p>He also routed air suspension lines and wire harnesses on next-generation electric trucks with the electrical, systems, and supply chain teams.</p>
+      <table class="spec">
+        <tr><th class="mono">Role</th><td>Mechanical Design Engineer · Aug 2020 – Oct 2021</td></tr>
+        <tr><th class="mono">Mass</th><td>3.5 kg removed by consolidating 2- and 3-piece brackets</td></tr>
+        <tr><th class="mono">Documentation</th><td>Airline assembly diagrams for 6 air suspension variants</td></tr>
+      </table>
+    </article>
+
+    <article class="chapter" data-ch="3">
+      <div class="eyebrow mono"><span class="sta">Station 3 · 2021</span><span>Rivian · R1T / R1S</span></div>
+      <h2>Brakes and suspension, from CAD to the plant floor</h2>
+      <p>Mechanical Engineer II. Rohit owned design, development, and validation of 10+ brake and suspension components across the R1T and R1S programs, then followed them into the plant.</p>
+      <p>He resolved 20+ in-plant production issues for the R1S launch, and traced swelling O-rings on suspension hydraulic lines to a leaching dust-cap material, moving to TPE caps with a polymer expert and the supplier.</p>
+      <table class="spec">
+        <tr><th class="mono">Role</th><td>Mechanical Engineer II · Nov 2021 – Apr 2023</td></tr>
+        <tr><th class="mono">Durability</th><td>+50% on suspension jounce lines via cyclic vibration and pressure testing</td></tr>
+        <tr><th class="mono">Field feedback</th><td>10+ fleet-reported issues turned into design changes that reduced warranty claims</td></tr>
+      </table>
+      <p class="mono" style="color:var(--muted)">The 3D view is an original schematic of the R1 suspension layout (subframes, active dampers, air springs, hydraulic and air lines), drawn from Rivian's public service guideline. Not Rivian CAD; not to scale.</p>
+    </article>
+
+    <article class="chapter" data-ch="4">
+      <div class="eyebrow mono"><span class="sta">Station 4 · 2023</span><span>Tesla · Cybertruck</span></div>
+      <h2>Cybertruck chassis, from concept to serial production</h2>
+      <p>Technical Program Manager II. Rohit owned the integrated roadmap for chassis sub-systems and aligned 20+ engineering, finance, supply chain, and manufacturing stakeholders to design freeze and production readiness.</p>
+      <p>When a half-shaft installation issue threatened production, he ran containment and the permanent fix on two parallel tracks. When a component shortage hit, he kept the line running at zero downtime.</p>
+      <table class="spec">
+        <tr><th class="mono">Role</th><td>Technical Program Manager II · Sep 2023 – Jun 2024</td></tr>
+        <tr><th class="mono">Risks</th><td>15+ critical program risks identified and mitigated</td></tr>
+        <tr><th class="mono">Shortage</th><td>2-month component gap, zero production downtime</td></tr>
+        <tr><th class="mono">Test time</th><td>48 hours saved on average per cycle with a Jira part-request method</td></tr>
+      </table>
+      <p class="mono" style="color:var(--muted)"><a href="#tesla-case">Half-shaft case study ↓</a></p>
+    </article>
+
+    <article class="chapter" data-ch="5">
+      <div class="eyebrow mono"><span class="sta">Station 5 · 2024</span><span>Zoox · Autonomous vehicles</span></div>
+      <h2>Owning the plan for a robotaxi program</h2>
+      <p>Technical Program Manager on the L5 program. Rohit owned requirements and roadmap for vehicle- and system-level integration assets serving 10+ stakeholder teams, and carried risks and tradeoffs to executive leadership.</p>
+      <p>He created the Engineering Test Asset Committee to centralize requests for new test assets, share knowledge across teams, and track current and new builds to plan.</p>
+      <table class="spec">
+        <tr><th class="mono">Role</th><td>Technical Program Manager · Nov 2024 – Mar 2026</td></tr>
+        <tr><th class="mono">Drive Module bench</th><td>3 weeks cut from supplier bring-up</td></tr>
+        <tr><th class="mono">Triage</th><td>20% faster after a Jira workflow redesign</td></tr>
+      </table>
+      <p class="mono" style="color:var(--muted)"><a href="#zoox-case">ETAC case study ↓</a></p>
+    </article>
+
+    <article class="chapter" data-ch="6">
+      <div class="eyebrow mono"><span class="sta">Station 6 · 2026</span><span>Nomadic AI · Video intelligence</span></div>
+      <h2>Now: shipping product at a seed-stage AI startup</h2>
+      <p>Member of Product Staff at a video intelligence platform for driving and robotics footage. Rohit finds the unowned problems, scopes them, and ships the work himself, prototyping daily with Claude and Cursor.</p>
+      <p>He drove SOC 2 audit readiness, shipped server-side search over customers' full analysis history, restructured the SDK docs into a Quickstart-first guide, and built a pipeline that loads benchmark datasets for demos.</p>
+      <table class="spec">
+        <tr><th class="mono">Role</th><td>Member of Product Staff · Jun 2026 – present</td></tr>
+        <tr><th class="mono">SOC 2</th><td>366 flagged vulnerabilities triaged to ~35 root-cause packages, all critical/high CVEs closed</td></tr>
+        <tr><th class="mono">Accounts</th><td>Owns POC adoption for three enterprise accounts</td></tr>
+      </table>
+      <p class="mono" style="color:var(--muted)"><a href="#nomadic-cases">Nomadic work ↓</a></p>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="selected" aria-labelledby="sel-h">
+  <div class="section-head">
+    <h2 id="sel-h">Selected work</h2>
+    <p>The stories behind the numbers: how two problems were diagnosed and solved, and what I've shipped at Nomadic so far. Figures and images will keep evolving.</p>
+  </div>
+
+  <article class="work" id="tesla-case">
+    <div class="work-copy">
+      <div class="eyebrow mono"><span class="sta">Tesla</span><span>Production issue response</span></div>
+      <h3>Unblocked a production-critical half-shaft installation issue</h3>
+      <div class="cols">
+        <div>
+          <p>Cybertruck vehicles were making abnormal noise while moving. A teardown showed the half-shaft splines wearing into each other.</p>
+          <p>The root cause was a C-clip that wasn't fully seated during installation. If the clip's gap wasn't oriented correctly, there was a 20–30% chance it wouldn't catch.</p>
+        </div>
+        <div>
+          <p>I ran the response on two tracks. On the line, I added an operator check to rotate the clip to the correct orientation before install, validated it on 10 vehicles in an end-of-shift trial, then rolled it out across the line.</p>
+          <p>In parallel, an engineer and the supplier worked on a permanent design change. I worked on and off hours and kept executives updated on mitigation status.</p>
+        </div>
+      </div>
+      <ul class="chips"><li>Root-cause analysis</li><li>Containment</li><li>Line validation</li><li>Supplier + engineering</li><li>Exec communication</li></ul>
+    </div>
+    <figure class="fig"><div class="viz"><svg viewBox="0 0 910 340" role="img" aria-label="Half-shaft issue: symptom, teardown, root cause, containment, validation and rollout, with a diagram of the C-clip orientation and a two-track response">
+          <defs><marker id="ha" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+
+          <!-- Step flow -->
+          <g font-size="13" text-anchor="middle">
+            <rect x="10" y="14" width="150" height="92" rx="12" class="box"/>
+            <circle cx="30" cy="34" r="11" class="acc"/><text x="30" y="38.5" class="onacc" font-weight="700" font-size="12">1</text>
+            <text x="85" y="40" font-weight="700">Symptom</text><text x="85" y="62" class="m">Abnormal noise</text><text x="85" y="80" class="m">when moving</text>
+
+            <rect x="195" y="14" width="150" height="92" rx="12" class="box"/>
+            <circle cx="215" cy="34" r="11" class="acc"/><text x="215" y="38.5" class="onacc" font-weight="700" font-size="12">2</text>
+            <text x="270" y="40" font-weight="700">Teardown</text><text x="270" y="62" class="m">Half-shaft splines</text><text x="270" y="80" class="m">eating into each other</text>
+
+            <rect x="380" y="14" width="150" height="92" rx="12" class="acc"/>
+            <circle cx="400" cy="34" r="11" fill="#fff"/><text x="400" y="38.5" fill="#0f766e" font-weight="700" font-size="12" style="fill:#0f766e">3</text>
+            <text x="455" y="40" font-weight="700" class="onacc">Root cause</text><text x="455" y="62" class="onacc">C-clip not seated</text><text x="455" y="80" class="onacc">during installation</text>
+
+            <rect x="565" y="14" width="150" height="92" rx="12" class="box"/>
+            <circle cx="585" cy="34" r="11" class="acc"/><text x="585" y="38.5" class="onacc" font-weight="700" font-size="12">4</text>
+            <text x="640" y="40" font-weight="700">Containment</text><text x="640" y="62" class="m">Operator rotates clip</text><text x="640" y="80" class="m">to correct orientation</text>
+
+            <rect x="750" y="14" width="150" height="92" rx="12" class="box"/>
+            <circle cx="770" cy="34" r="11" class="acc"/><text x="770" y="38.5" class="onacc" font-weight="700" font-size="12">5</text>
+            <text x="832" y="40" font-weight="700">Roll out</text><text x="825" y="62" class="m">Validated on 10 vehicles,</text><text x="825" y="80" class="m">then rolled out line-wide</text>
+          </g>
+          <g stroke="var(--accent)" stroke-width="2" marker-end="url(#ha)">
+            <line x1="162" y1="60" x2="191" y2="60"/><line x1="347" y1="60" x2="376" y2="60"/>
+            <line x1="532" y1="60" x2="561" y2="60"/><line x1="717" y1="60" x2="746" y2="60"/>
+          </g>
+
+          <!-- C-clip orientation -->
+          <text x="10" y="150" font-size="14" font-weight="700">Why the clip sometimes didn't catch</text>
+          <g>
+            <circle cx="105" cy="235" r="26" class="soft"/>
+            <circle cx="105" cy="235" r="41" fill="none" stroke="var(--bad)" stroke-width="8" stroke-dasharray="226 32" transform="rotate(-30 105 235)"/>
+            <circle cx="105" cy="235" r="14" fill="var(--surface)"/>
+            <text x="105" y="239" font-size="10" text-anchor="middle" class="m">shaft</text>
+            <text x="105" y="300" font-size="13" text-anchor="middle" font-weight="700" style="fill:var(--bad)">Gap misoriented</text>
+            <text x="105" y="318" font-size="12" text-anchor="middle" class="m">20–30% chance it won't catch</text>
+          </g>
+          <path d="M175 235h50" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#ha)"/>
+          <text x="200" y="224" font-size="11" text-anchor="middle" class="m">rotate</text>
+          <g>
+            <circle cx="295" cy="235" r="26" class="soft"/>
+            <circle cx="295" cy="235" r="41" fill="none" stroke="var(--good)" stroke-width="8" stroke-dasharray="226 32" transform="rotate(90 295 235)"/>
+            <circle cx="295" cy="235" r="14" fill="var(--surface)"/>
+            <text x="295" y="239" font-size="10" text-anchor="middle" class="m">shaft</text>
+            <text x="295" y="300" font-size="13" text-anchor="middle" font-weight="700" style="fill:var(--good)">Rotated to spec</text>
+            <text x="295" y="318" font-size="12" text-anchor="middle" class="m">clip seats fully</text>
+          </g>
+
+          <!-- Two tracks -->
+          <line x1="440" y1="140" x2="440" y2="330" stroke="var(--line)" stroke-width="1.5"/>
+          <text x="470" y="150" font-size="14" font-weight="700">Contain now, fix permanently in parallel</text>
+          <text x="470" y="196" font-size="12" class="m">On the line</text>
+          <rect x="560" y="180" width="105" height="26" rx="6" class="acc"/><text x="612" y="197" font-size="12" text-anchor="middle" class="onacc" font-weight="700">Contain</text>
+          <rect x="671" y="180" width="105" height="26" rx="6" class="acc" opacity=".8"/><text x="723" y="197" font-size="12" text-anchor="middle" class="onacc" font-weight="700">Validate</text>
+          <rect x="782" y="180" width="118" height="26" rx="6" class="acc" opacity=".6"/><text x="841" y="197" font-size="12" text-anchor="middle" class="onacc" font-weight="700">Roll out</text>
+          <text x="470" y="250" font-size="12" class="m">Design</text>
+          <rect x="560" y="234" width="340" height="26" rx="6" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="6 4"/>
+          <text x="730" y="251" font-size="12" text-anchor="middle">Engineer + supplier: permanent design change</text>
+          <g font-size="12" text-anchor="middle">
+            <rect x="470" y="284" width="205" height="34" rx="17" class="box"/><text x="572" y="306">Worked on and off hours</text>
+            <rect x="690" y="284" width="210" height="34" rx="17" class="box"/><text x="795" y="306">Exec status updates</text>
+          </g>
+        </svg></div><figcaption class="mono">Fig. 1 · Half-shaft issue: from symptom to line-wide fix</figcaption></figure>
+  </article>
+
+  <article class="work" id="zoox-case">
+    <div class="work-copy">
+      <div class="eyebrow mono"><span class="sta">Zoox</span><span>Process design</span></div>
+      <h3>Created the Engineering Test Asset Committee (ETAC)</h3>
+      <div class="cols">
+        <div>
+          <p>Requests for test assets, such as lighting rigs, sensor-contamination bots, and vehicle-level builds, arrived ad hoc from sister teams. Asks added mid-build caused scope creep and put timelines for downstream work at risk.</p>
+          <p>I created ETAC to centralize the requests. Every asset now starts with one Jira intake and a one-pager covering the capability, timeline, and milestone.</p>
+        </div>
+        <div>
+          <p>A standing forum brings prototyping, controller validation, EMC, optics, supply chain, and HW/SW integration to one table. The committee challenges whether each requirement is needed, looks for existing assets to reuse, and splits big builds into phases. That is how knowledge moves between teams.</p>
+          <p>Each build is scheduled and tracked with Gantt charts, weekly updates, and epics, for current and new assets alike.</p>
+        </div>
+      </div>
+      <ul class="chips"><li>Process design</li><li>Requirements</li><li>Cross-functional forum</li><li>Jira + Smartsheet</li><li>Phased delivery</li></ul>
+    </div>
+    <figure class="fig"><div class="viz"><svg viewBox="0 0 910 360" role="img" aria-label="Before ETAC: many teams send ad hoc requests to prototyping. With ETAC: request, review, build, track, resting on three pillars: centralized requests, shared knowledge, scheduled progress">
+          <defs><marker id="za" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+
+          <!-- Before -->
+          <text x="10" y="24" font-size="14" font-weight="700">Before: ad hoc asks</text>
+          <g font-size="12" text-anchor="middle">
+            <rect x="10" y="40" width="96" height="26" rx="8" class="box"/><text x="58" y="57">Lighting</text>
+            <rect x="10" y="78" width="96" height="26" rx="8" class="box"/><text x="58" y="95">Sensors</text>
+            <rect x="10" y="116" width="96" height="26" rx="8" class="box"/><text x="58" y="133">Controller val.</text>
+            <rect x="10" y="154" width="96" height="26" rx="8" class="box"/><text x="58" y="171">EMC</text>
+            <rect x="10" y="192" width="96" height="26" rx="8" class="box"/><text x="58" y="209">Optics</text>
+            <rect x="190" y="98" width="104" height="70" rx="10" class="box"/><text x="242" y="128" font-weight="700">Prototyping</text><text x="242" y="146" class="m">mid-build asks</text>
+          </g>
+          <g stroke="var(--bad)" stroke-width="1.5" opacity=".55" fill="none">
+            <path d="M108 53 C150 60 160 120 188 126"/><path d="M108 91 C140 95 160 125 188 130"/>
+            <path d="M108 129 L188 133"/><path d="M108 167 C140 165 160 145 188 138"/><path d="M108 205 C150 200 165 150 188 142"/>
+          </g>
+          <text x="152" y="246" font-size="12" text-anchor="middle" style="fill:var(--bad)" font-weight="700">Scope creep, no shared view</text>
+
+          <path d="M312 133h36" stroke="var(--accent)" stroke-width="3" marker-end="url(#za)"/>
+
+          <!-- After -->
+          <text x="370" y="24" font-size="14" font-weight="700">With ETAC: one process, one forum</text>
+          <g font-size="12.5" text-anchor="middle">
+            <rect x="370" y="44" width="122" height="98" rx="12" class="box"/>
+            <text x="431" y="70" font-weight="700">1  Request</text><text x="431" y="92" class="m">One Jira intake</text><text x="431" y="110" class="m">+ one-pager</text><text x="431" y="128" class="m">(capability, timeline)</text>
+
+            <rect x="516" y="44" width="122" height="98" rx="12" class="acc"/>
+            <text x="577" y="70" font-weight="700" class="onacc">2  ETAC review</text><text x="577" y="92" class="onacc">Challenge the need</text><text x="577" y="110" class="onacc">Reuse existing</text><text x="577" y="128" class="onacc">assets</text>
+
+            <rect x="662" y="44" width="106" height="98" rx="12" class="box"/>
+            <text x="715" y="70" font-weight="700">3  Build</text><text x="715" y="92" class="m">Phase 1</text><text x="715" y="110" class="m">then Phase 2</text>
+
+            <rect x="792" y="44" width="108" height="98" rx="12" class="box"/>
+            <text x="846" y="70" font-weight="700">4  Track</text><text x="846" y="92" class="m">Gantt, weekly</text><text x="846" y="110" class="m">updates,</text><text x="846" y="128" class="m">epics</text>
+          </g>
+          <g stroke="var(--accent)" stroke-width="2" marker-end="url(#za)">
+            <line x1="494" y1="93" x2="512" y2="93"/><line x1="640" y1="93" x2="658" y2="93"/><line x1="770" y1="93" x2="788" y2="93"/>
+          </g>
+
+          <!-- Pillars -->
+          <g font-size="12.5" text-anchor="middle">
+            <rect x="370" y="168" width="176" height="78" rx="12" class="box"/>
+            <text x="458" y="194" font-weight="700">Centralized requests</text><text x="458" y="214" class="m">One queue every team</text><text x="458" y="231" class="m">can see and use</text>
+            <rect x="558" y="168" width="176" height="78" rx="12" class="box"/>
+            <text x="646" y="194" font-weight="700">Shared knowledge</text><text x="646" y="214" class="m">Teams learn from each</text><text x="646" y="231" class="m">other's builds</text>
+            <rect x="746" y="168" width="154" height="78" rx="12" class="box"/>
+            <text x="823" y="194" font-weight="700">Scheduled progress</text><text x="823" y="214" class="m">Current and new</text><text x="823" y="231" class="m">builds on plan</text>
+          </g>
+
+          <!-- Assets delivered -->
+          <text x="10" y="284" font-size="13" class="m">Assets delivered while running the roadmap</text>
+          <g font-size="12" text-anchor="middle">
+            <rect x="10" y="296" width="210" height="50" rx="10" class="box"/><text x="115" y="317" font-weight="700">3 system-level assets</text><text x="115" y="335" class="m">on the roadmap</text>
+            <rect x="240" y="296" width="210" height="50" rx="10" class="box"/><text x="345" y="317" font-weight="700">Sensor contamination bench</text><text x="345" y="335" class="m">upgraded for future sensors</text>
+            <rect x="470" y="296" width="210" height="50" rx="10" class="box"/><text x="575" y="317" font-weight="700">Drive Module test bench</text><text x="575" y="335" class="m">3 weeks off supplier bring-up</text>
+            <rect x="700" y="296" width="200" height="50" rx="10" class="box"/><text x="800" y="317" font-weight="700">Jira workflow redesign</text><text x="800" y="335" class="m">20% faster issue triage</text>
+          </g>
+        </svg></div><figcaption class="mono">Fig. 2 · ETAC: from ad hoc asks to one process and one forum</figcaption></figure>
+  </article>
+
+  <div id="nomadic-cases" class="nomadic-head">
+    <div class="eyebrow mono"><span class="sta">Nomadic AI</span><span>Product · Security · Developer experience · Data</span></div>
+  </div>
+  <div class="grid2">
+    <article class="work small">
+      <div class="work-copy">
+        <h3>SOC 2 audit readiness</h3>
+        <p>A scanner flagged 366 vulnerabilities. Many were the same package pulled in by different parents, so I grouped findings by root cause and cut the list to about 35 packages, then closed every critical and high CVE in 15+ merged PRs. I also added remediation evidence across engineering, HR, IT, and policy documents.</p>
+      </div>
+      <figure class="fig"><div class="viz"><svg viewBox="0 0 520 300" role="img" aria-label="Funnel: 366 flagged vulnerabilities reduced to about 35 root-cause packages, with every critical and high CVE closed">
+          <text x="20" y="22" font-size="13" class="m">Scanner findings</text>
+          <rect x="20" y="30" width="480" height="44" rx="8" class="warnF"/>
+          <text x="36" y="58" font-size="18" font-weight="700" class="onacc">366 flagged</text>
+          <text x="20" y="102" font-size="12" class="m">↓ group by root-cause package</text>
+          <rect x="20" y="112" width="46" height="44" rx="8" class="acc"/>
+          <text x="78" y="141" font-size="18" font-weight="700">~35 root-cause packages</text>
+          <text x="20" y="184" font-size="12" class="m">↓ patch, test, merge</text>
+          <circle cx="42" cy="220" r="20" class="goodF"/>
+          <path d="M32 220l7 7l13-14" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="76" y="226" font-size="18" font-weight="700">Every critical / high CVE closed</text>
+          <g>
+            <rect x="20" y="256" width="150" height="34" rx="8" class="box"/><text x="95" y="278" font-size="13" text-anchor="middle">11 JS lockfiles</text>
+            <rect x="185" y="256" width="150" height="34" rx="8" class="box"/><text x="260" y="278" font-size="13" text-anchor="middle">3 Python manifests</text>
+            <rect x="350" y="256" width="150" height="34" rx="8" class="box"/><text x="425" y="278" font-size="13" text-anchor="middle">15+ merged PRs</text>
+          </g>
+        </svg></div><figcaption class="mono">Fig. 3 · 366 findings to ~35 root causes</figcaption></figure>
+    </article>
+    <article class="work small">
+      <div class="work-copy">
+        <h3>Server-side search</h3>
+        <p>Customers could only filter what was already loaded in the browser. I shipped server-side search across their full analysis history of driving and robotics footage, spanning two database backends and a 7-category classifier. Any past perception run is one query away.</p>
+      </div>
+      <figure class="fig"><div class="viz"><svg viewBox="0 0 520 300" role="img" aria-label="Offset pagination scans and discards rows before the page; cursor pagination jumps straight to the cursor">
+          <g>
+            <text x="10" y="22" font-size="14" font-weight="700">Offset pagination</text>
+            <text x="10" y="42" font-size="11" font-family="ui-monospace, Menlo, monospace" class="m">LIMIT 20 OFFSET 400</text>
+            <rect x="10" y="56" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <rect x="10" y="76" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <rect x="10" y="96" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <rect x="10" y="116" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <rect x="10" y="136" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <rect x="10" y="156" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <text x="125" y="167" font-size="10" text-anchor="middle" class="m">scanned, then thrown away</text>
+            <rect x="10" y="176" width="230" height="16" rx="4" class="acc"/>
+            <rect x="10" y="196" width="230" height="16" rx="4" class="acc"/>
+            <text x="125" y="188" font-size="10" text-anchor="middle" class="onacc">page you asked for</text>
+            <text x="10" y="236" font-size="12" class="m">Slower every page, and unstable</text>
+            <text x="10" y="252" font-size="12" class="m">if data changes mid-scroll.</text>
+          </g>
+          <line x1="260" y1="14" x2="260" y2="262" stroke="var(--line)" stroke-width="1.5"/>
+          <g>
+            <text x="280" y="22" font-size="14" font-weight="700">Cursor pagination</text>
+            <text x="280" y="42" font-size="11" font-family="ui-monospace, Menlo, monospace" class="m">WHERE created_at &lt; :cursor</text>
+            <rect x="280" y="56" width="230" height="16" rx="4" class="soft"/>
+            <rect x="280" y="76" width="230" height="16" rx="4" class="soft"/>
+            <rect x="280" y="96" width="230" height="16" rx="4" class="soft"/>
+            <text x="395" y="107" font-size="10" text-anchor="middle" class="m">skipped via the index</text>
+            <path d="M280 124h230" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4"/>
+            <text x="280" y="140" font-size="10" class="m">cursor ↓</text>
+            <rect x="280" y="146" width="230" height="16" rx="4" class="acc"/>
+            <rect x="280" y="166" width="230" height="16" rx="4" class="acc"/>
+            <rect x="280" y="186" width="230" height="16" rx="4" class="acc"/>
+            <text x="395" y="177" font-size="10" text-anchor="middle" class="onacc">page you asked for</text>
+            <text x="280" y="236" font-size="12" class="m">Same cost at any depth,</text>
+            <text x="280" y="252" font-size="12" class="m">stable under new writes.</text>
+          </g>
+          <g>
+            <rect x="10" y="266" width="160" height="28" rx="8" class="box"/><text x="90" y="285" font-size="12" text-anchor="middle">2 database backends</text>
+            <rect x="180" y="266" width="160" height="28" rx="8" class="box"/><text x="260" y="285" font-size="12" text-anchor="middle">7-category classifier</text>
+            <rect x="350" y="266" width="160" height="28" rx="8" class="box"/><text x="430" y="285" font-size="12" text-anchor="middle">Bounded scans</text>
+          </g>
+        </svg></div><figcaption class="mono">Fig. 4 · Offset versus cursor pagination</figcaption></figure>
+    </article>
+    <article class="work small">
+      <div class="work-copy">
+        <h3>Quickstart-first SDK docs</h3>
+        <p>I reorganized the SDK and API documentation into dedicated tabs with an Overview and Quickstart up front, so a customer's engineering team can run its first programmatic video analysis without needing support.</p>
+      </div>
+      <figure class="fig"><div class="viz"><svg viewBox="0 0 520 300" role="img" aria-label="Docs sidebar before: one flat list; after: ordered Quickstart-first path">
+          <text x="10" y="20" font-size="14" font-weight="700">Before</text>
+          <rect x="10" y="30" width="200" height="250" rx="12" class="box"/>
+          <g class="soft">
+            <rect x="26" y="48" width="150" height="10" rx="5"/><rect x="26" y="70" width="120" height="10" rx="5"/>
+            <rect x="26" y="92" width="165" height="10" rx="5"/><rect x="26" y="114" width="100" height="10" rx="5"/>
+            <rect x="26" y="136" width="140" height="10" rx="5"/><rect x="26" y="158" width="160" height="10" rx="5"/>
+            <rect x="26" y="180" width="110" height="10" rx="5"/><rect x="26" y="202" width="150" height="10" rx="5"/>
+            <rect x="26" y="224" width="125" height="10" rx="5"/><rect x="26" y="246" width="145" height="10" rx="5"/>
+          </g>
+          <path d="M226 155h50" stroke="var(--accent)" stroke-width="3" fill="none"/>
+          <path d="M268 145l12 10l-12 10" stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="300" y="20" font-size="14" font-weight="700">After</text>
+          <rect x="300" y="30" width="210" height="250" rx="12" class="box"/>
+          <g font-size="12">
+            <text x="316" y="54" class="m" font-weight="700" letter-spacing=".06em">START HERE</text>
+            <rect x="312" y="62" width="186" height="26" rx="6" class="acc"/>
+            <text x="324" y="80" class="onacc" font-weight="700">1  Quickstart</text>
+            <text x="324" y="108">2  Installation + API key</text>
+            <text x="324" y="130">3  Run your first analysis</text>
+            <text x="324" y="152">4  Troubleshooting</text>
+            <text x="316" y="182" class="m" font-weight="700" letter-spacing=".06em">ADVANCED</text>
+            <text x="324" y="204">Authentication</text>
+            <text x="324" y="226">Cloud storage</text>
+            <text x="324" y="248">SDK and API reference</text>
+          </g>
+        </svg></div><figcaption class="mono">Fig. 5 · Docs structure, before and after</figcaption></figure>
+    </article>
+    <article class="work small">
+      <div class="work-copy">
+        <h3>Benchmark dataset pipeline</h3>
+        <p>I built and operated a cloud workflow that downloads external benchmark datasets, transcodes them, and loads them into the shared library, so demos always have realistic evaluation footage on demand.</p>
+      </div>
+      <figure class="fig"><div class="viz"><svg viewBox="0 0 520 220" role="img" aria-label="Pipeline: external datasets, download, transcode, shared library, customer demos">
+          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+          <g font-size="12" text-anchor="middle">
+            <rect x="10" y="70" width="82" height="64" rx="10" class="box"/><text x="51" y="98">External</text><text x="51" y="114">datasets</text>
+            <rect x="116" y="70" width="82" height="64" rx="10" class="box"/><text x="157" y="106">Download</text>
+            <rect x="222" y="70" width="82" height="64" rx="10" class="acc"/><text x="263" y="106" class="onacc" font-weight="700">Transcode</text>
+            <rect x="328" y="70" width="82" height="64" rx="10" class="box"/><text x="369" y="98">Shared</text><text x="369" y="114">library</text>
+            <rect x="434" y="70" width="82" height="64" rx="10" class="box"/><text x="475" y="98">Customer</text><text x="475" y="114">demos</text>
+          </g>
+          <g stroke="var(--accent)" stroke-width="2" marker-end="url(#arr)">
+            <line x1="94" y1="102" x2="112" y2="102"/><line x1="200" y1="102" x2="218" y2="102"/>
+            <line x1="306" y1="102" x2="324" y2="102"/><line x1="412" y1="102" x2="430" y2="102"/>
+          </g>
+          <text x="263" y="156" font-size="11" text-anchor="middle" class="m">one consistent, browser-ready format</text>
+          <text x="10" y="30" font-size="13" class="m">Runs in the cloud. Repeatable and on demand.</text>
+          <rect x="10" y="178" width="500" height="30" rx="8" class="soft" opacity=".6"/>
+          <text x="260" y="198" font-size="12" text-anchor="middle" class="m">Driving · robotics · maritime · aerial footage for evaluation</text>
+        </svg></div><figcaption class="mono">Fig. 6 · Dataset ingestion pipeline</figcaption></figure>
+    </article>
+  </div>
+  <p class="mono" style="color:var(--muted); margin-top:28px">Also: owning adoption for POC-stage enterprise accounts (two autonomous-vehicle developers and one data-services company) with targeted customer decks and industry-specific examples.</p>
+</section>
+
+<section class="section" id="skills" aria-labelledby="sk-h">
+  <div class="section-head">
+    <h2 id="sk-h">Toolkit</h2>
+    <p>What I use to plan, build, and ship.</p>
+  </div>
+  <table class="spec wide-spec">
+    <tr><th class="mono">AI tools</th><td>Claude · Cursor · ChatGPT. Daily use for prototyping, shipping working artifacts, and bug fixes.</td></tr>
+    <tr><th class="mono">Product &amp; GTM</th><td>Jira · Smartsheet · Lucidchart · Asana · Notion · Lightfield · Attio · Vanta · Figma</td></tr>
+    <tr><th class="mono">Engineering</th><td>GitHub · CATIA / 3DX · Siemens NX · Enovia · SAP · SolidWorks · Ansys · FEA · GD&amp;T · DFMEA · DVP&amp;R</td></tr>
+    <tr><th class="mono">Education</th><td>B.S. Mechanical Engineering, Virginia Tech, May 2020</td></tr>
+  </table>
+</section>
+
+<section class="section" id="contact" aria-labelledby="ct-h">
+  <div class="section-head">
+    <h2 id="ct-h">Contact</h2>
+    <p>Open to conversations about product, program, and technical roles at the edge of hardware and AI.</p>
+  </div>
+  <div class="contact">
+    <a href="mailto:rohit.tadikamalla@gmail.com"><span class="mono">Email</span><strong>rohit.tadikamalla@gmail.com</strong></a>
+    <a href="https://www.linkedin.com/in/rohittadikamalla" target="_blank" rel="noopener"><span class="mono">LinkedIn</span><strong>in/rohittadikamalla</strong></a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>Draft. Built from Rohit's resume and project notes; details still being refined.</span>
+  <span id="concept-note">The car is an original concept modeled in Blender and rendered with Three.js. It is not a production vehicle.</span>
+</footer>
+
+<script src="car.js"></script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (s, r = document) => r.querySelector(s);
+const stage = $("#stage"), labelsEl = $("#labels"), statusEl = $("#status"), readout = $("#readout");
+
+/* ---------------- theme tokens ---------------- */
+function tokens() {
+  const cs = getComputedStyle(document.documentElement);
+  const g = (n) => cs.getPropertyValue(n).trim();
+  return { paper: g("--paper"), ink: g("--ink"), line: g("--line"), clay: g("--clay"), signal: g("--signal"), paint: g("--paint"), muted: g("--muted") };
+}
+let T = tokens();
+
+/* ---------------- chapters (camera keyframes) ---------------- */
+const CH = [
+  { name: "Studio",             model: "bmw",          az: 38,  el: 11, dist: 7.4,  ty: 0.62, explode: 0,    mode: "paint" },
+  { name: "Sta 1 · BMW",        model: "bmw",          az: 90,  el: 3,  dist: 9.8,  ty: 0.62, explode: 0,    mode: "wire"  },
+  { name: "Sta 2 · Daimler",    model: "freightliner", az: 125, el: 14, dist: 9.4,  ty: 0.55, explode: 0,    mode: "paint" },
+  { name: "Sta 3 · Rivian",     model: "rivian",       az: 48,  el: 24, dist: 9.4,  ty: 0.5,  explode: 0.45, mode: "paint" },
+  { name: "Sta 4 · Tesla",      model: "cybertruck",   az: 32,  el: 24, dist: 9.6,  ty: 1.05, explode: 1,    mode: "paint" },
+  { name: "Sta 5 · Zoox",       model: "concept",      az: -28, el: 52, dist: 11.5, ty: 0.4,  explode: 0,    mode: "paint" },
+  { name: "Sta 6 · Nomadic",    model: "concept",      az: 215, el: 22, dist: 10.4, ty: 0.55, explode: 0,    mode: "wire"  },
+];
+const chapterEls = [...document.querySelectorAll(".chapter")];
+
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+} catch (e) {
+  statusEl.textContent = "3D view needs WebGL, which this browser has turned off. Everything else on the page works.";
+  throw e;
+}
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.setClearColor(0x000000, 0);
+stage.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+
+const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 200);
+const hemi = new THREE.HemisphereLight(0xffffff, 0x888888, 0.5);
+scene.add(hemi);
+const key = new THREE.DirectionalLight(0xffffff, 2.2);
+key.position.set(4, 8, 5);
+key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024);
+Object.assign(key.shadow.camera, { left: -6, right: 6, top: 6, bottom: -6, near: 1, far: 30 });
+key.shadow.bias = -0.0004;
+scene.add(key);
+
+/* ground: fading engineering grid + shadow catcher */
+const gridMat = new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false,
+  uniforms: { uColor: { value: new THREE.Color(T.line) }, uAccent: { value: new THREE.Color(T.ink) } },
+  vertexShader: `varying vec3 vW; void main(){ vec4 w = modelMatrix*vec4(position,1.); vW=w.xyz; gl_Position=projectionMatrix*viewMatrix*w; }`,
+  fragmentShader: `uniform vec3 uColor; uniform vec3 uAccent; varying vec3 vW;
+    float grid(vec2 p, float s){ vec2 g = abs(fract(p/s-.5)-.5)/fwidth(p/s); return 1.-min(min(g.x,g.y),1.); }
+    void main(){
+      float d = length(vW.xz);
+      float fade = 1.-smoothstep(3.5, 11., d);
+      float g1 = grid(vW.xz, .25)*.45, g2 = grid(vW.xz, 1.);
+      float a = max(g1, g2)*fade;
+      vec3 c = mix(uColor, uAccent, g2*.25);
+      gl_FragColor = vec4(c, a*.9);
+      if (gl_FragColor.a < .01) discard;
+    }`,
+});
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), gridMat);
+ground.rotation.x = -Math.PI / 2;
+scene.add(ground);
+const shadowCatcher = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), new THREE.ShadowMaterial({ opacity: 0.22 }));
+shadowCatcher.rotation.x = -Math.PI / 2; shadowCatcher.position.y = 0.002; shadowCatcher.receiveShadow = true;
+scene.add(shadowCatcher);
+
+/* lidar rings for the Zoox and Nomadic chapters */
+const lidar = new THREE.Group(); scene.add(lidar);
+const ringMats = [];
+for (let i = 0; i < 4; i++) {
+  const pts = []; for (let k = 0; k <= 128; k++) { const a = k / 128 * Math.PI * 2; pts.push(new THREE.Vector3(Math.cos(a), 0, Math.sin(a))); }
+  const m = new THREE.LineBasicMaterial({ color: T.signal, transparent: true, opacity: 0 });
+  ringMats.push(m);
+  const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), m);
+  l.position.y = 0.01; l.userData.phase = i / 4; lidar.add(l);
+}
+const sweepGeo = new THREE.CircleGeometry(6, 64, 0, Math.PI / 5);
+const sweepMat = new THREE.MeshBasicMaterial({ color: T.signal, transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide });
+const sweep = new THREE.Mesh(sweepGeo, sweepMat); sweep.rotation.x = -Math.PI / 2; sweep.position.y = 0.008; lidar.add(sweep);
+
+/* dimension lines for the BMW chapter (tape drawing) */
+const dims = new THREE.Group(); scene.add(dims);
+const dimMat = new THREE.LineBasicMaterial({ color: T.ink, transparent: true, opacity: 0 });
+function dimLine(a, b, tick = 0.12) {
+  const pts = [a, b];
+  const up = new THREE.Vector3(0, tick, 0);
+  pts.push(a.clone().sub(up), a.clone().add(up), b.clone().sub(up), b.clone().add(up));
+  const g = new THREE.BufferGeometry().setFromPoints([pts[0], pts[1], pts[2], pts[3], pts[4], pts[5]]);
+  const l = new THREE.LineSegments(g, dimMat); dims.add(l); return l;
+}
+
+/* ---------------- materials per mode ---------------- */
+const paintMats = {};
+function makePaintMats() {
+  const P = (o) => new THREE.MeshPhysicalMaterial(o);
+  const S = (o) => new THREE.MeshStandardMaterial(o);
+  Object.assign(paintMats, {
+    Paint: P({ color: T.paint, metalness: 0.55, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.06 }),
+    Glass: P({ color: 0x080a0b, metalness: 0.1, roughness: 0.04, transparent: true, opacity: 0.86, envMapIntensity: 1.6 }),
+    Rubber: S({ color: 0x141414, roughness: 0.92 }),
+    Alloy: S({ color: 0xc2c5c8, metalness: 1, roughness: 0.26 }),
+    RimDark: S({ color: 0x1b1c1e, metalness: 0.7, roughness: 0.4 }),
+    Disc: S({ color: 0x5c5f62, metalness: 1, roughness: 0.45 }),
+    Caliper: S({ color: T.signal, roughness: 0.4 }),
+    Light: S({ color: 0xffffff, emissive: 0xfff4e6, emissiveIntensity: 2.4 }),
+    LightRear: S({ color: 0x550000, emissive: 0xff2a14, emissiveIntensity: 2.2 }),
+    Battery: S({ color: 0x1d2124, metalness: 0.6, roughness: 0.45 }),
+    Module: S({ color: T.signal, metalness: 0.2, roughness: 0.5 }),
+    Motor: S({ color: 0xa3a8ad, metalness: 1, roughness: 0.32 }),
+    Copper: S({ color: 0xb87333, metalness: 1, roughness: 0.3 }),
+    Seat: S({ color: 0x232527, roughness: 0.8 }),
+    Chassis: S({ color: 0x3b4043, metalness: 0.75, roughness: 0.42 }),
+  });
+}
+makePaintMats();
+const clayMat = new THREE.MeshStandardMaterial({ color: T.clay, roughness: 0.72, metalness: 0 });
+const clayDark = new THREE.MeshStandardMaterial({ color: 0x1e2022, roughness: 0.5 });
+const zebraMat = new THREE.ShaderMaterial({
+  uniforms: { uA: { value: new THREE.Color(0x0d0e0f) }, uB: { value: new THREE.Color(0xf4f4f0) } },
+  vertexShader: `varying vec3 vN; varying vec3 vW; void main(){ vN = normalize(mat3(modelMatrix)*normal); vec4 w = modelMatrix*vec4(position,1.); vW=w.xyz; gl_Position=projectionMatrix*viewMatrix*w; }`,
+  fragmentShader: `uniform vec3 uA; uniform vec3 uB; varying vec3 vN; varying vec3 vW;
+    void main(){ vec3 V = normalize(vW - cameraPosition); vec3 R = reflect(V, normalize(vN));
+      float x = R.y*7.0; float f = fract(x); float w = fwidth(x)*1.2;
+      float s = smoothstep(.5-w,.5+w,f) * (1. - smoothstep(1.-w,1.,f));
+      gl_FragColor = vec4(mix(uA,uB,s),1.); }`,
+});
+const zebraDark = new THREE.MeshStandardMaterial({ color: 0x151617, roughness: 0.6 });
+const tapeFill = new THREE.MeshBasicMaterial({ color: T.paper, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1, transparent: true, opacity: 0.88 });
+const tapeLine = new THREE.LineBasicMaterial({ color: T.ink, transparent: true, opacity: 0.32 });
+const tapeEdge = new THREE.LineBasicMaterial({ color: T.ink, transparent: true, opacity: 0.7 });
+
+/* ---------------- models: one per chapter ---------------- */
+/* Every chapter (see CH above) names the model it wants. Files sit next to index.html. A missing file falls back to the
+   embedded concept car (car.js). Address-bar debug: ?rot_bmw=180 (or 90 / 270) flips which way that model faces. */
+const MODELS = {
+  bmw: {
+    url: "bmw-x5-m-g05.glb", name: "BMW X5 M Competition (G05)",
+    credit: 'Model "2020 BMW X5 M Competition" by David_Holiday (CC BY 4.0), sketchfab.com/3d-models/2020-bmw-x5-m-competition-9b211d525797457e988c903f67d0b753.',
+    lengthMm: 4938, wheelbaseMm: 2975, heightMm: 1747, dims: true,             // published X5 M Competition (G05/F95) figures
+    paintMaterials: ["marina_bay_blue"], paintColor: "#1B3A66",                // this file's paint exports as pure white; restores Marina Bay Blue
+    fit: { dist: 1, ty: 1 },
+  },
+  freightliner: {
+    url: "freightliner-cascadia-2020.glb", name: "Freightliner Cascadia (2020)",
+    credit: 'Model "FREIGHTLINER CASCADIA 2020" by liebherr996litronic (CC BY 4.0), sketchfab.com/3d-models/freightliner-cascadia-2020-2dd8eb87823c4eacabfb9d145eff5450.',
+    lengthMm: null,                                                            // keep the file's own scale (about 10 m)
+    paintMaterials: ["azul"], paintColor: null,
+    fit: { dist: 1.8, ty: 1.6 },
+  },
+  cybertruck: {
+    url: "tesla-cybertruck.glb", name: "Tesla Cybertruck",
+    credit: 'Model "Tesla Cybertruck" by Lexyc16 (CC BY 4.0), sketchfab.com/3d-models/tesla-cybertruck-f12e67159f75486bb21213e573520612.',
+    lengthMm: 5680, paintColor: "#B9BDBF", finish: { metalness: 1, roughness: 0.38, clearcoat: 0 }, wheelRe: "circle",
+    fit: { dist: 1.2, ty: 1.2 },
+  },
+  rivian: {                                                                    // no Rivian model exists: an original schematic of the R1 suspension architecture (built in code)
+    procedural: "suspension", name: "R1 suspension schematic · not Rivian CAD",
+    fit: { dist: 0.98, ty: 0.9 }, labelFrom: 0.1, labelSpan: 0.3,     // labels appear at a gentler explode than the vehicles'
+  },
+  concept: { embedded: true, name: "Original concept car", fit: { dist: 1, ty: 1 } },
+};
+const urlQ = new URLSearchParams(location.search);
+const car = new THREE.Group(); scene.add(car);
+const records = {};       // key -> { key, cfg, group, parts, meshes, modelLines, tagEls, ready, loading, failed }
+let active = null;
+let parts = {}, meshes = [], modelLines = [], tagEls = [], modelReady = false;   // aliases of the ACTIVE model's arrays
+const EXPLODE = {         // concept car only: [dx, dy, dz, delay]
+  body: [0, 1.2, 0, 0.0], glass: [0, 1.85, 0, 0.1], light_front: [0, 1.2, 0, 0.0], light_rear: [0, 1.2, 0, 0.0],
+  interior: [0, 0.62, 0, 0.15], battery: [0, -0.1, 0, 0.25], chassis: [0, -0.46, 0, 0.3],
+  motor_front: [0.55, 0.02, 0, 0.2], motor_rear: [-0.55, 0.02, 0, 0.2],
+  wheel_FL: [0, 0.3, 0.8, 0.05], wheel_FR: [0, 0.3, -0.8, 0.05], wheel_RL: [0, 0.3, 0.8, 0.05], wheel_RR: [0, 0.3, -0.8, 0.05],
+};
+const LABELS = [          // concept car only
+  ["body", "Body", [1.0, 0.72, 0]], ["battery", "Battery pack", [-0.6, 0.02, 0.72]], ["motor_front", "Front drive unit", [0.1, 0.1, 0]],
+  ["motor_rear", "Rear drive unit", [-0.1, 0.1, 0]], ["chassis", "Chassis & suspension", [1.6, -0.05, -0.62]], ["interior", "Interior", [-0.7, 0.2, 0]],
+];
+const gltfLoader = new GLTFLoader();
+{ const draco = new DRACOLoader(); draco.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.6/"); gltfLoader.setDRACOLoader(draco); gltfLoader.setMeshoptDecoder(MeshoptDecoder); }
+
+function embeddedBuffer() {
+  const b64 = window.CAR_GLB_B64; if (!b64) return null;
+  const bin = atob(b64), out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out.buffer;
+}
+function addDimTag(R, text, pos) {
+  const el = document.createElement("div"); el.className = "tag dim mono"; el.textContent = text + " mm"; labelsEl.appendChild(el);
+  R.tagEls.push({ el, pos, kind: "dim" });
+}
+function addDimensions(R, box, spec) {
+  const zSide = box.max.z + 0.55, top = box.max.y;
+  const x0 = box.min.x, x1 = box.max.x, wb = (spec.wheelbase ?? 2.9) / 2;
+  dimLine(new THREE.Vector3(x0, 0.02, zSide), new THREE.Vector3(x1, 0.02, zSide));
+  dimLine(new THREE.Vector3(-wb, 0.02, zSide - 0.3), new THREE.Vector3(wb, 0.02, zSide - 0.3), 0.09);
+  const xH = x1 + 0.45;
+  dimLine(new THREE.Vector3(xH, 0, zSide - 0.15), new THREE.Vector3(xH, top, zSide - 0.15), 0);
+  const hk = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(xH - .1, 0, zSide - .15), new THREE.Vector3(xH + .1, 0, zSide - .15), new THREE.Vector3(xH - .1, top, zSide - .15), new THREE.Vector3(xH + .1, top, zSide - .15)]);
+  dims.add(new THREE.LineSegments(hk, dimMat));
+  const mm = (v) => Math.round(v * 1000).toLocaleString("en-US");
+  addDimTag(R, `${mm(spec.length ?? (x1 - x0))} overall`, new THREE.Vector3((x0 + x1) / 2, 0.02, zSide));
+  addDimTag(R, `${mm(spec.wheelbase ?? 2.9)} wheelbase`, new THREE.Vector3(0, 0.02, zSide - 0.3));
+  addDimTag(R, `${mm(spec.height ?? top)} height`, new THREE.Vector3(xH, top / 2, zSide - 0.15));
+}
+
+/* --- concept car (embedded): named parts, hand-tuned explode + labels. Also used, with the body hidden, as the Rivian chassis view --- */
+function setupConcept(root, R) {
+  const { parts, meshes, tagEls } = R;
+  root.traverse((o) => {
+    if (!o.isMesh) return;
+    o.castShadow = true; o.receiveShadow = true;
+    let p = o; while (p.parent && p.parent !== root) p = p.parent;
+    const matName = (o.material && o.material.name) || "Paint";
+    const kind = p.name === "glass" ? "glass" : p.name === "body" ? "paint" : matName === "Rubber" ? "tire" : (matName === "Light" || matName === "LightRear") ? "light" : "other";
+    const isSkin = p.name === "body" || p.name === "glass";
+    const lg = isSkin ? new THREE.WireframeGeometry(o.geometry) : new THREE.EdgesGeometry(o.geometry, 28);
+    const lines = new THREE.LineSegments(lg, isSkin ? tapeLine : tapeEdge);
+    lines.visible = false; o.add(lines);
+    meshes.push({ mesh: o, kind, orig: paintMats[matName] || paintMats.Paint, lines });
+  });
+  for (const c of [...root.children]) {
+    const e = EXPLODE[c.name] || [0, 0, 0, 0];
+    const off = new THREE.Vector3(e[0], e[1], e[2]);
+    if (c.name.startsWith("wheel_")) off.z = Math.sign(c.position.z) * 0.8;   // always outward
+    parts[c.name] = { obj: c, base: c.position.clone(), off, delay: e[3], lift: new THREE.Vector3(0, 0.55, 0) };
+  }
+  R.group.add(root);
+  const hide = R.cfg.view === "chassis" ? ["body", "glass", "light_front", "light_rear", "interior"] : [];
+  hide.forEach((n) => { if (parts[n]) parts[n].obj.visible = false; });
+  for (const [part, text, off] of LABELS) {
+    if (hide.includes(part)) continue;
+    const el = document.createElement("div"); el.className = "tag mono"; el.textContent = text; labelsEl.appendChild(el);
+    tagEls.push({ el, part, off: new THREE.Vector3(...off), kind: "part" });
+  }
+}
+
+/* --- Rivian R1 suspension: an ORIGINAL schematic (built in code) of the architecture described in Rivian's service guideline
+       RCI-18-23-002-1 (Feb 2023): aluminium front/rear subframes carrying control arms, active dampers and air springs; hydraulic lines
+       (Kinetic Roll Control) to a pump and reservoir; air lines to a compressor and accumulator tank; ride-height sensors. Not Rivian CAD, not to scale. --- */
+function setupSuspension(R) {
+  const { parts, meshes, tagEls } = R;
+  const V = (x, y, z) => new THREE.Vector3(x, y, z);
+  const S = (o) => new THREE.MeshStandardMaterial(o);
+  const M = {
+    alu: S({ color: 0xb9c1c4, metalness: 0.85, roughness: 0.38 }), arm: S({ color: 0xc7a57f, metalness: 0.25, roughness: 0.5 }),
+    damper: S({ color: 0xd4461c, metalness: 0.35, roughness: 0.4 }), spring: S({ color: 0xef6639, metalness: 0.2, roughness: 0.5 }),
+    hyd: S({ color: 0x2f5fb3, metalness: 0.2, roughness: 0.45 }), air: S({ color: 0xe09a45, metalness: 0.2, roughness: 0.45 }),
+    tire: S({ color: 0x141414, roughness: 0.92 }), rim: S({ color: 0xc2c5c8, metalness: 1, roughness: 0.28 }), disc: S({ color: 0x5c5f62, metalness: 1, roughness: 0.45 }),
+    dark: S({ color: 0x2e3937, metalness: 0.4, roughness: 0.5 }),
+  };
+  const KIND = new Map([[M.alu, "paint"], [M.arm, "paint"], [M.tire, "tire"]]);
+  const mk = (geo, mat) => { const m = new THREE.Mesh(geo, mat); m.castShadow = true; m.receiveShadow = true; return m; };
+  const cyl = (a, b, r, mat) => {
+    const d = new THREE.Vector3().subVectors(b, a), len = d.length(), m = mk(new THREE.CylinderGeometry(r, r, len, 14), mat);
+    m.position.copy(a).addScaledVector(d, 0.5); m.quaternion.setFromUnitVectors(V(0, 1, 0), d.normalize()); return m;
+  };
+  const box = (w, h, d, x, y, z, mat) => { const m = mk(new THREE.BoxGeometry(w, h, d), mat); m.position.set(x, y, z); return m; };
+  const tube = (pts, r, mat) => mk(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, false, "catmullrom", 0.04), pts.length * 12, r, 8, false), mat);
+  const group = (name, x, y, z) => { const g = new THREE.Group(); g.name = name; g.position.set(x, y, z); return g; };
+  // a group whose origin sits at the centre of its (world-space) children, so explode offsets and labels anchor sensibly
+  const centred = (name, kids) => {
+    const g = new THREE.Group(); g.name = name; kids.forEach((k) => g.add(k));
+    const c = new THREE.Box3().setFromObject(g).getCenter(new THREE.Vector3());
+    kids.forEach((k) => k.position.sub(c)); g.position.copy(c); return g;
+  };
+  const WB = 1.725, TRACK = 0.86, RW = 0.42;   // half wheelbase, half track, wheel radius (m): proportions only
+  const root = new THREE.Group();
+  const register = (g, off, delay) => { parts[g.name] = { obj: g, base: g.position.clone(), off: V(...off), delay }; };
+
+  // subframes: aluminium ladder frames
+  const subframe = (name, x) => {
+    const k = [];
+    for (const s of [-1, 1]) k.push(box(0.95, 0.07, 0.07, x, 0.34, s * 0.36, M.alu));
+    for (const dx of [-0.4, 0, 0.4]) k.push(box(0.07, 0.07, 0.86, x + dx, 0.34, 0, M.alu));
+    k.push(cyl(V(x - 0.4, 0.34, -0.36), V(x + 0.4, 0.34, 0.36), 0.025, M.alu));
+    for (const s of [-1, 1]) for (const dx of [-0.32, 0.32]) k.push(cyl(V(x + dx, 0.34, s * 0.36), V(x + dx, 0.62, s * 0.4), 0.03, M.alu));   // towers
+    return centred(name, k);
+  };
+  const subF = subframe("sub_f", WB), subR = subframe("sub_r", -WB);
+  root.add(subF, subR); register(subF, [0, -0.35, 0], 0.3); register(subR, [0, -0.35, 0], 0.3);
+
+  // one corner: wheel + brake, control arms + knuckle, active damper, air spring, ride-height sensor
+  const corner = (id, a, s) => {
+    const C = group("corner_" + id, a * WB, RW, s * TRACK);
+    const wheel = group("wheel_" + id, 0, 0, 0);
+    const tire = mk(new THREE.TorusGeometry(0.3, 0.115, 16, 36), M.tire); wheel.add(tire);
+    const rim = mk(new THREE.CylinderGeometry(0.26, 0.26, 0.2, 28), M.rim); rim.rotation.x = Math.PI / 2; wheel.add(rim);
+    const disc = mk(new THREE.CylinderGeometry(0.17, 0.17, 0.03, 24), M.disc); disc.rotation.x = Math.PI / 2; disc.position.z = -s * 0.1; wheel.add(disc);
+    wheel.add(box(0.09, 0.1, 0.06, 0.13, 0.05, -s * 0.1, M.damper));                        // caliper
+    C.add(wheel);
+    const arm = group("arm_" + id, 0, 0, 0);
+    arm.add(box(0.07, 0.3, 0.07, 0, 0.05, -s * 0.2, M.arm));                                // knuckle
+    for (const dx of [-0.32, 0.32]) {
+      arm.add(cyl(V(0, -0.11, -s * 0.2), V(dx, -0.08, -s * 0.5), 0.022, M.arm));            // lower arm
+      arm.add(cyl(V(0, 0.2, -s * 0.2), V(dx * 0.85, 0.27, -s * 0.5), 0.02, M.arm));         // upper arm
+    }
+    C.add(arm);
+    const dB = V(0, -0.1, -s * 0.28), dT = V(0, 0.5, -s * 0.46);
+    const damper = group("damper_" + id, 0, 0, 0);
+    damper.add(cyl(dB, dB.clone().lerp(dT, 0.62), 0.03, M.damper), cyl(dB.clone().lerp(dT, 0.55), dT, 0.014, M.alu));
+    C.add(damper);
+    const spring = group("spring_" + id, 0, 0, 0);
+    const sB = dT.clone().lerp(dB, 0.42);
+    spring.add(cyl(sB, dT, 0.075, M.spring));
+    for (const t of [0.2, 0.5, 0.8]) { const ring = mk(new THREE.TorusGeometry(0.076, 0.011, 8, 20), M.dark); const pt = sB.clone().lerp(dT, t); ring.position.copy(pt); ring.quaternion.setFromUnitVectors(V(0, 0, 1), dT.clone().sub(dB).normalize()); spring.add(ring); }
+    C.add(spring);
+    const sensor = group("sensor_" + id, 0, 0, 0);
+    sensor.add(box(0.05, 0.05, 0.05, 0.14, -0.02, -s * 0.5, M.dark), cyl(V(0.14, -0.02, -s * 0.5), V(0.14, -0.1, -s * 0.34), 0.008, M.dark));
+    C.add(sensor);
+    root.add(C);
+    register(C, [0, 0.08, s * 0.75], 0.05);
+    register(wheel, [0, 0, s * 0.5], 0.1); register(arm, [0, -0.15, 0], 0.2); register(damper, [0, 0.35, 0], 0.15);
+    register(spring, [0, 0.7, 0], 0.2); register(sensor, [0, -0.28, 0], 0.25);
+  };
+  [["FL", 1, -1], ["FR", 1, 1], ["RL", -1, -1], ["RR", -1, 1]].forEach(([id, a, s]) => corner(id, a, s));
+
+  // hydraulic system (active dampers + roll control): pump and reservoir, hard lines to all four dampers
+  const pump = centred("pump", [box(0.17, 0.1, 0.14, -1.15, 0.3, 0.42, M.hyd), cyl(V(-1.15, 0.34, 0.42), V(-1.15, 0.5, 0.42), 0.06, M.dark)]);
+  const hydLines = centred("hyd", [
+    tube([V(-1.15, 0.28, 0.42), V(-0.2, 0.26, 0.42), V(1.45, 0.28, 0.42), V(1.62, 0.3, 0.5), V(WB, 0.33, 0.6)], 0.014, M.hyd),
+    tube([V(1.45, 0.28, 0.42), V(1.45, 0.28, -0.42), V(1.62, 0.3, -0.5), V(WB, 0.33, -0.6)], 0.014, M.hyd),
+    tube([V(-1.15, 0.28, 0.42), V(-1.45, 0.28, 0.42), V(-1.62, 0.3, 0.5), V(-WB, 0.33, 0.6)], 0.014, M.hyd),
+    tube([V(-1.45, 0.28, 0.42), V(-1.45, 0.28, -0.42), V(-1.62, 0.3, -0.5), V(-WB, 0.33, -0.6)], 0.014, M.hyd),
+  ]);
+  root.add(pump, hydLines); register(pump, [0, -0.55, 0.15], 0.3); register(hydLines, [0, -0.45, 0], 0.3);
+
+  // air suspension (ride height): compressor, accumulator tank, lines to the four air springs
+  const comp = centred("comp", [box(0.15, 0.1, 0.12, -0.95, 0.56, -0.44, M.air), cyl(V(-0.95, 0.61, -0.44), V(-0.95, 0.74, -0.44), 0.04, M.dark)]);
+  const tank = centred("tank", [cyl(V(-0.62, 0.56, -0.44), V(-0.2, 0.56, -0.44), 0.075, M.air)]);
+  const airLines = centred("air", [
+    tube([V(-0.95, 0.56, -0.44), V(-0.6, 0.6, -0.44), V(0.2, 0.63, -0.44), V(1.45, 0.65, -0.42), V(1.62, 0.8, -0.4), V(WB, 0.9, -0.4)], 0.012, M.air),
+    tube([V(1.45, 0.65, -0.42), V(1.45, 0.65, 0.42), V(1.62, 0.8, 0.4), V(WB, 0.9, 0.4)], 0.012, M.air),
+    tube([V(-0.95, 0.56, -0.44), V(-1.45, 0.62, -0.42), V(-1.62, 0.8, -0.4), V(-WB, 0.9, -0.4)], 0.012, M.air),
+    tube([V(-1.45, 0.62, -0.42), V(-1.45, 0.62, 0.42), V(-1.62, 0.8, 0.4), V(-WB, 0.9, 0.4)], 0.012, M.air),
+  ]);
+  root.add(comp, tank, airLines); register(comp, [0, 0.9, 0], 0.35); register(tank, [0, 0.9, 0], 0.35); register(airLines, [0, 0.55, 0], 0.3);
+
+  // meshes for the mode system (paint / clay / zebra / tape)
+  root.traverse((o) => { if (o.isMesh) meshes.push({ mesh: o, kind: KIND.get(o.material) || "other", orig: o.material, lines: null }); });
+  R.group.add(root);
+  const LBL = [["sub_f", "Subframe, front", [0.3, -0.05, 0.3]], ["sub_r", "Subframe, rear", [-0.3, -0.05, 0.3]], ["damper_FR", "Active damper", [0.05, 0.05, 0.25]],
+    ["spring_FR", "Air spring", [0.05, 0.28, 0.2]], ["sensor_RR", "Ride height sensor", [-0.1, -0.12, 0.3]], ["hyd", "Hydraulic lines", [0, -0.18, 0.25]],
+    ["pump", "Pump & reservoir", [0, -0.3, 0.25]], ["air", "Air lines", [0, 0.22, -0.2]], ["tank", "Accumulator tank", [0, 0.3, -0.2]], ["comp", "Air compressor", [-0.25, 0.3, -0.2]]];
+  for (const [part, text, o] of LBL) {
+    const el = document.createElement("div"); el.className = "tag mono"; el.textContent = text; labelsEl.appendChild(el);
+    tagEls.push({ el, part, off: V(...o), kind: "part" });
+  }
+}
+
+/* --- any downloaded vehicle: auto orient / scale / classify / explode --- */
+function classify(o, cfg) {
+  const m = Array.isArray(o.material) ? o.material[0] : o.material;
+  const n = ((o.name || "") + " " + ((m && m.name) || "")).toLowerCase();
+  if (/glass|window|windshield|windscreen|parabrisa|lens/.test(n) || (m && ((m.transparent && m.opacity < 0.95) || m.transmission > 0.2))) return "glass";
+  if (/tire|tyre|rubber/.test(n)) return "tire";
+  if (/light|lamp|headl|taill|drl|\bled\b/.test(n) || (m && m.emissive && m.emissiveIntensity > 0 && m.emissive.getHex() !== 0)) return "light";
+  if (cfg.paintMaterials ? cfg.paintMaterials.some((k) => n.includes(k)) : /paint|carpaint|body|exterior|shell|metallic/.test(n)) return "paint";
+  return "other";
+}
+function setupGeneric(root, R, rotParam) {
+  const cfg = R.cfg, { parts, meshes, modelLines, tagEls } = R;
+  const raw = new THREE.Box3().setFromObject(root).getSize(new THREE.Vector3());
+  const holder = new THREE.Group(); holder.add(root);
+  holder.rotation.y = (raw.z > raw.x ? Math.PI / 2 : 0) + THREE.MathUtils.degToRad(rotParam != null && rotParam !== "" ? +rotParam : (cfg.rotY || 0));
+  R.group.add(holder); car.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(holder);
+  const nativeLen = box.max.x - box.min.x;
+  const target = cfg.lengthMm ? cfg.lengthMm / 1000 : (nativeLen >= 2 && nativeLen <= 30 ? nativeLen : 5);
+  holder.scale.setScalar(target / nativeLen);
+  car.updateMatrixWorld(true); box.setFromObject(holder);
+  holder.position.set(-(box.min.x + box.max.x) / 2, -box.min.y, -(box.min.z + box.max.z) / 2);
+  car.updateMatrixWorld(true); box.setFromObject(holder);
+  const c0 = box.getCenter(new THREE.Vector3());
+  const kx = (box.max.x - box.min.x) / 4.9;      // explode distances are tuned for a ~4.9 m car
+
+  // meshes and the model's own edge lines
+  const vol = new Map();
+  root.traverse((o) => {
+    if (o.isLine) { o.material = tapeEdge; o.visible = false; modelLines.push(o); return; }
+    if (!o.isMesh) return;
+    o.castShadow = true; o.receiveShadow = true;
+    const rec = { mesh: o, kind: classify(o, cfg), orig: o.material, lines: null };
+    const sz = new THREE.Box3().setFromObject(o).getSize(new THREE.Vector3()); vol.set(rec, sz.x * sz.y * sz.z);
+    meshes.push(rec);
+  });
+  // if names didn't reveal the body paint, treat the biggest untagged meshes as paint
+  if (!meshes.some((r) => r.kind === "paint")) {
+    const cand = meshes.filter((r) => r.kind === "other"), mx = Math.max(0, ...cand.map((r) => vol.get(r)));
+    cand.forEach((r) => { if (vol.get(r) >= mx * 0.3) r.kind = "paint"; });
+  }
+  // give exported (flat, non-metallic) materials believable finishes
+  const fin = Object.assign({ metalness: 0.6, roughness: 0.28, clearcoat: 1 }, cfg.finish || {});
+  const upgraded = new Map();
+  for (const r of meshes) {
+    const m0 = Array.isArray(r.orig) ? r.orig[0] : r.orig;
+    if (!m0 || !m0.isMeshStandardMaterial) continue;
+    const n = (m0.name || "").toLowerCase(), key = m0.uuid + r.kind;
+    if (!upgraded.has(key)) {
+      let nm = null;
+      if (r.kind === "paint") nm = new THREE.MeshPhysicalMaterial({ color: cfg.paintColor ? new THREE.Color(cfg.paintColor) : m0.color, map: cfg.paintColor ? null : m0.map, metalness: fin.metalness, roughness: fin.roughness, clearcoat: fin.clearcoat, clearcoatRoughness: 0.05 });
+      else if (r.kind === "tire") { nm = m0.clone(); nm.roughness = 0.92; nm.metalness = 0; }
+      else if (/rim|rotor/.test(n)) { nm = m0.clone(); nm.metalness = 0.85; nm.roughness = 0.32; }
+      else if (r.kind === "glass") { nm = m0.clone(); nm.roughness = 0.06; nm.metalness = 0.1; nm.envMapIntensity = 1.6; }
+      upgraded.set(key, nm);
+    }
+    const nm = upgraded.get(key);
+    if (nm) { r.orig = nm; r.mesh.material = nm; }
+  }
+
+  // explode: split into layers (body shell, glass, lights, interior, underbody) and push each wheel outward
+  const LAYER = { body: [0, 1.2, 0, 0], glass: [0, 1.85, 0, 0.1], lights: [0, 1.2, 0, 0], interior: [0, 0.62, 0, 0.15], under: [0, -0.46, 0, 0.3] };
+  const wheelRe = new RegExp(cfg.wheelRe || "csb_|tire|tyre|rim|rotor|calli|brake|rueda|wheel");
+  const chain = (o) => { let n = ""; for (let p = o, d = 0; p && p !== root && d < 4; p = p.parent, d++) n += " " + (p.name || ""); return n; };
+  const groupOf = (r) => {
+    const m = Array.isArray(r.orig) ? r.orig[0] : r.orig;
+    const n = (chain(r.mesh) + " " + ((m && m.name) || "")).toLowerCase();
+    if (wheelRe.test(n)) return "wheel";
+    if (r.kind === "glass") return /light|lamp/.test(n) ? "lights" : "glass";
+    if (r.kind === "light") return "lights";
+    if (/interior|seat|dash|jean|leather|steering/.test(n)) return "interior";
+    if (/undercarriage|underbody|exhaust|chassis/.test(n)) return "under";
+    return "body";
+  };
+  const layers = {};
+  meshes.forEach((r) => (layers[groupOf(r)] ||= []).push(r));
+  const toLocal = (obj, w) => w.applyMatrix3(new THREE.Matrix3().setFromMatrix4(new THREE.Matrix4().copy(obj.parent.matrixWorld).invert()));
+  const layerBox = {}, frontWheel = new THREE.Box3();
+  let k = 0;
+  for (const [name, recs] of Object.entries(layers)) {
+    const gb = new THREE.Box3();
+    for (const r of recs) {
+      const rb = new THREE.Box3().setFromObject(r.mesh); gb.union(rb);
+      let w, delay;
+      if (name === "wheel") {
+        const rc = rb.getCenter(new THREE.Vector3()).sub(c0);
+        w = new THREE.Vector3(0, 0.3, (rc.z >= 0 ? 1 : -1) * 0.8); delay = 0.05;
+        if (rc.x > 0 && rc.z > 0) frontWheel.union(rb);
+      } else { const e = LAYER[name]; w = new THREE.Vector3(e[0], e[1], e[2]); delay = e[3]; }
+      w.y += 0.55;   // the whole vehicle rises a little so the underbody clears the ground grid
+      parts["m" + k++] = { obj: r.mesh, base: r.mesh.position.clone(), off: toLocal(r.mesh, w.multiplyScalar(kx)), delay };
+    }
+    layerBox[name] = gb;
+  }
+  const LBL = { body: "Body shell", glass: "Glass", lights: "Lighting", interior: "Interior", under: "Underbody", wheel: "Wheels & brakes" };
+  for (const [name, text] of Object.entries(LBL)) {
+    const gb = name === "wheel" ? frontWheel : layerBox[name]; if (!gb || gb.isEmpty()) continue;
+    const base = gb.getCenter(new THREE.Vector3());
+    if (name === "body") base.set(gb.min.x + 0.18 * kx * 4.9, gb.min.y + 0.11 * kx * 4.9, gb.max.z);   // side panel, clear of the glass label
+    const e = name === "wheel" ? [0, 0.3, 0.8, 0.05] : LAYER[name];
+    const el = document.createElement("div"); el.className = "tag mono"; el.textContent = text; labelsEl.appendChild(el);
+    tagEls.push({ el, kind: "group", base, off: new THREE.Vector3(e[0], e[1] + 0.55, e[2]).multiplyScalar(kx), delay: e[3] });
+  }
+  if (cfg.dims) addDimensions(R, box, { length: cfg.lengthMm && cfg.lengthMm / 1000, wheelbase: cfg.wheelbaseMm && cfg.wheelbaseMm / 1000, height: cfg.heightMm && cfg.heightMm / 1000 });
+}
+
+function updateCredits() {
+  const note = document.getElementById("concept-note"); if (!note) return;
+  const lines = Object.values(records).filter((R) => R.ready && R.generic && R.cfg.credit).map((R) => R.cfg.credit);
+  const extra = records.rivian && records.rivian.ready ? " Rivian suspension: original schematic after Rivian service guideline RCI-18-23-002-1 (Feb 2023), not Rivian CAD and not to scale." : "";
+  if (lines.length) note.textContent = lines.join(" ") + extra + " Brand names are trademarks of their owners; this site is not affiliated with them. Concept car: original model.";
+}
+async function loadModel(key) {
+  const R = records[key] || (records[key] = { key, cfg: MODELS[key], group: Object.assign(new THREE.Group(), { visible: false }), parts: {}, meshes: [], modelLines: [], tagEls: [], ready: false, loading: false, failed: false, generic: false });
+  if (R.ready || R.loading || R.failed) return;
+  R.loading = true; car.add(R.group);
+  try {
+    if (R.cfg.procedural === "suspension") { setupSuspension(R); R.ready = true; updateCredits(); return; }
+    let buf = null;
+    const url = urlQ.get("url_" + key) ?? R.cfg.url;   // ?url_freightliner=other.glb tries a different file
+    if (url) { try { const r = await fetch(url); if (r.ok) buf = await r.arrayBuffer(); } catch (e) { /* falls back to the concept car */ } }
+    R.generic = !!buf;
+    if (!buf) buf = embeddedBuffer();
+    if (!buf) throw new Error("no model data");
+    const gltf = await gltfLoader.parseAsync(buf, "");
+    R.generic ? setupGeneric(gltf.scene, R, urlQ.get("rot_" + key)) : setupConcept(gltf.scene, R);
+    R.ready = true; updateCredits();
+  } catch (e) {
+    console.error("model", key, e); R.failed = true;
+    if (!active) statusEl.textContent = "The 3D model didn't load. The rest of the page works without it.";
+  } finally { R.loading = false; }
+}
+function activate(key) {
+  const R = records[key]; if (!R || !R.ready) return;
+  if (active) { active.group.visible = false; active.tagEls.forEach((t) => { t.el.style.opacity = 0; }); }
+  active = R; R.group.visible = true; R.group.scale.setScalar(reduceMotion ? 1 : 0.9);
+  parts = R.parts; meshes = R.meshes; modelLines = R.modelLines; tagEls = R.tagEls; modelReady = true;
+  statusEl.hidden = true;
+  const hint = document.querySelector(".hint"); if (hint) hint.textContent = R.cfg.name + " · drag to rotate";
+  applyMode(currentMode(), true);
+}
+// start with the model for the opening chapter, then quietly fetch the rest
+(async () => { await loadModel(CH[0].model); for (const k of Object.keys(MODELS)) await loadModel(k); })();
+
+/* ---------------- modes ---------------- */
+let userMode = null, userExplode = null, appliedMode = null;
+function currentMode() { return userMode || CH[Math.round(chapterPos)].mode; }
+function ensureLines(r) {   // crease-edge overlay for Tape mode, built on first use (skipped for very dense meshes)
+  const g = r.mesh.geometry, tris = (g.index ? g.index.count : g.attributes.position.count) / 3;
+  if (tris > 80000) { r.lines = false; return; }
+  r.lines = new THREE.LineSegments(new THREE.EdgesGeometry(g, 30), tapeEdge);
+  r.mesh.add(r.lines);
+}
+function applyMode(mode, force) {
+  if (!modelReady || (mode === appliedMode && !force)) return;
+  appliedMode = mode;
+  const wire = mode === "wire";
+  modelLines.forEach((l) => { l.visible = wire; });
+  for (const r of meshes) {
+    r.mesh.castShadow = !wire;
+    if (wire && r.lines === null && !modelLines.length) ensureLines(r);
+    if (r.lines) r.lines.visible = wire;
+    if (mode === "paint") r.mesh.material = r.orig;
+    else if (mode === "clay") r.mesh.material = r.kind === "light" ? r.orig : (r.kind === "glass" || r.kind === "tire" ? clayDark : clayMat);
+    else if (mode === "zebra") r.mesh.material = (r.kind === "paint" || r.kind === "glass") ? zebraMat : (r.kind === "light" ? r.orig : zebraDark);
+    else r.mesh.material = tapeFill;
+  }
+  document.querySelectorAll("[data-mode]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === mode)));
+}
+document.querySelectorAll("[data-mode]").forEach((b) => b.addEventListener("click", () => { userMode = b.dataset.mode; applyMode(userMode); syncFollow(); }));
+const explodeInput = $("#explode");
+explodeInput.addEventListener("input", () => { userExplode = explodeInput.value / 100; syncFollow(); });
+const followBtn = $("#follow");
+followBtn.addEventListener("click", () => { userMode = null; userExplode = null; syncFollow(); applyMode(currentMode()); });
+function syncFollow() { followBtn.hidden = userMode === null && userExplode === null; }
+
+/* theme changes: re-read tokens and recolor */
+function retheme() {
+  T = tokens();
+  paintMats.Paint.color.set(T.paint); paintMats.Caliper.color.set(T.signal); paintMats.Module.color.set(T.signal);
+  clayMat.color.set(T.clay); tapeFill.color.set(T.paper); tapeLine.color.set(T.ink); tapeEdge.color.set(T.ink);
+  gridMat.uniforms.uColor.value.set(T.line); gridMat.uniforms.uAccent.value.set(T.ink);
+  dimMat.color.set(T.ink); ringMats.forEach((m) => m.color.set(T.signal)); sweepMat.color.set(T.signal);
+  const dark = new THREE.Color(T.paper).getHSL({}).l < 0.5;
+  shadowCatcher.material.opacity = dark ? 0.5 : 0.22;
+  renderer.toneMappingExposure = dark ? 1.1 : 1.0;
+}
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", retheme);
+new MutationObserver(retheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "class", "style"] });
+retheme();
+
+/* ---------------- scroll → chapter position ---------------- */
+let chapterPos = 0;
+function readScroll() {
+  const vh = innerHeight;
+  const narrow = matchMedia("(max-width: 900px)").matches;
+  const anchor = narrow ? vh * 0.72 : vh * 0.5;
+  const centers = chapterEls.map((el) => { const r = el.getBoundingClientRect(); return narrow ? r.top + Math.min(r.height, vh * 0.5) * 0.35 : r.top + r.height / 2; });
+  let pos = 0;
+  if (anchor <= centers[0]) pos = 0;
+  else if (anchor >= centers[centers.length - 1]) pos = centers.length - 1;
+  else for (let i = 0; i < centers.length - 1; i++) {
+    if (anchor >= centers[i] && anchor < centers[i + 1]) { pos = i + (anchor - centers[i]) / (centers[i + 1] - centers[i]); break; }
+  }
+  return pos;
+}
+
+/* ---------------- interaction: drag to rotate ---------------- */
+let dragYaw = 0, dragging = false, lastX = 0;
+stage.addEventListener("pointerdown", (e) => { if (e.target.closest(".controls")) return; dragging = true; lastX = e.clientX; stage.setPointerCapture(e.pointerId); });
+stage.addEventListener("pointermove", (e) => { if (!dragging) return; dragYaw += (e.clientX - lastX) * 0.008; lastX = e.clientX; });
+stage.addEventListener("pointerup", () => { dragging = false; });
+stage.addEventListener("pointercancel", () => { dragging = false; });
+stage.addEventListener("dblclick", () => { dragYaw = 0; });
+
+/* ---------------- resize ---------------- */
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  if (!w || !h) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(stage); resize();
+
+/* ---------------- frame loop ---------------- */
+const ease = (x) => x * x * (3 - 2 * x);
+const lerp = (a, b, t) => a + (b - a) * t;
+const smooth = { az: CH[0].az, el: CH[0].el, dist: CH[0].dist, ty: CH[0].ty, explode: 0, fd: 1, ft: 1 };
+let explodeNow = 0;
+const clock = new THREE.Clock();
+const v = new THREE.Vector3();
+
+function sample(pos) {
+  const i = Math.min(Math.floor(pos), CH.length - 2), f = ease(Math.min(Math.max(pos - i, 0), 1));
+  const a = CH[i], b = CH[i + 1];
+  return { az: lerp(a.az, b.az, f), el: lerp(a.el, b.el, f), dist: lerp(a.dist, b.dist, f), ty: lerp(a.ty, b.ty, f), explode: lerp(a.explode, b.explode, f) };
+}
+const weight = (i) => Math.max(0, 1 - Math.abs(chapterPos - i));
+
+function tick() {
+  const dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
+  chapterPos = (window.__forcePos ?? readScroll());   // __forcePos: debug hook for previewing a chapter
+  const target = sample(chapterPos);
+  // swap to the model this chapter wants (loading it on demand if the background fetch hasn't finished)
+  const wantKey = CH[Math.min(CH.length - 1, Math.round(chapterPos))].model;
+  if (!active || active.key !== wantKey) { const R = records[wantKey]; if (R && R.ready) activate(wantKey); else if (!R || (!R.loading && !R.failed)) loadModel(wantKey); }
+  const fit = (active && active.cfg.fit) || { dist: 1, ty: 1 };
+  target.fd = fit.dist; target.ft = fit.ty;
+  if (active && !reduceMotion) { const sc = active.group.scale.x; active.group.scale.setScalar(sc + (1 - sc) * (1 - Math.pow(0.002, dt))); }
+  const k = reduceMotion ? 1 : 1 - Math.pow(0.0025, dt);
+  for (const key_ of Object.keys(smooth)) smooth[key_] = lerp(smooth[key_], target[key_], k);
+
+  applyMode(currentMode());
+  const wantExplode = userExplode ?? smooth.explode;
+  explodeNow = lerp(explodeNow, wantExplode, reduceMotion ? 1 : 1 - Math.pow(0.004, dt));
+  if (userExplode === null) explodeInput.value = Math.round(explodeNow * 100);
+
+  // camera
+  const narrow = camera.aspect < 1.05;
+  const dist = smooth.dist * smooth.fd * (narrow ? 1.5 : 1), ty = smooth.ty * smooth.ft;
+  const az = THREE.MathUtils.degToRad(smooth.az), el = THREE.MathUtils.degToRad(smooth.el);
+  camera.position.set(dist * Math.cos(el) * Math.cos(az), ty + dist * Math.sin(el), dist * Math.cos(el) * Math.sin(az));
+  camera.lookAt(0, ty, 0);
+
+  // car pose
+  car.rotation.y = dragYaw + (reduceMotion ? 0 : Math.sin(t * 0.22) * 0.1);
+  for (const name in parts) {
+    const p = parts[name];
+    const e = ease(Math.min(Math.max((explodeNow - p.delay) / (1 - p.delay || 1), 0), 1));
+    p.obj.position.copy(p.base).addScaledVector(p.off, e);
+    if (p.lift) p.obj.position.addScaledVector(p.lift, ease(Math.min(explodeNow * 1.2, 1)));
+  }
+
+  // lidar sweep (Zoox, Nomadic) + dimension lines (BMW)
+  const wZ = Math.min(1, weight(5) + weight(6)), wV = weight(1);
+  lidar.visible = wZ > 0.01;
+  lidar.children.forEach((c) => {
+    if (!c.isLine) return;
+    const ph = reduceMotion ? c.userData.phase : (t * 0.35 + c.userData.phase) % 1;
+    const r = 2.6 + ph * 5; c.scale.setScalar(r);
+    c.material.opacity = wZ * (1 - ph) * 0.9;
+  });
+  sweep.rotation.z = reduceMotion ? 0 : -t * 1.4; sweepMat.opacity = wZ * 0.16;
+  dims.visible = wV > 0.01 && !!active && active.key === "bmw"; dimMat.opacity = wV * 0.9;
+
+  // labels
+  const rect = stage.getBoundingClientRect();
+  const lblFrom = (active && active.cfg.labelFrom) ?? 0.55, lblSpan = (active && active.cfg.labelSpan) ?? 0.45;
+  for (const tg of tagEls) {
+    let op;
+    if (tg.kind === "part") {
+      const p = parts[tg.part]; if (!p) continue;
+      p.obj.getWorldPosition(v); v.add(tg.off);
+      op = Math.min(1, Math.max(0, (explodeNow - lblFrom) / lblSpan));
+    } else if (tg.kind === "group") {
+      const e = ease(Math.min(Math.max((explodeNow - tg.delay) / (1 - tg.delay || 1), 0), 1));
+      v.copy(tg.base).addScaledVector(tg.off, e).applyAxisAngle(new THREE.Vector3(0, 1, 0), car.rotation.y);
+      op = Math.max(0, (explodeNow - 0.55) / 0.45);
+    } else { v.copy(tg.pos).applyAxisAngle(new THREE.Vector3(0, 1, 0), car.rotation.y); op = wV; }
+    v.project(camera);
+    const x = (v.x * 0.5 + 0.5) * rect.width, y = (-v.y * 0.5 + 0.5) * rect.height;
+    const vis = op > 0.02 && v.z < 1 && x > 0 && x < rect.width - 20 && y > 30 && y < rect.height - 60;
+    tg.el.style.opacity = vis ? op : 0;
+    tg.el.style.transform = tg.kind === "dim" ? `translate(${x}px, ${y}px) translate(-50%, -50%)` : `translate(${x - 3.5}px, ${y}px) translateY(-50%)`;
+  }
+  dims.rotation.y = car.rotation.y;
+
+  // readout
+  const ch = CH[Math.round(chapterPos)];
+  const modeName = { paint: "Paint", clay: "Clay", zebra: "Zebra", wire: "Tape" }[appliedMode || "paint"];
+  const txt = `${modeName} · explode ${Math.round(explodeNow * 100)}%`;
+  if (readout.dataset.t !== ch.name + txt) { readout.dataset.t = ch.name + txt; readout.firstChild.textContent = ch.name; readout.lastChild.textContent = txt; }
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rohit Tadikamalla — Work Portfolio</title>
+  <meta name="description" content="Program leader turned hands-on builder. A career timeline from BMW to Daimler, Rivian, Tesla, Zoox, and Nomadic AI.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site" id="site-header">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="#top">Rohit Tadikamalla</a>
+      <ul>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="road" id="road" aria-label="Career timeline: BMW, Daimler, Rivian, Tesla, Zoox, Nomadic AI">
+      <div class="asphalt"></div>
+      <div class="progress" id="progress"></div>
+      <ol class="stations">
+        <li style="--x:7%"><a href="#bmw"><i></i><b>BMW</b><small>2018</small></a></li>
+        <li style="--x:24.2%"><a href="#daimler"><i></i><b>Daimler</b><small>2020</small></a></li>
+        <li style="--x:41.4%"><a href="#rivian"><i></i><b>Rivian</b><small>2021</small></a></li>
+        <li style="--x:58.6%"><a href="#tesla"><i></i><b>Tesla</b><small>2023</small></a></li>
+        <li style="--x:75.8%"><a href="#zoox"><i></i><b>Zoox</b><small>2024</small></a></li>
+        <li style="--x:93%"><a href="#nomadic"><i></i><b>Nomadic</b><small>2026</small></a></li>
+      </ol>
+
+      <div class="car" id="car" aria-hidden="true">
+        <svg viewBox="0 0 120 48">
+          <!-- 0: BMW X7 -->
+          <g class="veh on" data-veh="0">
+            <path class="body" d="M6 36V28Q6 25 10 24L24 22Q31 12 44 11H78Q90 11 96 21L109 24Q114 25 114 30V36Z"/>
+            <path class="glass" d="M32 21Q37 14 45 14H57V21Z"/>
+            <path class="glass" d="M61 14H77Q84 14 90 21H61Z"/>
+            <rect class="glass" x="108" y="25.5" width="5" height="2" rx="1"/>
+            <g transform="translate(28 36.5)"><g class="spin"><circle class="tire" r="7.5"/><circle class="rim" r="3.4"/><path class="spoke" d="M0-3.4V3.4M-3.4 0H3.4"/></g></g>
+            <g transform="translate(92 36.5)"><g class="spin"><circle class="tire" r="7.5"/><circle class="rim" r="3.4"/><path class="spoke" d="M0-3.4V3.4M-3.4 0H3.4"/></g></g>
+          </g>
+          <!-- 1: Freightliner Cascadia -->
+          <g class="veh" data-veh="1" transform="translate(8 0)">
+            <path class="body" d="M3 37V13Q3 10 6 10H60L76 25H99Q103 25 103 29V37Z"/>
+            <path class="body" d="M36 5H55L58 10H36Z"/>
+            <rect class="body" x="47" y="0" width="2.5" height="6"/>
+            <path class="glass" d="M58 13L71 25H58Z"/>
+            <rect class="glass" x="47" y="14" width="9" height="11" rx="1"/>
+            <rect class="body" x="0" y="37" width="104" height="2.5"/>
+            <g transform="translate(18 36.5)"><g class="spin"><circle class="tire" r="7"/><circle class="rim" r="3.2"/><path class="spoke" d="M0-3.2V3.2M-3.2 0H3.2"/></g></g>
+            <g transform="translate(32 36.5)"><g class="spin"><circle class="tire" r="7"/><circle class="rim" r="3.2"/><path class="spoke" d="M0-3.2V3.2M-3.2 0H3.2"/></g></g>
+            <g transform="translate(88 36.5)"><g class="spin"><circle class="tire" r="7"/><circle class="rim" r="3.2"/><path class="spoke" d="M0-3.2V3.2M-3.2 0H3.2"/></g></g>
+          </g>
+          <!-- 2: Rivian R1T -->
+          <g class="veh" data-veh="2">
+            <path class="body" d="M6 36V22H44L48 12H84Q90 12 94 18L100 24L110 26Q114 27 114 31V36Z"/>
+            <path class="glass" d="M51 15H67V22H49Z"/>
+            <path class="glass" d="M70 15H84L91 22H70Z"/>
+            <path class="ln" d="M9 25.5H42M9 25.5V21"/>
+            <rect class="glass" x="108" y="27" width="3" height="6" rx="1.5"/>
+            <g transform="translate(26 36.5)"><g class="spin"><circle class="tire" r="7.5"/><circle class="rim" r="3.4"/><path class="spoke" d="M0-3.4V3.4M-3.4 0H3.4"/></g></g>
+            <g transform="translate(94 36.5)"><g class="spin"><circle class="tire" r="7.5"/><circle class="rim" r="3.4"/><path class="spoke" d="M0-3.4V3.4M-3.4 0H3.4"/></g></g>
+          </g>
+          <!-- 3: Tesla Cybertruck -->
+          <g class="veh" data-veh="3">
+            <path class="body" d="M4 36V24L12 22L54 11L96 20L114 27V36Z"/>
+            <path class="glass" d="M50 15L58 14L88 21H50Z"/>
+            <rect class="glass" x="104" y="27.5" width="10" height="1.6"/>
+            <g transform="translate(28 36)"><g class="spin"><circle class="tire" r="8"/><circle class="rim" r="3.6"/><path class="spoke" d="M0-3.6V3.6M-3.6 0H3.6"/></g></g>
+            <g transform="translate(92 36)"><g class="spin"><circle class="tire" r="8"/><circle class="rim" r="3.6"/><path class="spoke" d="M0-3.6V3.6M-3.6 0H3.6"/></g></g>
+          </g>
+          <!-- 4: Zoox robotaxi -->
+          <g class="veh" data-veh="4">
+            <rect class="body" x="8" y="10" width="104" height="26" rx="12"/>
+            <rect class="glass" x="17" y="15" width="86" height="12" rx="6"/>
+            <path class="body" d="M59.2 15V27H60.8V15Z"/>
+            <circle class="body" cx="15" cy="9" r="3.5"/><circle class="body" cx="105" cy="9" r="3.5"/>
+            <g transform="translate(30 36.5)"><g class="spin"><circle class="tire" r="7.5"/><circle class="rim" r="3.4"/><path class="spoke" d="M0-3.4V3.4M-3.4 0H3.4"/></g></g>
+            <g transform="translate(90 36.5)"><g class="spin"><circle class="tire" r="7.5"/><circle class="rim" r="3.4"/><path class="spoke" d="M0-3.4V3.4M-3.4 0H3.4"/></g></g>
+          </g>
+          <!-- 5: Nomadic (sensing pod: camera puck + scan beam) -->
+          <g class="veh" data-veh="5">
+            <path class="beam" d="M112 22L128 6V40Z"/>
+            <path class="arc" d="M117 17Q122 23 117 29"/>
+            <rect class="body" x="8" y="10" width="104" height="26" rx="12"/>
+            <rect class="glass" x="17" y="15" width="86" height="12" rx="6"/>
+            <path class="body" d="M59.2 15V27H60.8V15Z"/>
+            <rect class="body" x="50" y="4" width="20" height="7" rx="3.5"/>
+            <circle class="glass" cx="60" cy="7.5" r="1.8"/>
+            <g transform="translate(30 36.5)"><g class="spin"><circle class="tire" r="7.5"/><circle class="rim" r="3.4"/><path class="spoke" d="M0-3.4V3.4M-3.4 0H3.4"/></g></g>
+            <g transform="translate(90 36.5)"><g class="spin"><circle class="tire" r="7.5"/><circle class="rim" r="3.4"/><path class="spoke" d="M0-3.4V3.4M-3.4 0H3.4"/></g></g>
+          </g>
+        </svg>
+      </div>
+      <div class="car-name" id="car-name">BMW X7</div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero wrap">
+  <p class="eyebrow">San Francisco, CA</p>
+  <h1>Program leader turned<br>hands-on builder.</h1>
+  <p class="lede">
+    Six-plus years shipping hardware and software at <strong>Zoox</strong>, <strong>Tesla</strong>, and <strong>Rivian</strong>.
+    Now writing and shipping product myself at a seed-stage AI startup: finding unowned problems and driving them to done.
+  </p>
+  <div class="cta">
+    <a class="btn primary" href="#nomadic">See what I'm building now</a>
+    <a class="btn" href="https://www.linkedin.com/in/rohittadikamalla">LinkedIn</a>
+    <a class="btn" href="mailto:rohit.tadikamalla@gmail.com">Email me</a>
+  </div>
+  <p class="scrollhint">↓ Scroll to drive through my career, from BMW in 2018 to today.</p>
+</div>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><b>366 → ~35</b><span>vulnerabilities triaged to root-cause packages for a SOC 2 audit</span></div>
+    <div class="stat"><b>20+</b><span>stakeholders aligned on Cybertruck chassis to serial production</span></div>
+    <div class="stat"><b>20%</b><span>faster issue triage after redesigning Jira workflows at Zoox</span></div>
+    <div class="stat"><b>3 weeks</b><span>cut from supplier bring-up with a new Drive Module test bench</span></div>
+  </div>
+</div>
+
+<!-- ============ 1. BMW ============ -->
+<section class="stop" id="bmw" data-stop data-name="BMW X7">
+  <div class="wrap">
+    <div class="stop-head">
+      <div class="era">2018</div>
+      <h2>BMW Manufacturing Co. <span>· New Vehicle Programs</span></h2>
+    </div>
+    <p class="role"><b>Quality Engineering Intern</b> · Jan – Dec 2018 <span class="vehicle-tag">🚗 BMW X7</span></p>
+    <div class="stop-grid">
+      <ul>
+        <li><b>Supervised four quarters of wax tests</b> that validated paint-process specifications for upcoming and existing models.</li>
+        <li><b>Ran root-cause analysis on gap and squeak issues</b> using 3D measurement scans of parts fitted to vehicle bodies.</li>
+        <li><b>Designed and prototyped casters in CATIA V5</b> to move overweight X7s around the shop floor.</li>
+        <li><b>Made 400+ visual aids</b> of new vehicles so line workers could spot design changes faster.</li>
+      </ul>
+      <div class="mini">
+        <div class="m"><b>4–5 s</b><span>takt time reduction from the visual aids</span></div>
+        <div class="m"><b>400+</b><span>visual aids of new vehicle models</span></div>
+        <div class="m"><b>4</b><span>quarters of paint-process wax tests</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. Daimler ============ -->
+<section class="stop" id="daimler" data-stop data-name="Freightliner Cascadia">
+  <div class="wrap">
+    <div class="stop-head">
+      <div class="era">2020</div>
+      <h2>Daimler Trucks North America <span>· Freightliner</span></h2>
+    </div>
+    <p class="role"><b>Mechanical Design Engineer</b> · Aug 2020 – Oct 2021 (design intern, summer 2019) <span class="vehicle-tag">🚛 Freightliner Cascadia</span></p>
+    <div class="stop-grid">
+      <ul>
+        <li><b>Designed a decking-towing provision</b> that streamlined service and transport of vocational and highway trucks, saving over $10,000 a year.</li>
+        <li><b>Took 3.5 kg out of vocational-team subsystems</b> by consolidating 2- and 3-piece bracket attachments.</li>
+        <li><b>Routed air suspension lines and wire harnesses</b> on next-generation electric trucks with electrical, systems, and supply chain teams.</li>
+        <li><b>Created airline assembly diagrams</b> for 6 air suspension variants, including a customer-requested auto raise-lower lift axle.</li>
+      </ul>
+      <div class="mini">
+        <div class="m"><b>$10k+/yr</b><span>saved by the decking-towing provision</span></div>
+        <div class="m"><b>3.5 kg</b><span>mass removed by consolidating brackets</span></div>
+        <div class="m"><b>6</b><span>air suspension variants documented</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. Rivian ============ -->
+<section class="stop" id="rivian" data-stop data-name="Rivian R1T">
+  <div class="wrap">
+    <div class="stop-head">
+      <div class="era">2021</div>
+      <h2>Rivian Automotive <span>· R1T / R1S</span></h2>
+    </div>
+    <p class="role"><b>Mechanical Engineer II</b> · Nov 2021 – Apr 2023 <span class="vehicle-tag">🛻 Rivian R1T</span></p>
+    <div class="stop-grid">
+      <ul>
+        <li><b>Owned design, development, and validation</b> of 10+ brake and suspension components across the R1T and R1S programs, working in CATIA.</li>
+        <li><b>Improved suspension jounce-line durability by 50%</b> with cyclic vibration and pressure testing on prototype designs.</li>
+        <li><b>Resolved 20+ in-plant production issues</b> by authoring engineering releases, supporting the R1S launch ramp.</li>
+        <li><b>Traced swelling O-rings on suspension hydraulic lines</b> to a leaching dust-cap material, then moved to TPE caps with a polymer expert and the supplier.</li>
+        <li><b>Turned service-technician feedback</b> on 10+ fleet-reported issues into design changes that reduced future warranty claims.</li>
+      </ul>
+      <div class="mini">
+        <div class="m"><b>10+</b><span>brake and suspension components owned end to end</span></div>
+        <div class="m"><b>50%</b><span>durability gain on suspension jounce lines</span></div>
+        <div class="m"><b>20+</b><span>plant production issues closed for the R1S launch</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. Tesla ============ -->
+<section class="stop" id="tesla" data-stop data-name="Tesla Cybertruck">
+  <div class="wrap">
+    <div class="stop-head">
+      <div class="era">2023</div>
+      <h2>Tesla <span>· Cybertruck</span></h2>
+    </div>
+    <p class="role"><b>Technical Program Manager II</b> · Sep 2023 – Jun 2024 <span class="vehicle-tag">🛻 Tesla Cybertruck</span></p>
+    <div class="stop-grid">
+      <ul>
+        <li><b>Owned the integrated roadmap</b> for Cybertruck chassis sub-systems from concept to serial production, aligning 20+ engineering, finance, supply chain, and manufacturing stakeholders.</li>
+        <li><b>Held zero production downtime</b> through a 2-month component shortage with an expedited shipment and build plan.</li>
+        <li><b>Signed off a new tire/wheel option 3 months before start of production</b> by coordinating 6 cross-functional teams.</li>
+        <li><b>Cut hardware-test downtime</b> by an average of 48 hours with a centralized part request method in Jira.</li>
+      </ul>
+      <div class="mini">
+        <div class="m"><b>20+</b><span>stakeholders aligned to design freeze and production readiness</span></div>
+        <div class="m"><b>15+</b><span>critical program risks identified and mitigated</span></div>
+        <div class="m"><b>48 hrs</b><span>average test downtime saved per cycle</span></div>
+      </div>
+    </div>
+
+    <article class="case wide">
+      <div class="copy">
+        <div class="tag">Tesla · Production issue response</div>
+        <h3>Unblocked a production-critical half-shaft installation issue</h3>
+        <div class="cols">
+          <div>
+            <p>Cybertruck vehicles were making abnormal noise while moving. A teardown showed the half-shaft splines wearing into each other.</p>
+            <p>The root cause was a C-clip that wasn't fully seated during installation. If the clip's gap wasn't oriented correctly, there was a 20–30% chance it wouldn't catch.</p>
+          </div>
+          <div>
+            <p>I ran the response on two tracks. On the line, I added an operator check to rotate the clip to the correct orientation before install, validated it on 10 vehicles in an end-of-shift trial, then rolled it out across the line.</p>
+            <p>In parallel, an engineer and the supplier worked on a permanent design change. I worked on and off hours and kept executives updated on mitigation status.</p>
+          </div>
+        </div>
+        <ul class="chips"><li>Root-cause analysis</li><li>Containment</li><li>Line validation</li><li>Supplier + engineering</li><li>Exec communication</li></ul>
+      </div>
+      <div class="viz">
+        <svg viewBox="0 0 910 340" role="img" aria-label="Half-shaft issue: symptom, teardown, root cause, containment, validation and rollout, with a diagram of the C-clip orientation and a two-track response">
+          <defs><marker id="ha" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+
+          <!-- Step flow -->
+          <g font-size="13" text-anchor="middle">
+            <rect x="10" y="14" width="150" height="92" rx="12" class="box"/>
+            <circle cx="30" cy="34" r="11" class="acc"/><text x="30" y="38.5" class="onacc" font-weight="700" font-size="12">1</text>
+            <text x="85" y="40" font-weight="700">Symptom</text><text x="85" y="62" class="m">Abnormal noise</text><text x="85" y="80" class="m">when moving</text>
+
+            <rect x="195" y="14" width="150" height="92" rx="12" class="box"/>
+            <circle cx="215" cy="34" r="11" class="acc"/><text x="215" y="38.5" class="onacc" font-weight="700" font-size="12">2</text>
+            <text x="270" y="40" font-weight="700">Teardown</text><text x="270" y="62" class="m">Half-shaft splines</text><text x="270" y="80" class="m">eating into each other</text>
+
+            <rect x="380" y="14" width="150" height="92" rx="12" class="acc"/>
+            <circle cx="400" cy="34" r="11" fill="#fff"/><text x="400" y="38.5" fill="#0f766e" font-weight="700" font-size="12" style="fill:#0f766e">3</text>
+            <text x="455" y="40" font-weight="700" class="onacc">Root cause</text><text x="455" y="62" class="onacc">C-clip not seated</text><text x="455" y="80" class="onacc">during installation</text>
+
+            <rect x="565" y="14" width="150" height="92" rx="12" class="box"/>
+            <circle cx="585" cy="34" r="11" class="acc"/><text x="585" y="38.5" class="onacc" font-weight="700" font-size="12">4</text>
+            <text x="640" y="40" font-weight="700">Containment</text><text x="640" y="62" class="m">Operator rotates clip</text><text x="640" y="80" class="m">to correct orientation</text>
+
+            <rect x="750" y="14" width="150" height="92" rx="12" class="box"/>
+            <circle cx="770" cy="34" r="11" class="acc"/><text x="770" y="38.5" class="onacc" font-weight="700" font-size="12">5</text>
+            <text x="832" y="40" font-weight="700">Roll out</text><text x="825" y="62" class="m">Validated on 10 vehicles,</text><text x="825" y="80" class="m">then rolled out line-wide</text>
+          </g>
+          <g stroke="var(--accent)" stroke-width="2" marker-end="url(#ha)">
+            <line x1="162" y1="60" x2="191" y2="60"/><line x1="347" y1="60" x2="376" y2="60"/>
+            <line x1="532" y1="60" x2="561" y2="60"/><line x1="717" y1="60" x2="746" y2="60"/>
+          </g>
+
+          <!-- C-clip orientation -->
+          <text x="10" y="150" font-size="14" font-weight="700">Why the clip sometimes didn't catch</text>
+          <g>
+            <circle cx="105" cy="235" r="26" class="soft"/>
+            <circle cx="105" cy="235" r="41" fill="none" stroke="var(--bad)" stroke-width="8" stroke-dasharray="226 32" transform="rotate(-30 105 235)"/>
+            <circle cx="105" cy="235" r="14" fill="var(--surface)"/>
+            <text x="105" y="239" font-size="10" text-anchor="middle" class="m">shaft</text>
+            <text x="105" y="300" font-size="13" text-anchor="middle" font-weight="700" style="fill:var(--bad)">Gap misoriented</text>
+            <text x="105" y="318" font-size="12" text-anchor="middle" class="m">20–30% chance it won't catch</text>
+          </g>
+          <path d="M175 235h50" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#ha)"/>
+          <text x="200" y="224" font-size="11" text-anchor="middle" class="m">rotate</text>
+          <g>
+            <circle cx="295" cy="235" r="26" class="soft"/>
+            <circle cx="295" cy="235" r="41" fill="none" stroke="var(--good)" stroke-width="8" stroke-dasharray="226 32" transform="rotate(90 295 235)"/>
+            <circle cx="295" cy="235" r="14" fill="var(--surface)"/>
+            <text x="295" y="239" font-size="10" text-anchor="middle" class="m">shaft</text>
+            <text x="295" y="300" font-size="13" text-anchor="middle" font-weight="700" style="fill:var(--good)">Rotated to spec</text>
+            <text x="295" y="318" font-size="12" text-anchor="middle" class="m">clip seats fully</text>
+          </g>
+
+          <!-- Two tracks -->
+          <line x1="440" y1="140" x2="440" y2="330" stroke="var(--line)" stroke-width="1.5"/>
+          <text x="470" y="150" font-size="14" font-weight="700">Contain now, fix permanently in parallel</text>
+          <text x="470" y="196" font-size="12" class="m">On the line</text>
+          <rect x="560" y="180" width="105" height="26" rx="6" class="acc"/><text x="612" y="197" font-size="12" text-anchor="middle" class="onacc" font-weight="700">Contain</text>
+          <rect x="671" y="180" width="105" height="26" rx="6" class="acc" opacity=".8"/><text x="723" y="197" font-size="12" text-anchor="middle" class="onacc" font-weight="700">Validate</text>
+          <rect x="782" y="180" width="118" height="26" rx="6" class="acc" opacity=".6"/><text x="841" y="197" font-size="12" text-anchor="middle" class="onacc" font-weight="700">Roll out</text>
+          <text x="470" y="250" font-size="12" class="m">Design</text>
+          <rect x="560" y="234" width="340" height="26" rx="6" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="6 4"/>
+          <text x="730" y="251" font-size="12" text-anchor="middle">Engineer + supplier: permanent design change</text>
+          <g font-size="12" text-anchor="middle">
+            <rect x="470" y="284" width="205" height="34" rx="17" class="box"/><text x="572" y="306">Worked on and off hours</text>
+            <rect x="690" y="284" width="210" height="34" rx="17" class="box"/><text x="795" y="306">Exec status updates</text>
+          </g>
+        </svg>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 5. Zoox ============ -->
+<section class="stop" id="zoox" data-stop data-name="Zoox robotaxi">
+  <div class="wrap">
+    <div class="stop-head">
+      <div class="era">2024</div>
+      <h2>Zoox <span>· Autonomous Vehicles L5 Program</span></h2>
+    </div>
+    <p class="role"><b>Technical Program Manager</b> · Nov 2024 – Mar 2026 <span class="vehicle-tag">🤖 Zoox robotaxi</span></p>
+    <div class="stop-grid">
+      <ul>
+        <li><b>Owned requirements and roadmap</b> for vehicle and system-level integration assets serving 10+ stakeholder teams across hardware, software, and operations.</li>
+        <li><b>Maintained integrated program schedules</b> and carried risks, tradeoffs, and blockers to executive leadership for critical vehicle builds.</li>
+        <li><b>Upgraded an existing sensor contamination test bench</b> to cover current and future sensor generations.</li>
+      </ul>
+      <div class="mini">
+        <div class="m"><b>10+</b><span>stakeholder teams served by the asset roadmap</span></div>
+        <div class="m"><b>3 weeks</b><span>cut from supplier bring-up by a new Drive Module test bench</span></div>
+        <div class="m"><b>20%</b><span>less issue-triage time after a Jira workflow redesign</span></div>
+      </div>
+    </div>
+
+    <article class="case wide">
+      <div class="copy">
+        <div class="tag">Zoox · Process design</div>
+        <h3>Created the Engineering Test Asset Committee (ETAC)</h3>
+        <div class="cols">
+          <div>
+            <p>Requests for test assets, such as lighting rigs, sensor-contamination bots, and vehicle-level builds, arrived ad hoc from sister teams. Asks added mid-build caused scope creep and put timelines for downstream work at risk.</p>
+            <p>I created ETAC to centralize the requests. Every asset now starts with one Jira intake and a one-pager covering the capability, timeline, and milestone.</p>
+          </div>
+          <div>
+            <p>A standing forum brings prototyping, controller validation, EMC, optics, supply chain, and HW/SW integration to one table. The committee challenges whether each requirement is needed, looks for existing assets to reuse, and splits big builds into phases. That is how knowledge moves between teams.</p>
+            <p>Each build is scheduled and tracked with Gantt charts, weekly updates, and epics, for current and new assets alike.</p>
+          </div>
+        </div>
+        <ul class="chips"><li>Process design</li><li>Requirements</li><li>Cross-functional forum</li><li>Jira + Smartsheet</li><li>Phased delivery</li></ul>
+      </div>
+      <div class="viz">
+        <svg viewBox="0 0 910 360" role="img" aria-label="Before ETAC: many teams send ad hoc requests to prototyping. With ETAC: request, review, build, track, resting on three pillars: centralized requests, shared knowledge, scheduled progress">
+          <defs><marker id="za" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+
+          <!-- Before -->
+          <text x="10" y="24" font-size="14" font-weight="700">Before: ad hoc asks</text>
+          <g font-size="12" text-anchor="middle">
+            <rect x="10" y="40" width="96" height="26" rx="8" class="box"/><text x="58" y="57">Lighting</text>
+            <rect x="10" y="78" width="96" height="26" rx="8" class="box"/><text x="58" y="95">Sensors</text>
+            <rect x="10" y="116" width="96" height="26" rx="8" class="box"/><text x="58" y="133">Controller val.</text>
+            <rect x="10" y="154" width="96" height="26" rx="8" class="box"/><text x="58" y="171">EMC</text>
+            <rect x="10" y="192" width="96" height="26" rx="8" class="box"/><text x="58" y="209">Optics</text>
+            <rect x="190" y="98" width="104" height="70" rx="10" class="box"/><text x="242" y="128" font-weight="700">Prototyping</text><text x="242" y="146" class="m">mid-build asks</text>
+          </g>
+          <g stroke="var(--bad)" stroke-width="1.5" opacity=".55" fill="none">
+            <path d="M108 53 C150 60 160 120 188 126"/><path d="M108 91 C140 95 160 125 188 130"/>
+            <path d="M108 129 L188 133"/><path d="M108 167 C140 165 160 145 188 138"/><path d="M108 205 C150 200 165 150 188 142"/>
+          </g>
+          <text x="152" y="246" font-size="12" text-anchor="middle" style="fill:var(--bad)" font-weight="700">Scope creep, no shared view</text>
+
+          <path d="M312 133h36" stroke="var(--accent)" stroke-width="3" marker-end="url(#za)"/>
+
+          <!-- After -->
+          <text x="370" y="24" font-size="14" font-weight="700">With ETAC: one process, one forum</text>
+          <g font-size="12.5" text-anchor="middle">
+            <rect x="370" y="44" width="122" height="98" rx="12" class="box"/>
+            <text x="431" y="70" font-weight="700">1  Request</text><text x="431" y="92" class="m">One Jira intake</text><text x="431" y="110" class="m">+ one-pager</text><text x="431" y="128" class="m">(capability, timeline)</text>
+
+            <rect x="516" y="44" width="122" height="98" rx="12" class="acc"/>
+            <text x="577" y="70" font-weight="700" class="onacc">2  ETAC review</text><text x="577" y="92" class="onacc">Challenge the need</text><text x="577" y="110" class="onacc">Reuse existing</text><text x="577" y="128" class="onacc">assets</text>
+
+            <rect x="662" y="44" width="106" height="98" rx="12" class="box"/>
+            <text x="715" y="70" font-weight="700">3  Build</text><text x="715" y="92" class="m">Phase 1</text><text x="715" y="110" class="m">then Phase 2</text>
+
+            <rect x="792" y="44" width="108" height="98" rx="12" class="box"/>
+            <text x="846" y="70" font-weight="700">4  Track</text><text x="846" y="92" class="m">Gantt, weekly</text><text x="846" y="110" class="m">updates,</text><text x="846" y="128" class="m">epics</text>
+          </g>
+          <g stroke="var(--accent)" stroke-width="2" marker-end="url(#za)">
+            <line x1="494" y1="93" x2="512" y2="93"/><line x1="640" y1="93" x2="658" y2="93"/><line x1="770" y1="93" x2="788" y2="93"/>
+          </g>
+
+          <!-- Pillars -->
+          <g font-size="12.5" text-anchor="middle">
+            <rect x="370" y="168" width="176" height="78" rx="12" class="box"/>
+            <text x="458" y="194" font-weight="700">Centralized requests</text><text x="458" y="214" class="m">One queue every team</text><text x="458" y="231" class="m">can see and use</text>
+            <rect x="558" y="168" width="176" height="78" rx="12" class="box"/>
+            <text x="646" y="194" font-weight="700">Shared knowledge</text><text x="646" y="214" class="m">Teams learn from each</text><text x="646" y="231" class="m">other's builds</text>
+            <rect x="746" y="168" width="154" height="78" rx="12" class="box"/>
+            <text x="823" y="194" font-weight="700">Scheduled progress</text><text x="823" y="214" class="m">Current and new</text><text x="823" y="231" class="m">builds on plan</text>
+          </g>
+
+          <!-- Assets delivered -->
+          <text x="10" y="284" font-size="13" class="m">Assets delivered while running the roadmap</text>
+          <g font-size="12" text-anchor="middle">
+            <rect x="10" y="296" width="210" height="50" rx="10" class="box"/><text x="115" y="317" font-weight="700">3 system-level assets</text><text x="115" y="335" class="m">on the roadmap</text>
+            <rect x="240" y="296" width="210" height="50" rx="10" class="box"/><text x="345" y="317" font-weight="700">Sensor contamination bench</text><text x="345" y="335" class="m">upgraded for future sensors</text>
+            <rect x="470" y="296" width="210" height="50" rx="10" class="box"/><text x="575" y="317" font-weight="700">Drive Module test bench</text><text x="575" y="335" class="m">3 weeks off supplier bring-up</text>
+            <rect x="700" y="296" width="200" height="50" rx="10" class="box"/><text x="800" y="317" font-weight="700">Jira workflow redesign</text><text x="800" y="335" class="m">20% faster issue triage</text>
+          </g>
+        </svg>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 6. Nomadic ============ -->
+<section class="stop" id="nomadic" data-stop data-name="Nomadic (sensing pod)">
+  <div class="wrap">
+    <div class="stop-head">
+      <div class="era">2026</div>
+      <h2>Nomadic AI <span>· Video Intelligence Platform</span></h2>
+    </div>
+    <p class="role"><b>Member of Product Staff</b> · Jun 2026 – present <span class="vehicle-tag">🎥 Video intelligence for driving and robotics footage</span></p>
+
+    <!-- SOC 2 -->
+    <article class="case">
+      <div class="copy">
+        <div class="tag">Security &amp; compliance</div>
+        <h3>Drove audit readiness for the platform's SOC 2 Security audit</h3>
+        <p>A scanner flagged 366 vulnerabilities. Many were the same vulnerable package pulled in by different parents, so I grouped findings by root cause and cut the list to about 35 packages. Then I closed every critical and high CVE across 11 JavaScript lockfiles and 3 Python manifests in 15+ merged PRs.</p>
+        <p>I also added security countermeasures and remediation evidence across engineering, HR, IT, and policy documentation.</p>
+        <ul class="chips"><li>Dependency triage</li><li>CVE remediation</li><li>SOC 2</li><li>Cross-functional</li></ul>
+      </div>
+      <div class="viz">
+        <svg viewBox="0 0 520 300" role="img" aria-label="Funnel: 366 flagged vulnerabilities reduced to about 35 root-cause packages, with every critical and high CVE closed">
+          <text x="20" y="22" font-size="13" class="m">Scanner findings</text>
+          <rect x="20" y="30" width="480" height="44" rx="8" class="warnF"/>
+          <text x="36" y="58" font-size="18" font-weight="700" class="onacc">366 flagged</text>
+          <text x="20" y="102" font-size="12" class="m">↓ group by root-cause package</text>
+          <rect x="20" y="112" width="46" height="44" rx="8" class="acc"/>
+          <text x="78" y="141" font-size="18" font-weight="700">~35 root-cause packages</text>
+          <text x="20" y="184" font-size="12" class="m">↓ patch, test, merge</text>
+          <circle cx="42" cy="220" r="20" class="goodF"/>
+          <path d="M32 220l7 7l13-14" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="76" y="226" font-size="18" font-weight="700">Every critical / high CVE closed</text>
+          <g>
+            <rect x="20" y="256" width="150" height="34" rx="8" class="box"/><text x="95" y="278" font-size="13" text-anchor="middle">11 JS lockfiles</text>
+            <rect x="185" y="256" width="150" height="34" rx="8" class="box"/><text x="260" y="278" font-size="13" text-anchor="middle">3 Python manifests</text>
+            <rect x="350" y="256" width="150" height="34" rx="8" class="box"/><text x="425" y="278" font-size="13" text-anchor="middle">15+ merged PRs</text>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- Search -->
+    <article class="case flip">
+      <div class="copy">
+        <div class="tag">Product &amp; engineering</div>
+        <h3>Shipped server-side search over a customer's full analysis history</h3>
+        <p>Customers could only filter what was already loaded in the browser. I shipped server-side search over their full analysis history of driving and robotics footage, spanning two database backends and a 7-category classifier.</p>
+        <p>Any past perception run is now retrievable from one query.</p>
+        <ul class="chips"><li>Search</li><li>Cursor pagination</li><li>Firestore + MongoDB</li><li>Classifier</li></ul>
+      </div>
+      <div class="viz">
+        <svg viewBox="0 0 520 300" role="img" aria-label="Offset pagination scans and discards rows before the page; cursor pagination jumps straight to the cursor">
+          <g>
+            <text x="10" y="22" font-size="14" font-weight="700">Offset pagination</text>
+            <text x="10" y="42" font-size="11" font-family="ui-monospace, Menlo, monospace" class="m">LIMIT 20 OFFSET 400</text>
+            <rect x="10" y="56" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <rect x="10" y="76" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <rect x="10" y="96" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <rect x="10" y="116" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <rect x="10" y="136" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <rect x="10" y="156" width="230" height="16" rx="4" class="badF" opacity=".35"/>
+            <text x="125" y="167" font-size="10" text-anchor="middle" class="m">scanned, then thrown away</text>
+            <rect x="10" y="176" width="230" height="16" rx="4" class="acc"/>
+            <rect x="10" y="196" width="230" height="16" rx="4" class="acc"/>
+            <text x="125" y="188" font-size="10" text-anchor="middle" class="onacc">page you asked for</text>
+            <text x="10" y="236" font-size="12" class="m">Slower every page, and unstable</text>
+            <text x="10" y="252" font-size="12" class="m">if data changes mid-scroll.</text>
+          </g>
+          <line x1="260" y1="14" x2="260" y2="262" stroke="var(--line)" stroke-width="1.5"/>
+          <g>
+            <text x="280" y="22" font-size="14" font-weight="700">Cursor pagination</text>
+            <text x="280" y="42" font-size="11" font-family="ui-monospace, Menlo, monospace" class="m">WHERE created_at &lt; :cursor</text>
+            <rect x="280" y="56" width="230" height="16" rx="4" class="soft"/>
+            <rect x="280" y="76" width="230" height="16" rx="4" class="soft"/>
+            <rect x="280" y="96" width="230" height="16" rx="4" class="soft"/>
+            <text x="395" y="107" font-size="10" text-anchor="middle" class="m">skipped via the index</text>
+            <path d="M280 124h230" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4"/>
+            <text x="280" y="140" font-size="10" class="m">cursor ↓</text>
+            <rect x="280" y="146" width="230" height="16" rx="4" class="acc"/>
+            <rect x="280" y="166" width="230" height="16" rx="4" class="acc"/>
+            <rect x="280" y="186" width="230" height="16" rx="4" class="acc"/>
+            <text x="395" y="177" font-size="10" text-anchor="middle" class="onacc">page you asked for</text>
+            <text x="280" y="236" font-size="12" class="m">Same cost at any depth,</text>
+            <text x="280" y="252" font-size="12" class="m">stable under new writes.</text>
+          </g>
+          <g>
+            <rect x="10" y="266" width="160" height="28" rx="8" class="box"/><text x="90" y="285" font-size="12" text-anchor="middle">2 database backends</text>
+            <rect x="180" y="266" width="160" height="28" rx="8" class="box"/><text x="260" y="285" font-size="12" text-anchor="middle">7-category classifier</text>
+            <rect x="350" y="266" width="160" height="28" rx="8" class="box"/><text x="430" y="285" font-size="12" text-anchor="middle">Bounded scans</text>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- Docs -->
+    <article class="case">
+      <div class="copy">
+        <div class="tag">Developer experience</div>
+        <h3>Restructured the SDK and API docs into a Quickstart-first guide</h3>
+        <p>I reorganized the platform's SDK and API documentation into dedicated tabs, with an Overview and Quickstart up front, then Installation, Troubleshooting, and Advanced topics.</p>
+        <p>The goal: a customer's engineering team runs their first programmatic video analysis without needing support.</p>
+        <ul class="chips"><li>Information architecture</li><li>Quickstart</li><li>Self-serve onboarding</li></ul>
+      </div>
+      <div class="viz">
+        <svg viewBox="0 0 520 300" role="img" aria-label="Docs sidebar before: one flat list; after: ordered Quickstart-first path">
+          <text x="10" y="20" font-size="14" font-weight="700">Before</text>
+          <rect x="10" y="30" width="200" height="250" rx="12" class="box"/>
+          <g class="soft">
+            <rect x="26" y="48" width="150" height="10" rx="5"/><rect x="26" y="70" width="120" height="10" rx="5"/>
+            <rect x="26" y="92" width="165" height="10" rx="5"/><rect x="26" y="114" width="100" height="10" rx="5"/>
+            <rect x="26" y="136" width="140" height="10" rx="5"/><rect x="26" y="158" width="160" height="10" rx="5"/>
+            <rect x="26" y="180" width="110" height="10" rx="5"/><rect x="26" y="202" width="150" height="10" rx="5"/>
+            <rect x="26" y="224" width="125" height="10" rx="5"/><rect x="26" y="246" width="145" height="10" rx="5"/>
+          </g>
+          <path d="M226 155h50" stroke="var(--accent)" stroke-width="3" fill="none"/>
+          <path d="M268 145l12 10l-12 10" stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="300" y="20" font-size="14" font-weight="700">After</text>
+          <rect x="300" y="30" width="210" height="250" rx="12" class="box"/>
+          <g font-size="12">
+            <text x="316" y="54" class="m" font-weight="700" letter-spacing=".06em">START HERE</text>
+            <rect x="312" y="62" width="186" height="26" rx="6" class="acc"/>
+            <text x="324" y="80" class="onacc" font-weight="700">1  Quickstart</text>
+            <text x="324" y="108">2  Installation + API key</text>
+            <text x="324" y="130">3  Run your first analysis</text>
+            <text x="324" y="152">4  Troubleshooting</text>
+            <text x="316" y="182" class="m" font-weight="700" letter-spacing=".06em">ADVANCED</text>
+            <text x="324" y="204">Authentication</text>
+            <text x="324" y="226">Cloud storage</text>
+            <text x="324" y="248">SDK and API reference</text>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- Ingestion -->
+    <article class="case flip">
+      <div class="copy">
+        <div class="tag">Data &amp; infrastructure</div>
+        <h3>Built a cloud pipeline that loads benchmark datasets on demand</h3>
+        <p>I built and operated a cloud ingestion workflow that downloads external benchmark datasets, transcodes them, and loads them into the platform's shared library.</p>
+        <p>Sales and customer teams get realistic evaluation footage for demos whenever they need it.</p>
+        <ul class="chips"><li>Cloud workflow</li><li>Transcoding</li><li>Benchmark datasets</li><li>Demo enablement</li></ul>
+      </div>
+      <div class="viz">
+        <svg viewBox="0 0 520 220" role="img" aria-label="Pipeline: external datasets, download, transcode, shared library, customer demos">
+          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+          <g font-size="12" text-anchor="middle">
+            <rect x="10" y="70" width="82" height="64" rx="10" class="box"/><text x="51" y="98">External</text><text x="51" y="114">datasets</text>
+            <rect x="116" y="70" width="82" height="64" rx="10" class="box"/><text x="157" y="106">Download</text>
+            <rect x="222" y="70" width="82" height="64" rx="10" class="acc"/><text x="263" y="106" class="onacc" font-weight="700">Transcode</text>
+            <rect x="328" y="70" width="82" height="64" rx="10" class="box"/><text x="369" y="98">Shared</text><text x="369" y="114">library</text>
+            <rect x="434" y="70" width="82" height="64" rx="10" class="box"/><text x="475" y="98">Customer</text><text x="475" y="114">demos</text>
+          </g>
+          <g stroke="var(--accent)" stroke-width="2" marker-end="url(#arr)">
+            <line x1="94" y1="102" x2="112" y2="102"/><line x1="200" y1="102" x2="218" y2="102"/>
+            <line x1="306" y1="102" x2="324" y2="102"/><line x1="412" y1="102" x2="430" y2="102"/>
+          </g>
+          <text x="263" y="156" font-size="11" text-anchor="middle" class="m">one consistent, browser-ready format</text>
+          <text x="10" y="30" font-size="13" class="m">Runs in the cloud. Repeatable and on demand.</text>
+          <rect x="10" y="178" width="500" height="30" rx="8" class="soft" opacity=".6"/>
+          <text x="260" y="198" font-size="12" text-anchor="middle" class="m">Driving · robotics · maritime · aerial footage for evaluation</text>
+        </svg>
+      </div>
+    </article>
+
+    <div class="note-card">
+      <h3>Enterprise pipeline adoption</h3>
+      <p>I own adoption for POC-stage enterprise accounts: two autonomous-vehicle developers and one data-services company. For each I build a targeted customer deck and industry-specific examples that run on Nomadic's production platform.</p>
+      <ul class="chips"><li>POC ownership</li><li>Customer decks</li><li>Industry examples</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="plain" id="skills">
+  <div class="wrap">
+    <h2 class="sec">Skills</h2>
+    <p class="sub">The tools I use to ship.</p>
+    <div class="skills">
+      <div class="skill"><h3>AI tools</h3><ul class="chips"><li>Claude</li><li>Cursor</li><li>ChatGPT</li></ul><p style="color:var(--muted);font-size:14px;margin:10px 0 0">Daily use for prototyping, shipping working artifacts, and bug fixes.</p></div>
+      <div class="skill"><h3>Product &amp; go-to-market</h3><ul class="chips"><li>Jira</li><li>Smartsheet</li><li>Lucidchart</li><li>Asana</li><li>Notion</li><li>Lightfield</li><li>Attio</li><li>Vanta</li><li>Figma</li></ul></div>
+      <div class="skill"><h3>Engineering</h3><ul class="chips"><li>GitHub</li><li>CATIA / 3DX</li><li>Siemens NX</li><li>Enovia</li><li>SAP</li><li>SolidWorks</li><li>Ansys</li><li>FEA</li><li>GD&amp;T</li><li>DFMEA</li><li>DVP&amp;R</li></ul></div>
+    </div>
+    <p style="margin-top:24px;color:var(--muted)"><b style="color:var(--ink)">Education:</b> B.S. Mechanical Engineering, Virginia Tech, May 2020</p>
+  </div>
+</section>
+
+<section class="plain contact" id="contact">
+  <div class="wrap">
+    <h2 class="sec">Let's talk</h2>
+    <p class="sub">Open to conversations about product, program, and technical roles at the edge of hardware and AI.</p>
+    <div class="cta">
+      <a class="btn primary" href="mailto:rohit.tadikamalla@gmail.com">rohit.tadikamalla@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/rohittadikamalla">LinkedIn</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>© 2026 Rohit Tadikamalla</footer>
+
+<script src="timeline.js"></script>
+</body>
+</html>
