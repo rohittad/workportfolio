@@ -1,0 +1,3 @@
+.DS_Store
+# source GIFs are huge (GitHub rejects files over 100 MB); the site uses the compressed video/ copies
+gifs/

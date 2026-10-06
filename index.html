@@ -91,6 +91,8 @@ h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.
 .media{position:absolute; inset:0; background:var(--paper-2); display:flex; align-items:center; justify-content:center}
 .media img,.media video{width:100%; height:100%; object-fit:contain; display:block}
 .media .slide{position:absolute; inset:0; transition:opacity 1.1s ease}
+.media .fig-slide{display:flex; align-items:center; justify-content:center; padding:14px 18px; background:var(--paper)}
+.media .fig-slide svg{width:100%; height:100%; max-height:100%; display:block}
 .media .media-empty{padding:24px; text-align:center; color:var(--muted); max-width:22rem; line-height:1.6}
 .media[hidden]{display:none}
 .vehicle-cap{padding:10px 14px 11px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:1px}
@@ -153,10 +155,10 @@ h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.
 @media (max-width:900px){ .section-head{grid-template-columns:minmax(0,1fr)} }
 
 /* contact */
-.contact{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:0; border-top:2px solid var(--ink)}
+.contact{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); column-gap:24px; gap:0; border-top:2px solid var(--ink)}
 .contact a{display:flex; flex-direction:column; gap:6px; padding:20px 16px 22px 0; border-bottom:1px solid var(--line); text-decoration:none}
 .contact a .mono{color:var(--muted)}
-.contact a strong{font-family:var(--display); font-stretch:112%; font-weight:700; font-size:1.25rem; user-select:all}
+.contact a strong{font-family:var(--display); font-stretch:112%; font-weight:700; font-size:1.08rem; user-select:all; overflow-wrap:break-word}
 .contact a:hover strong{color:var(--signal)}
 footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(--muted); font-size:13px; display:flex; flex-wrap:wrap; gap:8px 24px; border-top:1px solid var(--line)}
 
@@ -170,11 +172,6 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
 .work .cols{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 36px; margin-bottom:14px}
 .work .eyebrow{margin-bottom:6px}
 @media (max-width:900px){ .work .cols{grid-template-columns:minmax(0,1fr)} }
-.nomadic-head{padding-top:44px; border-top:2px solid var(--ink); margin-top:8px}
-.grid2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 36px}
-.grid2 .work{border-top:1px solid var(--line); align-content:start}
-.work.small h3{font-size:1.35rem}
-@media (max-width:900px){ .grid2{grid-template-columns:minmax(0,1fr)} }
 .spec.wide-spec{max-width:60rem}
 
 /* figures: engineering-drawing sheets that reuse the diagram markup */
@@ -192,6 +189,7 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
 .fig svg .warnF{fill:var(--clay)}
 .fig svg .soft{fill:var(--line)}
 .fig svg .onacc{fill:#fff}
+.fig svg .box.hl{fill:color-mix(in srgb, var(--signal) 12%, var(--paper)); stroke:var(--signal); stroke-width:2}
 
 </style>
 </head>
@@ -338,7 +336,6 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
         <li><b>Enterprise POC adoption:</b> own adoption for three POC-stage accounts, with targeted customer decks and industry-specific examples.</li>
         <li><b>Building with AI tools:</b> prototype and ship daily with Claude and Cursor as the company's product hire.</li>
       </ul>
-      <p class="mono" style="color:var(--muted)"><a href="#nomadic-cases">Nomadic work ↓</a></p>
     </article>
   </div>
 </section>
@@ -346,7 +343,7 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
 <section class="section" id="selected" aria-labelledby="sel-h">
   <div class="section-head">
     <h2 id="sel-h">Selected work</h2>
-    <p>The stories behind the numbers: how two problems were diagnosed and solved, and what I've shipped at Nomadic so far. Figures and images will keep evolving.</p>
+    <p>The stories behind the numbers: how two production problems were diagnosed and solved. Figures and images will keep evolving.</p>
   </div>
 
   <article class="work" id="tesla-case">
@@ -519,139 +516,6 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
           </g>
         </svg></div><figcaption class="mono">Fig. 2 · ETAC: from ad hoc asks to one process and one forum</figcaption></figure>
   </article>
-
-  <div id="nomadic-cases" class="nomadic-head">
-    <div class="eyebrow mono"><span class="sta">Nomadic AI</span><span>Product · Security · Developer experience · Data</span></div>
-  </div>
-  <div class="grid2">
-    <article class="work small">
-      <div class="work-copy">
-        <h3>SOC 2 audit readiness</h3>
-        <p>A scanner flagged 366 vulnerabilities. Many were the same package pulled in by different parents, so I grouped findings by root cause and cut the list to about 35 packages, then closed every critical and high CVE in 15+ merged PRs. I also added remediation evidence across engineering, HR, IT, and policy documents.</p>
-      </div>
-      <figure class="fig"><div class="viz"><svg viewBox="0 0 520 300" role="img" aria-label="Funnel: 366 flagged vulnerabilities reduced to about 35 root-cause packages, with every critical and high CVE closed">
-          <text x="20" y="22" font-size="13" class="m">Scanner findings</text>
-          <rect x="20" y="30" width="480" height="44" rx="8" class="warnF"/>
-          <text x="36" y="58" font-size="18" font-weight="700" class="onacc">366 flagged</text>
-          <text x="20" y="102" font-size="12" class="m">↓ group by root-cause package</text>
-          <rect x="20" y="112" width="46" height="44" rx="8" class="acc"/>
-          <text x="78" y="141" font-size="18" font-weight="700">~35 root-cause packages</text>
-          <text x="20" y="184" font-size="12" class="m">↓ patch, test, merge</text>
-          <circle cx="42" cy="220" r="20" class="goodF"/>
-          <path d="M32 220l7 7l13-14" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <text x="76" y="226" font-size="18" font-weight="700">Every critical / high CVE closed</text>
-          <g>
-            <rect x="20" y="256" width="150" height="34" rx="8" class="box"/><text x="95" y="278" font-size="13" text-anchor="middle">11 JS lockfiles</text>
-            <rect x="185" y="256" width="150" height="34" rx="8" class="box"/><text x="260" y="278" font-size="13" text-anchor="middle">3 Python manifests</text>
-            <rect x="350" y="256" width="150" height="34" rx="8" class="box"/><text x="425" y="278" font-size="13" text-anchor="middle">15+ merged PRs</text>
-          </g>
-        </svg></div><figcaption class="mono">Fig. 3 · 366 findings to ~35 root causes</figcaption></figure>
-    </article>
-    <article class="work small">
-      <div class="work-copy">
-        <h3>Server-side search</h3>
-        <p>Customers could only filter what was already loaded in the browser. I shipped server-side search across their full analysis history of driving and robotics footage, spanning two database backends and a 7-category classifier. Any past perception run is one query away.</p>
-      </div>
-      <figure class="fig"><div class="viz"><svg viewBox="0 0 520 300" role="img" aria-label="Offset pagination scans and discards rows before the page; cursor pagination jumps straight to the cursor">
-          <g>
-            <text x="10" y="22" font-size="14" font-weight="700">Offset pagination</text>
-            <text x="10" y="42" font-size="11" font-family="ui-monospace, Menlo, monospace" class="m">LIMIT 20 OFFSET 400</text>
-            <rect x="10" y="56" width="230" height="16" rx="4" class="badF" opacity=".35"/>
-            <rect x="10" y="76" width="230" height="16" rx="4" class="badF" opacity=".35"/>
-            <rect x="10" y="96" width="230" height="16" rx="4" class="badF" opacity=".35"/>
-            <rect x="10" y="116" width="230" height="16" rx="4" class="badF" opacity=".35"/>
-            <rect x="10" y="136" width="230" height="16" rx="4" class="badF" opacity=".35"/>
-            <rect x="10" y="156" width="230" height="16" rx="4" class="badF" opacity=".35"/>
-            <text x="125" y="167" font-size="10" text-anchor="middle" class="m">scanned, then thrown away</text>
-            <rect x="10" y="176" width="230" height="16" rx="4" class="acc"/>
-            <rect x="10" y="196" width="230" height="16" rx="4" class="acc"/>
-            <text x="125" y="188" font-size="10" text-anchor="middle" class="onacc">page you asked for</text>
-            <text x="10" y="236" font-size="12" class="m">Slower every page, and unstable</text>
-            <text x="10" y="252" font-size="12" class="m">if data changes mid-scroll.</text>
-          </g>
-          <line x1="260" y1="14" x2="260" y2="262" stroke="var(--line)" stroke-width="1.5"/>
-          <g>
-            <text x="280" y="22" font-size="14" font-weight="700">Cursor pagination</text>
-            <text x="280" y="42" font-size="11" font-family="ui-monospace, Menlo, monospace" class="m">WHERE created_at &lt; :cursor</text>
-            <rect x="280" y="56" width="230" height="16" rx="4" class="soft"/>
-            <rect x="280" y="76" width="230" height="16" rx="4" class="soft"/>
-            <rect x="280" y="96" width="230" height="16" rx="4" class="soft"/>
-            <text x="395" y="107" font-size="10" text-anchor="middle" class="m">skipped via the index</text>
-            <path d="M280 124h230" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4"/>
-            <text x="280" y="140" font-size="10" class="m">cursor ↓</text>
-            <rect x="280" y="146" width="230" height="16" rx="4" class="acc"/>
-            <rect x="280" y="166" width="230" height="16" rx="4" class="acc"/>
-            <rect x="280" y="186" width="230" height="16" rx="4" class="acc"/>
-            <text x="395" y="177" font-size="10" text-anchor="middle" class="onacc">page you asked for</text>
-            <text x="280" y="236" font-size="12" class="m">Same cost at any depth,</text>
-            <text x="280" y="252" font-size="12" class="m">stable under new writes.</text>
-          </g>
-          <g>
-            <rect x="10" y="266" width="160" height="28" rx="8" class="box"/><text x="90" y="285" font-size="12" text-anchor="middle">2 database backends</text>
-            <rect x="180" y="266" width="160" height="28" rx="8" class="box"/><text x="260" y="285" font-size="12" text-anchor="middle">7-category classifier</text>
-            <rect x="350" y="266" width="160" height="28" rx="8" class="box"/><text x="430" y="285" font-size="12" text-anchor="middle">Bounded scans</text>
-          </g>
-        </svg></div><figcaption class="mono">Fig. 4 · Offset versus cursor pagination</figcaption></figure>
-    </article>
-    <article class="work small">
-      <div class="work-copy">
-        <h3>Quickstart-first SDK docs</h3>
-        <p>I reorganized the SDK and API documentation into dedicated tabs with an Overview and Quickstart up front, so a customer's engineering team can run its first programmatic video analysis without needing support.</p>
-      </div>
-      <figure class="fig"><div class="viz"><svg viewBox="0 0 520 300" role="img" aria-label="Docs sidebar before: one flat list; after: ordered Quickstart-first path">
-          <text x="10" y="20" font-size="14" font-weight="700">Before</text>
-          <rect x="10" y="30" width="200" height="250" rx="12" class="box"/>
-          <g class="soft">
-            <rect x="26" y="48" width="150" height="10" rx="5"/><rect x="26" y="70" width="120" height="10" rx="5"/>
-            <rect x="26" y="92" width="165" height="10" rx="5"/><rect x="26" y="114" width="100" height="10" rx="5"/>
-            <rect x="26" y="136" width="140" height="10" rx="5"/><rect x="26" y="158" width="160" height="10" rx="5"/>
-            <rect x="26" y="180" width="110" height="10" rx="5"/><rect x="26" y="202" width="150" height="10" rx="5"/>
-            <rect x="26" y="224" width="125" height="10" rx="5"/><rect x="26" y="246" width="145" height="10" rx="5"/>
-          </g>
-          <path d="M226 155h50" stroke="var(--accent)" stroke-width="3" fill="none"/>
-          <path d="M268 145l12 10l-12 10" stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <text x="300" y="20" font-size="14" font-weight="700">After</text>
-          <rect x="300" y="30" width="210" height="250" rx="12" class="box"/>
-          <g font-size="12">
-            <text x="316" y="54" class="m" font-weight="700" letter-spacing=".06em">START HERE</text>
-            <rect x="312" y="62" width="186" height="26" rx="6" class="acc"/>
-            <text x="324" y="80" class="onacc" font-weight="700">1  Quickstart</text>
-            <text x="324" y="108">2  Installation + API key</text>
-            <text x="324" y="130">3  Run your first analysis</text>
-            <text x="324" y="152">4  Troubleshooting</text>
-            <text x="316" y="182" class="m" font-weight="700" letter-spacing=".06em">ADVANCED</text>
-            <text x="324" y="204">Authentication</text>
-            <text x="324" y="226">Cloud storage</text>
-            <text x="324" y="248">SDK and API reference</text>
-          </g>
-        </svg></div><figcaption class="mono">Fig. 5 · Docs structure, before and after</figcaption></figure>
-    </article>
-    <article class="work small">
-      <div class="work-copy">
-        <h3>Benchmark dataset pipeline</h3>
-        <p>I built and operated a cloud workflow that downloads external benchmark datasets, transcodes them, and loads them into the shared library, so demos always have realistic evaluation footage on demand.</p>
-      </div>
-      <figure class="fig"><div class="viz"><svg viewBox="0 0 520 220" role="img" aria-label="Pipeline: external datasets, download, transcode, shared library, customer demos">
-          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
-          <g font-size="12" text-anchor="middle">
-            <rect x="10" y="70" width="82" height="64" rx="10" class="box"/><text x="51" y="98">External</text><text x="51" y="114">datasets</text>
-            <rect x="116" y="70" width="82" height="64" rx="10" class="box"/><text x="157" y="106">Download</text>
-            <rect x="222" y="70" width="82" height="64" rx="10" class="acc"/><text x="263" y="106" class="onacc" font-weight="700">Transcode</text>
-            <rect x="328" y="70" width="82" height="64" rx="10" class="box"/><text x="369" y="98">Shared</text><text x="369" y="114">library</text>
-            <rect x="434" y="70" width="82" height="64" rx="10" class="box"/><text x="475" y="98">Customer</text><text x="475" y="114">demos</text>
-          </g>
-          <g stroke="var(--accent)" stroke-width="2" marker-end="url(#arr)">
-            <line x1="94" y1="102" x2="112" y2="102"/><line x1="200" y1="102" x2="218" y2="102"/>
-            <line x1="306" y1="102" x2="324" y2="102"/><line x1="412" y1="102" x2="430" y2="102"/>
-          </g>
-          <text x="263" y="156" font-size="11" text-anchor="middle" class="m">one consistent, browser-ready format</text>
-          <text x="10" y="30" font-size="13" class="m">Runs in the cloud. Repeatable and on demand.</text>
-          <rect x="10" y="178" width="500" height="30" rx="8" class="soft" opacity=".6"/>
-          <text x="260" y="198" font-size="12" text-anchor="middle" class="m">Driving · robotics · maritime · aerial footage for evaluation</text>
-        </svg></div><figcaption class="mono">Fig. 6 · Dataset ingestion pipeline</figcaption></figure>
-    </article>
-  </div>
-  <p class="mono" style="color:var(--muted); margin-top:28px">Also: owning adoption for POC-stage enterprise accounts (two autonomous-vehicle developers and one data-services company) with targeted customer decks and industry-specific examples.</p>
 </section>
 
 <section class="section" id="skills" aria-labelledby="sk-h">
@@ -675,6 +539,7 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
   <div class="contact">
     <a href="mailto:rohit.tadikamalla@gmail.com"><span class="mono">Email</span><strong>rohit.tadikamalla@gmail.com</strong></a>
     <a href="https://www.linkedin.com/in/rohittadikamalla" target="_blank" rel="noopener"><span class="mono">LinkedIn</span><strong>in/rohittadikamalla</strong></a>
+    <a href="tel:+17032008056"><span class="mono">Phone</span><strong>703.200.8056</strong></a>
   </div>
 </section>
 </main>
@@ -683,6 +548,54 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
   <span>Draft. Built from Rohit's resume and project notes; details still being refined.</span>
   <span id="concept-note">The car is an original concept modeled in Blender and rendered with Three.js. It is not a production vehicle.</span>
 </footer>
+
+<template id="fig-nomadic"><div class="fig fig-slide">
+<svg viewBox="0 0 480 640" role="img" aria-label="Overview of Nomadic AI: footage from driving, robotics and benchmark datasets flows into a platform of video language models, a footage classifier and search, and out as edge cases, searchable history and demo data. The parts the author worked on are highlighted.">
+  <defs><marker id="na" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--signal)"/></marker></defs>
+  <text x="24" y="32" font-size="16" font-weight="700">What Nomadic does</text>
+  <text x="24" y="52" font-size="12" class="m">Video intelligence for driving and robotics footage</text>
+
+  <text x="24" y="86" font-size="10" class="m" letter-spacing=".1em">FOOTAGE IN</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="24" y="94" width="128" height="70" rx="10" class="box"/>
+    <text x="88" y="118" font-weight="700">Driving footage</text><text x="88" y="136" class="m">camera video</text>
+    <rect x="176" y="94" width="128" height="70" rx="10" class="box"/>
+    <text x="240" y="118" font-weight="700">Robot data</text><text x="240" y="136" class="m">trajectory,</text><text x="240" y="150" class="m">proprioception</text>
+    <rect x="328" y="94" width="128" height="70" rx="10" class="box hl"/>
+    <text x="392" y="118" font-weight="700">Benchmark data</text><text x="392" y="136" class="m">nuScenes, Argoverse 2,</text><text x="392" y="150" class="m">BDD100K</text>
+  </g>
+  <g stroke="var(--signal)" stroke-width="2" marker-end="url(#na)"><line x1="88" y1="168" x2="88" y2="188"/><line x1="240" y1="168" x2="240" y2="188"/><line x1="392" y1="168" x2="392" y2="188"/></g>
+
+  <rect x="24" y="194" width="432" height="278" rx="16" class="box" style="stroke:var(--ink); stroke-width:1.5"/>
+  <text x="44" y="222" font-size="14" font-weight="700">Nomadic platform</text>
+  <g font-size="12">
+    <rect x="44" y="236" width="392" height="52" rx="10" class="box"/>
+    <text x="60" y="258" font-weight="700">Video language models</text><text x="60" y="276" class="m">find anomalies and edge cases in raw footage</text>
+    <rect x="44" y="298" width="392" height="52" rx="10" class="box"/>
+    <text x="60" y="320" font-weight="700">7-category footage classifier</text><text x="60" y="338" class="m">driving, robotics, aerial, construction</text>
+    <rect x="44" y="360" width="392" height="52" rx="10" class="box hl"/>
+    <text x="60" y="382" font-weight="700">Server-side search</text><text x="60" y="400" class="m">full analysis history across two database backends</text>
+  </g>
+  <g font-size="12" text-anchor="middle">
+    <rect x="44" y="424" width="190" height="34" rx="17" class="box hl"/><text x="139" y="446">SDK + Quickstart docs</text>
+    <rect x="246" y="424" width="190" height="34" rx="17" class="box hl"/><text x="341" y="446">SOC 2 security</text>
+  </g>
+  <g stroke="var(--signal)" stroke-width="2" marker-end="url(#na)"><line x1="88" y1="476" x2="88" y2="496"/><line x1="240" y1="476" x2="240" y2="496"/><line x1="392" y1="476" x2="392" y2="496"/></g>
+
+  <text x="24" y="518" font-size="10" class="m" letter-spacing=".1em">INSIGHT OUT</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="24" y="526" width="128" height="62" rx="10" class="box"/>
+    <text x="88" y="550" font-weight="700">Edge cases</text><text x="88" y="568" class="m">and anomalies</text>
+    <rect x="176" y="526" width="128" height="62" rx="10" class="box hl"/>
+    <text x="240" y="550" font-weight="700">Searchable</text><text x="240" y="568" class="m">history, one query</text>
+    <rect x="328" y="526" width="128" height="62" rx="10" class="box hl"/>
+    <text x="392" y="550" font-weight="700">Demo and eval</text><text x="392" y="568" class="m">data on demand</text>
+  </g>
+
+  <rect x="24" y="610" width="14" height="14" rx="3" class="box hl"/>
+  <text x="46" y="622" font-size="12">What I worked on</text>
+  <text x="456" y="622" font-size="11" text-anchor="end" class="m">Simplified overview, not a system diagram</text>
+</svg></div></template>
 
 <script src="car.js"></script>
 <script type="importmap">
@@ -900,8 +813,9 @@ const MODELS = {
   },
   concept: { embedded: true, name: "Original concept car", fit: { dist: 1, ty: 1 } },
   media: {                                                                     // no 3D model: the stage shows a GIF from Nomadic AI's examples page
-    media: true, src: "", alt: "Nomadic AI example: video intelligence on driving footage",
-    caption: "Nomadic AI · video intelligence platform", sub: "Example from nomadicai.com/examples",
+    media: true, interval: 9000, figure: "fig-nomadic",
+    slides: [{ src: "video/nomadic.mp4", poster: "video/nomadic-poster.jpg", alt: "Screen recording of the Nomadic AI platform analysing driving footage" }],
+    caption: "Nomadic AI · video intelligence platform", sub: "Platform demo, then an overview of what I worked on",
   },
 };
 const urlQ = new URLSearchParams(location.search);
@@ -1252,14 +1166,19 @@ function showMedia(key) {
   if (!key) return;
   const m = MODELS[key]; setCaption(m); hideStatus();
   const slides = m.slides || (m.src ? [{ src: m.src, alt: m.alt }] : []);
-  mediaEmpty.hidden = slides.length > 0;
-  const imgs = slides.map((sl, i) => {
+  mediaEmpty.hidden = slides.length > 0 || !!m.figure;
+  const items = slides.map((sl) => {
     const isVid = /\.(webm|mp4)$/i.test(sl.src);
-    const im = document.createElement(isVid ? "video" : "img"); im.className = "slide"; im.src = sl.src; im.style.opacity = i === 0 ? 1 : 0;
-    if (isVid) { im.muted = true; im.loop = true; im.playsInline = true; im.autoplay = true; im.setAttribute("aria-label", sl.alt || ""); } else im.alt = sl.alt || "";
-    mediaEl.appendChild(im); return im;
+    const im = document.createElement(isVid ? "video" : "img"); im.className = "slide"; im.src = sl.src;
+    if (isVid) { im.muted = true; im.loop = true; im.playsInline = true; im.autoplay = true; im.preload = "auto"; if (sl.poster) im.poster = sl.poster; im.setAttribute("aria-label", sl.alt || ""); } else im.alt = sl.alt || "";
+    return im;
   });
-  if (imgs.length > 1 && !reduceMotion) { let k = 0; mediaTimer = setInterval(() => { imgs[k].style.opacity = 0; k = (k + 1) % imgs.length; imgs[k].style.opacity = 1; }, m.interval || 3500); }
+  if (m.figure) items.push(document.getElementById(m.figure).content.firstElementChild.cloneNode(true));
+  items.forEach((el, i) => { el.classList.add("slide"); el.style.opacity = i === 0 ? 1 : 0; mediaEl.appendChild(el); });
+  items.forEach((el) => { if (el.tagName === "VIDEO") { const go = () => el.play().catch(() => {}); el.addEventListener("canplay", go, { once: true }); el.addEventListener("loadeddata", go, { once: true }); go(); } });
+  const kick = () => items.forEach((el) => { if (el.tagName === "VIDEO" && el.paused) el.play().catch(() => {}); });   // if autoplay was blocked, start on the first tap, click or key
+  ["pointerdown", "keydown", "touchstart"].forEach((ev) => addEventListener(ev, kick, { once: true, passive: true }));
+  if (items.length > 1 && !reduceMotion) { let k = 0; mediaTimer = setInterval(() => { items[k].style.opacity = 0; k = (k + 1) % items.length; items[k].style.opacity = 1; kick(); }, m.interval || 3500); }
 }
 // start with the model for the opening chapter, then quietly fetch the rest
 (async () => { await loadModel(CH[0].model); Object.values(MODELS).forEach((m) => (m.slides || []).forEach((sl) => { new Image().src = sl.src; })); for (const k of Object.keys(MODELS)) { if (k !== "concept") await loadModel(k); } })();
