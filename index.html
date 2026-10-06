@@ -47,8 +47,7 @@ h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.
 .top nav{display:flex; gap:18px; margin-left:auto}
 .top nav a{text-decoration:none; color:var(--muted)}
 .top nav a:hover{color:var(--ink)}
-.draft{border:1px solid var(--line); padding:3px 8px; border-radius:2px; color:var(--muted); white-space:nowrap}
-@media (max-width:720px){ .top nav{display:none} .draft{margin-left:auto} .top{padding-inline:16px} }
+@media (max-width:720px){ .top nav{display:none} .top{padding-inline:16px} }
 
 /* ---------- drive: sticky stage + chapters ---------- */
 .drive{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
@@ -110,6 +109,7 @@ h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.
 .name span:last-child{color:var(--signal)}
 .lede{font-size:clamp(1.05rem,1.35vw,1.2rem); line-height:1.55; max-width:32rem; margin:0}
 .chapter h2{font-stretch:115%; font-weight:780; font-size:clamp(1.7rem,2.6vw,2.4rem); letter-spacing:-.005em}
+.chapter{scroll-margin-top:calc(var(--header-h) + 8px)}
 .chapter h2.stop-title{font-stretch:114%; font-weight:800; font-size:clamp(1.3rem,1.9vw,1.85rem); line-height:1.15; letter-spacing:0}
 .stop-title .role-line{display:block; margin-top:5px; font-stretch:105%; font-weight:600; font-size:.62em; line-height:1.3; color:var(--muted)}
 .stop-title .n{color:var(--signal)}
@@ -164,6 +164,47 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
 
 
 
+
+/* ---------- v2: hero thesis, career arc, role cards, case studies ---------- */
+.chapter h1.thesis{font-stretch:118%; font-weight:830; font-size:clamp(1.9rem,3vw,2.9rem); line-height:1.07; letter-spacing:-.012em; margin:0; text-wrap:balance}
+.chapter .lede{font-family:var(--mono); font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); max-width:none; line-height:1.5}
+.chapter .lede2{font-size:1.08rem; line-height:1.5; max-width:40rem; color:var(--ink)}
+.arc{border:1px solid var(--line); background:var(--paper-2); padding:16px 18px 14px; max-width:44rem}
+.chapter .arc-title{font-stretch:112%; font-weight:760; font-size:1.18rem; line-height:1.2; margin:0 0 8px}
+.arc svg{width:100%; height:auto; display:block; overflow:visible}
+.arc svg text{font-family:var(--body); fill:var(--ink)}
+.arc svg .m{fill:var(--muted)}
+.arc-st{cursor:pointer; outline:none}
+.arc-st circle{fill:var(--paper); stroke:var(--muted); stroke-width:2; transition:fill .25s, stroke .25s}
+.arc-st:hover text{fill:var(--signal)}
+.arc-st.passed circle{stroke:var(--signal)}
+.arc-st.current circle{fill:var(--signal); stroke:var(--signal)}
+.arc-st.current text{fill:var(--signal)}
+.chapter p.arc-note{margin:8px 0 0; font-size:.95rem; font-style:italic; color:var(--muted)}
+.metrics{list-style:none; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px 14px; margin:4px 0 0; padding:0; max-width:44rem}
+.metrics li{border-top:2px solid var(--ink); padding-top:8px}
+.metrics b{display:block; font-family:var(--display); font-stretch:116%; font-weight:820; font-size:clamp(1.25rem,1.9vw,1.75rem); line-height:1.05; color:var(--signal); letter-spacing:-.01em}
+.metrics span{display:block; font-size:12.5px; line-height:1.35; color:var(--muted); margin-top:5px}
+.chapter p.context{color:var(--muted); font-size:.98rem; max-width:44rem}
+details.more{max-width:44rem}
+details.more summary{list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; border:1px solid var(--ink); padding:9px 14px; user-select:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary i{font-style:normal; transition:transform .2s}
+details.more summary:hover{background:var(--ink); color:var(--paper)}
+details.more[open] summary i{transform:rotate(90deg)}
+details.more .ach{margin-top:18px}
+details.more .ach-list{margin-top:14px}
+.prov{display:inline-block; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; border:1px solid var(--line); padding:1px 6px; margin-right:7px; color:var(--muted); vertical-align:1px; white-space:nowrap}
+.steps{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 30px; margin:14px 0 18px}
+.step{border-top:1px solid var(--line); padding:12px 0 10px}
+.step h4{font-family:var(--mono); font-size:12px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--signal); margin:0 0 5px}
+.step p{margin:0; font-size:.97rem; line-height:1.5; max-width:none}
+@media (max-width:900px){ .steps{grid-template-columns:minmax(0,1fr)} .metrics{grid-template-columns:repeat(3,minmax(0,1fr))} }
+.section.compact{padding-block:40px}
+.toolkit-row{display:flex; flex-wrap:wrap; gap:8px 26px; align-items:baseline; color:var(--muted); font-size:14px}
+.toolkit-row b{font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); margin-right:8px}
+.section.compact .mono-label{font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
+
 /* ---------- selected work ---------- */
 .work{display:grid; gap:28px; padding-block:40px; border-top:1px solid var(--line)}
 .work:first-of-type{border-top:2px solid var(--ink)}
@@ -197,9 +238,8 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
 <header class="top">
   <a class="mark" href="#top" aria-label="Rohit Tadikamalla, top of page">R<span>/</span>T</a>
   <nav class="mono" aria-label="Sections">
-    <a href="#work">Career</a><a href="#selected">Selected work</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+    <a href="#work">Career</a><a href="#selected">How I solve problems</a><a href="#skills">Toolkit</a><a href="#contact">Contact</a>
   </nav>
-  <span class="draft mono" title="Work in progress. Figures, images and animations are still being refined.">Draft</span>
 </header>
 
 <main id="top">
@@ -230,53 +270,90 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
 
   <div class="chapters">
     <article class="chapter" data-ch="0">
-      <div class="eyebrow mono"><span class="sta">Studio</span><span>Hardware · Programs · Product</span></div>
-      <h1 class="name"><span>Rohit</span><span>Tadikamalla</span></h1>
-      <p class="lede">Program leader turned hands-on builder. Six-plus years shipping vehicles at BMW, Daimler, Rivian, Tesla, and Zoox, and now writing and shipping product at a seed-stage AI startup.</p>
-      <table class="spec">
-        <tr><th class="mono">Now</th><td>Member of Product Staff, Nomadic AI (Jun 2026 – present)</td></tr>
-        <tr><th class="mono">Before</th><td>Zoox TPM · Tesla Cybertruck TPM II · Rivian R1T/R1S engineer</td></tr>
-        <tr><th class="mono">Focus</th><td>Hardware programs, test assets, launch readiness, video intelligence for AV and robotics</td></tr>
-        <tr><th class="mono">School</th><td>B.S. Mechanical Engineering, Virginia Tech (2020)</td></tr>
-        <tr><th class="mono">Based</th><td>San Francisco, CA</td></tr>
-      </table>
-      <p class="mono" style="color:var(--muted)">Scroll to drive through the career ↓</p>
+      <div class="eyebrow mono"><span class="sta">Rohit Tadikamalla</span><span>San Francisco, CA</span></div>
+      <h1 class="thesis">I build the systems that turn complex hardware into products.</h1>
+      <p class="lede">Mechanical engineering · Technical programs · Product</p>
+      <p class="lede2">I started by designing brackets and suspension components. I ended up building systems for the people building autonomous vehicles.</p>
+      <div class="arc" id="arc">
+        <h2 class="arc-title">Six years. Six environments. One expanding scope.</h2>
+        <svg viewBox="0 0 560 246" role="img" aria-label="Career timeline: BMW 2018, Daimler 2020, Rivian 2021, Tesla 2023, Zoox 2024, Nomadic 2026. Engineering runs from BMW to Tesla, program leadership from Rivian to Zoox, and product from late Tesla to Nomadic.">
+          <g font-size="14" text-anchor="middle" class="m" letter-spacing=".04em">
+            <text x="46" y="18">2018</text><text x="148" y="18">2020</text><text x="239" y="18">2021</text><text x="330" y="18">2023</text><text x="422" y="18">2024</text><text x="514" y="18">2026</text>
+          </g>
+          <g stroke="var(--line)" stroke-width="1.5" stroke-dasharray="3 4">
+            <line x1="46" y1="84" x2="46" y2="212"/><line x1="148" y1="84" x2="148" y2="212"/><line x1="239" y1="84" x2="239" y2="212"/>
+            <line x1="330" y1="84" x2="330" y2="212"/><line x1="422" y1="84" x2="422" y2="212"/><line x1="514" y1="84" x2="514" y2="212"/>
+          </g>
+          <g font-size="16" font-weight="700" text-anchor="middle">
+            <a href="#stop-1" class="arc-st" data-i="0"><circle cx="46" cy="38" r="4.5"/><text x="46" y="70">BMW</text></a>
+            <a href="#stop-2" class="arc-st" data-i="1"><circle cx="148" cy="38" r="4.5"/><text x="148" y="70">Daimler</text></a>
+            <a href="#stop-3" class="arc-st" data-i="2"><circle cx="239" cy="38" r="4.5"/><text x="239" y="70">Rivian</text></a>
+            <a href="#stop-4" class="arc-st" data-i="3"><circle cx="330" cy="38" r="4.5"/><text x="330" y="70">Tesla</text></a>
+            <a href="#stop-5" class="arc-st" data-i="4"><circle cx="422" cy="38" r="4.5"/><text x="422" y="70">Zoox</text></a>
+            <a href="#stop-6" class="arc-st" data-i="5"><circle cx="514" cy="38" r="4.5"/><text x="514" y="70">Nomadic</text></a>
+          </g>
+          <g font-size="13" font-weight="700" letter-spacing=".08em">
+            <rect x="46" y="112" width="284" height="28" rx="4" style="fill:var(--ink)"/><text x="58" y="131" style="fill:var(--paper)">ENGINEERING</text>
+            <rect x="246" y="148" width="243" height="28" rx="4" style="fill:var(--clay)"/><text x="258" y="167" style="fill:var(--paper)">PROGRAM</text>
+            <rect x="380" y="184" width="115" height="28" rx="4" style="fill:var(--signal)"/><text x="392" y="203" style="fill:#fff">PRODUCT</text>
+          </g>
+          <text x="46" y="236" font-size="12.5" class="m">Engineering → program ownership → product and software</text>
+        </svg>
+        <p class="arc-note">I didn't leave engineering; I expanded the scope of what I could own.</p>
+      </div>
+      <p class="mono" style="color:var(--muted)">Scroll to follow the work, one machine at a time ↓</p>
     </article>
 
-    <article class="chapter" data-ch="1">
+    <article class="chapter" data-ch="1" id="stop-1">
       <h2 class="stop-title"><span class="n">Stop 1</span> - 2018 BMW<span class="role-line">Paint Shop &amp; Quality Engineering Co-op</span></h2>
       <p class="period mono">Jan – Dec 2018 · New Vehicle Programs</p>
-      <p class="summary">Validated paint processes and traced fit-and-finish defects on the plant floor for upcoming and existing BMW models.</p>
-      <h3 class="ach">Achievements</h3>
-      <ul class="ach-list">
+      <p class="summary">Validated paint processes and traced fit-and-finish defects on the plant floor.</p>
+      <ul class="metrics"><li><b>4–5 s</b><span>takt time saved per unit</span></li><li><b>400+</b><span>visual aids for new models</span></li><li><b>4</b><span>quarters of paint wax tests</span></li></ul>
+      <p class="context">A year inside new vehicle programs, where design intent meets paint, fit, and finish.</p>
+      <details class="more">
+        <summary><span>Explore the work</span> <i aria-hidden="true">→</i></summary>
+        <h3 class="ach">Achievements</h3>
+        <ul class="ach-list">
         <li><b>Paint process validation:</b> supervised four quarters of wax tests that validated paint-process specifications for upcoming and existing vehicle models.</li>
         <li><b>Gap and squeak root cause:</b> ran root-cause analysis on gap and squeak issues using 3D measurement scans of parts fitted to vehicle bodies, and presented PQM reports on gap and flush.</li>
         <li><b>Supplier fitment testing:</b> checked gap and flush on supplier parts fitted to machined aluminum bodies, using 3D scans on geometrically perfect X5, X6, and X7 bodies.</li>
         <li><b>Shop-floor tooling:</b> designed and prototyped casters in CATIA V5 to move overweight X7s around the plant.</li>
         <li><b>Takt time:</b> made 400+ visual aids of new vehicle models so line workers could spot design changes faster, saving 4–5 seconds per unit.</li>
       </ul>
+      </details>
+      
     </article>
 
-    <article class="chapter" data-ch="2">
+    <article class="chapter" data-ch="2" id="stop-2">
       <h2 class="stop-title"><span class="n">Stop 2</span> - 2020 Daimler Trucks<span class="role-line">Mechanical Design Engineer, Freightliner</span></h2>
       <p class="period mono">Aug 2020 – Oct 2021 · Design intern, summer 2019</p>
-      <p class="summary">Designed service, suspension, and towing hardware for Freightliner trucks and supported the next-generation electric truck platform.</p>
-      <h3 class="ach">Achievements</h3>
-      <ul class="ach-list">
+      <p class="summary">Designed Freightliner service, suspension, and towing hardware.</p>
+      <ul class="metrics"><li><b>$10k+/yr</b><span>saved by one towing provision</span></li><li><b>3.5 kg</b><span>removed from subsystems</span></li><li><b>6</b><span>air suspension variants documented</span></li></ul>
+      <p class="context">Hardware for the people who service and transport the truck, plus air suspension routing for next-generation electric trucks.</p>
+      <details class="more">
+        <summary><span>Explore the work</span> <i aria-hidden="true">→</i></summary>
+        <h3 class="ach">Achievements</h3>
+        <ul class="ach-list">
         <li><b>Decking-towing provision:</b> designed a provision that streamlined service and transport of vocational and highway trucks, saving over $10,000 a year.</li>
         <li><b>Mass reduction:</b> took 3.5 kg out of vocational-team subsystems by consolidating 2- and 3-piece bracket attachments.</li>
         <li><b>Air suspension routing:</b> routed airlines and wire harnesses on next-generation electric trucks with the electrical, systems, and supply chain teams.</li>
         <li><b>Lift axle system:</b> implemented a customer-requested auto raise-lower lift axle, with airline assembly diagrams for 6 air suspension variants.</li>
         <li><b>Internship (2019):</b> redesigned a failed mounting bracket in NX with FEA, built a matrix to fix BOM selection errors, and updated drawings for 10+ parts across 20+ BOMs to ASME Y14.5.</li>
       </ul>
+      </details>
+      
     </article>
 
-    <article class="chapter" data-ch="3">
+    <article class="chapter" data-ch="3" id="stop-3">
       <h2 class="stop-title"><span class="n">Stop 3</span> - 2021 Rivian<span class="role-line">Mechanical Engineer II, Brakes &amp; Suspension</span></h2>
       <p class="period mono">Nov 2021 – Apr 2023 · R1T and R1S</p>
-      <p class="summary">Owned brake and suspension components from CAD through plant launch on the R1T and R1S, then followed field issues back into the design.</p>
-      <h3 class="ach">Achievements</h3>
-      <ul class="ach-list">
+      <p class="summary">Owned 10+ brake and suspension components from CAD through plant launch.</p>
+      <ul class="metrics"><li><b>10+</b><span>components owned end to end</span></li><li><b>50%</b><span>durability gain, jounce lines</span></li><li><b>20+</b><span>production issues resolved</span></li></ul>
+      <p class="context">Design reviews, validation, and plant production support on both R1 programs, then field issues fed back into the design.</p>
+      <details class="more">
+        <summary><span>Explore the work</span> <i aria-hidden="true">→</i></summary>
+        <h3 class="ach">Achievements</h3>
+        <ul class="ach-list">
         <li><b>Component ownership:</b> owned design, development, and validation of 10+ brake and suspension components across the R1T and R1S programs, working in CATIA.</li>
         <li><b>Design reviews:</b> led cross-functional reviews against cost, NVH, durability, assembly, and service targets with internal teams and outside suppliers.</li>
         <li><b>Jounce-line durability:</b> improved suspension jounce-line durability by 50% through cyclic vibration and pressure testing on prototype designs.</li>
@@ -284,19 +361,20 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
         <li><b>Validation:</b> authored validation plans for 4 brake and 3 hydraulic components, and built 3D models and GD&amp;T drawings for 15 components.</li>
         <li><b>Field feedback:</b> turned service-technician feedback on 10+ fleet-reported issues into design changes that reduced future warranty claims.</li>
       </ul>
-      <aside class="callout">
-        <span class="mono">Hydraulic lines · what I worked on</span>
-        <p>Rivian's active dampers and roll control run on a hydraulic circuit: the blue lines in the schematic. On the suspension hydraulic lines, O-rings on the damper fittings were swelling, which made installation difficult and risked leaks during fluid fill. I ran the investigation: hydraulic fluid alone wasn't the cause, a dust-cap material was leaching and swelling the rubber. With a polymer expert and the supplier, we moved to TPE caps and validated the fix with testing.</p>
-      </aside>
-      <p class="mono" style="color:var(--muted)">The 3D view is an original schematic of the R1 suspension layout (subframes, active dampers, air springs, hydraulic and air lines), drawn from Rivian's public service guideline. Not Rivian CAD; not to scale.</p>
+      </details>
+      <p class="mono" style="color:var(--muted)"><a href="#rivian-case">Hydraulic reliability case study ↓</a></p>
     </article>
 
-    <article class="chapter" data-ch="4">
+    <article class="chapter" data-ch="4" id="stop-4">
       <h2 class="stop-title"><span class="n">Stop 4</span> - 2023 Tesla<span class="role-line">Technical Program Manager II, Cybertruck Chassis</span></h2>
       <p class="period mono">Sep 2023 – Jun 2024 · Cybertruck</p>
-      <p class="summary">Owned the integrated chassis roadmap for Cybertruck from concept through serial production, and unblocked launch issues across engineering, supply chain, and manufacturing.</p>
-      <h3 class="ach">Achievements</h3>
-      <ul class="ach-list">
+      <p class="summary">Owned the Cybertruck chassis roadmap from concept to serial production.</p>
+      <ul class="metrics"><li><b>20+</b><span>stakeholders aligned to design freeze</span></li><li><b>0</b><span>production downtime through a 2-month shortage</span></li><li><b>48 hrs</b><span>test downtime saved per cycle</span></li></ul>
+      <p class="context">Chassis sub-systems across design, finance, supply chain, and manufacturing, with launch issues closed in weeks, not months.</p>
+      <details class="more">
+        <summary><span>Explore the work</span> <i aria-hidden="true">→</i></summary>
+        <h3 class="ach">Achievements</h3>
+        <ul class="ach-list">
         <li><b>Integrated roadmap:</b> aligned 20+ engineering, finance, supply chain, and manufacturing stakeholders to design freeze and production readiness for the chassis sub-systems.</li>
         <li><b>Half-shaft installation issue:</b> ran containment and the permanent fix in parallel on a production-critical half-shaft problem, validated on 10 vehicles.</li>
         <li><b>Component shortage:</b> held zero production downtime through a 2-month component shortage with an expedited shipment and build plan.</li>
@@ -304,15 +382,20 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
         <li><b>Launch issues:</b> closed 13+ launch issues in 6 weeks with a resolution process across design and manufacturing, and mitigated 15+ critical program risks.</li>
         <li><b>Test downtime:</b> saved an average of 48 hours per cycle with a centralized part-request method in Jira, and built service-issue dashboards that sped up diagnosis by about 20%.</li>
       </ul>
+      </details>
       <p class="mono" style="color:var(--muted)"><a href="#tesla-case">Half-shaft case study ↓</a></p>
     </article>
 
-    <article class="chapter" data-ch="5">
+    <article class="chapter" data-ch="5" id="stop-5">
       <h2 class="stop-title"><span class="n">Stop 5</span> - 2024 Zoox<span class="role-line">Technical Program Manager, Autonomous Vehicles</span></h2>
       <p class="period mono">Nov 2024 – Mar 2026 · L5 program</p>
-      <p class="summary">Owned requirements, roadmap, and schedule for the vehicle- and system-level test assets that carry a robotaxi program from prototype to validation.</p>
-      <h3 class="ach">Achievements</h3>
-      <ul class="ach-list">
+      <p class="summary">Owned the plan for the test assets behind a robotaxi program.</p>
+      <ul class="metrics"><li><b>10+</b><span>teams served by the asset roadmap</span></li><li><b>3 weeks</b><span>cut from supplier bring-up</span></li><li><b>20%</b><span>faster issue triage</span></li></ul>
+      <p class="context">Requirements, schedules, and process for the vehicle- and system-level assets that carry a robotaxi from prototype to validation.</p>
+      <details class="more">
+        <summary><span>Explore the work</span> <i aria-hidden="true">→</i></summary>
+        <h3 class="ach">Achievements</h3>
+        <ul class="ach-list">
         <li><b>Engineering Test Asset Committee (ETAC):</b> created the intake process, one-pager template, and standing forum that centralized asset requests, shared knowledge between teams, and tracked current and new builds; roadmap for 3 system-level assets.</li>
         <li><b>Asset requirements and roadmap:</b> served 10+ stakeholder teams across hardware, software, and operations, and carried risks and tradeoffs to executive leadership.</li>
         <li><b>Drive Module test bench:</b> led a new bench with a Tier 1 supplier that cut supplier bring-up by 3 weeks.</li>
@@ -320,15 +403,20 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
         <li><b>Workflow redesign:</b> rebuilt the Jira workflow for lab technicians and cut issue-triage time by 20%.</li>
         <li><b>Utilization and demand planning:</b> tracked scheduled versus actual asset time by team to show leadership where assets were underused, and built a consolidated parts-demand tracker for upcoming builds.</li>
       </ul>
-      <p class="mono" style="color:var(--muted)"><a href="#zoox-case">ETAC case study ↓</a></p>
+      </details>
+      <p class="mono" style="color:var(--muted)"><a href="#zoox-case">Test-asset committee case study ↓</a></p>
     </article>
 
-    <article class="chapter" data-ch="6">
+    <article class="chapter" data-ch="6" id="stop-6">
       <h2 class="stop-title"><span class="n">Stop 6</span> - 2026 Nomadic AI<span class="role-line">Member of Product Staff</span></h2>
       <p class="period mono">Jun 2026 – present · Video intelligence platform</p>
-      <p class="summary">Own product for a video intelligence platform that finds edge cases in driving and robotics footage, from security and search to docs and customer demos.</p>
-      <h3 class="ach">Achievements</h3>
-      <ul class="ach-list">
+      <p class="summary">From vehicles to intelligence: building the software that helps teams understand complex machines.</p>
+      <ul class="metrics"><li><b>366 → ~35</b><span>vulnerability findings to root causes</span></li><li><b>15+</b><span>security PRs merged for SOC 2</span></li><li><b>3</b><span>enterprise POCs owned</span></li></ul>
+      <p class="context">After years working on the machines, programs, and infrastructure behind vehicles, I now build the software that helps teams understand them.</p>
+      <details class="more">
+        <summary><span>Explore the work</span> <i aria-hidden="true">→</i></summary>
+        <h3 class="ach">Achievements</h3>
+        <ul class="ach-list">
         <li><b>SOC 2 audit readiness:</b> triaged 366 flagged vulnerabilities down to about 35 root-cause packages and closed every critical and high CVE across 11 JS lockfiles and 3 Python manifests in 15+ merged PRs.</li>
         <li><b>Server-side search:</b> shipped search over customers' full analysis history, spanning two database backends and a 7-category footage classifier.</li>
         <li><b>Quickstart-first SDK docs:</b> restructured the SDK and API documentation so customer engineering teams run their first analysis without support.</li>
@@ -336,30 +424,23 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
         <li><b>Enterprise POC adoption:</b> own adoption for three POC-stage accounts, with targeted customer decks and industry-specific examples.</li>
         <li><b>Building with AI tools:</b> prototype and ship daily with Claude and Cursor as the company's product hire.</li>
       </ul>
+      </details>
+      
     </article>
   </div>
 </section>
 
 <section class="section" id="selected" aria-labelledby="sel-h">
   <div class="section-head">
-    <h2 id="sel-h">Selected work</h2>
-    <p>The stories behind the numbers: how two production problems were diagnosed and solved. Figures and images will keep evolving.</p>
+    <h2 id="sel-h">How I solve problems</h2>
+    <p>Three problems from three different machines. Each one: what was happening, what was broken, what I looked at, what I decided, what I did, and what changed.</p>
   </div>
 
   <article class="work" id="tesla-case">
     <div class="work-copy">
-      <div class="eyebrow mono"><span class="sta">Tesla</span><span>Production issue response</span></div>
-      <h3>Unblocked a production-critical half-shaft installation issue</h3>
-      <div class="cols">
-        <div>
-          <p>Cybertruck vehicles were making abnormal noise while moving. A teardown showed the half-shaft splines wearing into each other.</p>
-          <p>The root cause was a C-clip that wasn't fully seated during installation. If the clip's gap wasn't oriented correctly, there was a 20–30% chance it wouldn't catch.</p>
-        </div>
-        <div>
-          <p>I ran the response on two tracks. On the line, I added an operator check to rotate the clip to the correct orientation before install, validated it on 10 vehicles in an end-of-shift trial, then rolled it out across the line.</p>
-          <p>In parallel, an engineer and the supplier worked on a permanent design change. I worked on and off hours and kept executives updated on mitigation status.</p>
-        </div>
-      </div>
+      <div class="eyebrow mono"><span class="sta">Case 01</span><span>Tesla · Cybertruck · production</span></div>
+      <h3>A production-critical half-shaft installation issue</h3>
+      <div class="steps"><div class="step"><h4>Context</h4><p>Cybertruck chassis launch. The half-shaft installation was on the critical path to production.</p></div><div class="step"><h4>Problem</h4><p>Vehicles made abnormal noise while moving. A teardown showed the half-shaft splines wearing into each other.</p></div><div class="step"><h4>Investigation</h4><p>Traced to a C-clip that was not fully seated during installation. If the clip's gap was not oriented correctly, there was a 20–30% chance it would not catch.</p></div><div class="step"><h4>Decision</h4><p>Contain on the line now and fix the design in parallel, instead of waiting for a redesign to unblock builds.</p></div><div class="step"><h4>Execution</h4><p>Added an operator check to rotate the clip to the correct orientation, validated it on 10 vehicles in an end-of-shift trial, and rolled it out line-wide. An engineer and the supplier worked the permanent design change. I worked on and off hours and kept executives updated.</p></div><div class="step"><h4>Result</h4><p>A production-critical issue contained across the line and handed to engineering and the supplier for the permanent fix.</p></div></div>
       <ul class="chips"><li>Root-cause analysis</li><li>Containment</li><li>Line validation</li><li>Supplier + engineering</li><li>Exec communication</li></ul>
     </div>
     <figure class="fig"><div class="viz"><svg viewBox="0 0 910 430" role="img" aria-label="Half-shaft issue: symptom, teardown, root cause, containment, roll-out; where the C-clip sits on the half-shaft; a misaligned clip versus a seated clip; and a two-track response">
@@ -437,23 +518,67 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
           <text x="566" y="382" font-size="12" class="m">Operator rotates the C-clip to the correct orientation</text>
           <text x="566" y="399" font-size="12" class="m">before installation. Validated on 10 vehicles in an</text>
           <text x="566" y="414" font-size="12" class="m">end-of-shift trial, then rolled out across the line.</text>
-        </svg></div><figcaption class="mono">Fig. 1 · Half-shaft issue: from symptom to line-wide fix</figcaption></figure>
+        </svg></div><figcaption class="mono"><span class="prov">Conceptual diagram</span>Fig. 1 · Half-shaft issue: from symptom to line-wide fix. Conceptual illustration, not to scale.</figcaption></figure>
+  </article>
+
+  <article class="work" id="rivian-case">
+    <div class="work-copy">
+      <div class="eyebrow mono"><span class="sta">Case 02</span><span>Rivian · R1T / R1S · suspension hydraulics</span></div>
+      <h3>Suspension hydraulic fittings with swelling O-rings</h3>
+      <div class="steps"><div class="step"><h4>Context</h4><p>R1T and R1S suspension hydraulic lines. O-rings sit in the damper fittings where the lines connect.</p></div><div class="step"><h4>Problem</h4><p>O-rings were swelling, which made installation difficult and risked leaks or bursts during fluid fill. The failure mode could mean fluid loss, suspension problems, and limp mode.</p></div><div class="step"><h4>Investigation</h4><p>Tested the supplier process, transportation, and O-ring and fluid compatibility. Fluid alone did not cause the swelling. The dust caps, the last part touching the O-ring before install, were collecting fluid, so I brought in a polymer expert from the failure-analysis lab.</p></div><div class="step"><h4>Decision</h4><p>Fix the cause, not only the symptom: change the cap material, and contain the line with replacement O-rings in the meantime.</p></div><div class="step"><h4>Execution</h4><p>Ran a test plan submerging O-rings and caps, used safety data sheets to test material incompatibility, got repeatable results, sourced a TPE cap, and implemented the change with the supplier and purchasing team. Operators could swap O-rings at the line and keep building.</p></div><div class="step"><h4>Result</h4><p>Root cause confirmed with repeatable tests, and TPE caps validated and rolled in with the supplier, with the line running throughout.</p></div></div>
+      <ul class="chips"><li>Root-cause analysis</li><li>Materials testing</li><li>Supplier management</li><li>Containment</li><li>Failure analysis</li></ul>
+    </div>
+    <figure class="fig"><div class="viz"><svg viewBox="0 0 910 430" role="img" aria-label="Rivian suspension hydraulic fitting investigation: symptom, hypotheses, breakthrough, root cause and fix, with a before-and-after sketch of an O-ring and dust cap, and a contain-now, fix-permanently plan">
+          <defs><marker id="rv" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+          <g font-size="13" text-anchor="middle">
+            <rect x="10" y="14" width="150" height="92" rx="12" class="box"/><circle cx="30" cy="34" r="11" class="acc"/><text x="30" y="38.5" class="onacc" font-weight="700" font-size="12">1</text>
+            <text x="85" y="40" font-weight="700">Symptom</text><text x="85" y="62" class="m">O-rings swell: hard to</text><text x="85" y="80" class="m">install, leaks at fill</text>
+            <rect x="195" y="14" width="150" height="92" rx="12" class="box"/><circle cx="215" cy="34" r="11" class="acc"/><text x="215" y="38.5" class="onacc" font-weight="700" font-size="12">2</text>
+            <text x="270" y="40" font-weight="700">Hypotheses</text><text x="270" y="62" class="m">Supplier, transport,</text><text x="270" y="80" class="m">fluid: all ruled out</text>
+            <rect x="380" y="14" width="150" height="92" rx="12" class="box"/><circle cx="400" cy="34" r="11" class="acc"/><text x="400" y="38.5" class="onacc" font-weight="700" font-size="12">3</text>
+            <text x="455" y="40" font-weight="700">Key clue</text><text x="455" y="62" class="m">Dust caps collect</text><text x="455" y="80" class="m">fluid next to the O-ring</text>
+            <rect x="565" y="14" width="150" height="92" rx="12" class="acc"/><circle cx="585" cy="34" r="11" fill="#fff"/><text x="585" y="38.5" font-weight="700" font-size="12" style="fill:var(--signal)">4</text>
+            <text x="640" y="40" font-weight="700" class="onacc">Root cause</text><text x="640" y="62" class="onacc">Cap material leaches</text><text x="640" y="80" class="onacc">and swells the rubber</text>
+            <rect x="750" y="14" width="150" height="92" rx="12" class="box"/><circle cx="770" cy="34" r="11" class="acc"/><text x="770" y="38.5" class="onacc" font-weight="700" font-size="12">5</text>
+            <text x="825" y="40" font-weight="700">Fix</text><text x="825" y="62" class="m">TPE caps, validated</text><text x="825" y="80" class="m">with supplier</text>
+          </g>
+          <g stroke="var(--accent)" stroke-width="2" marker-end="url(#rv)"><line x1="162" y1="60" x2="191" y2="60"/><line x1="347" y1="60" x2="376" y2="60"/><line x1="532" y1="60" x2="561" y2="60"/><line x1="717" y1="60" x2="746" y2="60"/></g>
+          <text x="10" y="150" font-size="14" font-weight="700">Why the O-rings swelled</text>
+          <rect x="10" y="168" width="245" height="252" rx="12" class="box"/>
+          <text x="24" y="192" font-size="13" font-weight="700" style="fill:var(--signal)">Original cap</text>
+          <g transform="translate(28 238)"><rect x="0" y="0" width="90" height="54" rx="3" fill="var(--line)" stroke="var(--muted)" stroke-width="1"/><rect x="90" y="12" width="26" height="30" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><rect x="94" y="-2" width="17" height="58" rx="8" fill="var(--signal)"/><rect x="114" y="6" width="30" height="42" rx="6" fill="var(--clay)"/><text x="129" y="31" font-size="9" text-anchor="middle" fill="#fff" font-weight="700">cap</text><circle cx="109" cy="-9" r="2.6" fill="var(--signal)"/><circle cx="116" cy="-16" r="2.2" fill="var(--signal)" opacity=".7"/><circle cx="122" cy="-7" r="2" fill="var(--signal)" opacity=".5"/></g>
+          <text x="24" y="330" font-size="12" class="m">Cap material leaches out when</text><text x="24" y="346" font-size="12" class="m">wet, and swells the O-ring</text>
+          <text x="24" y="376" font-size="12" font-weight="700" style="fill:var(--signal)">Hard install, leak risk at fill</text>
+          <text x="24" y="396" font-size="11" class="m">Failure mode could end in limp mode</text>
+          <rect x="265" y="168" width="245" height="252" rx="12" class="box"/>
+          <text x="279" y="192" font-size="13" font-weight="700" style="fill:var(--good)">TPE cap</text>
+          <g transform="translate(283 238)"><rect x="0" y="0" width="90" height="54" rx="3" fill="var(--line)" stroke="var(--muted)" stroke-width="1"/><rect x="90" y="12" width="26" height="30" fill="var(--paper)" stroke="var(--muted)" stroke-width="1"/><rect x="97" y="4" width="9" height="46" rx="4" fill="var(--good)"/><rect x="114" y="6" width="30" height="42" rx="6" fill="var(--accent)" opacity=".85"/><text x="129" y="31" font-size="9" text-anchor="middle" fill="#fff" font-weight="700">TPE</text></g>
+          <text x="279" y="330" font-size="12" class="m">Thermoplastic elastomer cap:</text><text x="279" y="346" font-size="12" class="m">no leaching, O-ring stays stable</text>
+          <text x="279" y="376" font-size="12" font-weight="700" style="fill:var(--good)">Validated with repeatable tests</text>
+          <text x="279" y="396" font-size="11" class="m">Implemented with supplier + purchasing</text>
+          <line x1="530" y1="140" x2="530" y2="420" stroke="var(--line)" stroke-width="1.5"/>
+          <text x="552" y="150" font-size="14" font-weight="700">Contain now, fix the cause in parallel</text>
+          <text x="552" y="196" font-size="12" class="m">On the line</text>
+          <rect x="632" y="180" width="120" height="26" rx="6" class="acc"/><text x="692" y="197" font-size="12" text-anchor="middle" class="onacc" font-weight="700">Swap O-rings</text>
+          <rect x="758" y="180" width="142" height="26" rx="6" class="acc" opacity=".7"/><text x="829" y="197" font-size="12" text-anchor="middle" class="onacc" font-weight="700">Keep building</text>
+          <text x="552" y="250" font-size="12" class="m">Root cause</text>
+          <rect x="632" y="234" width="268" height="26" rx="6" fill="none" stroke="var(--signal)" stroke-width="1.8" stroke-dasharray="6 4"/>
+          <text x="766" y="251" font-size="12" text-anchor="middle">Test plan, polymer expert, material data</text>
+          <rect x="552" y="290" width="348" height="130" rx="12" class="box"/>
+          <text x="566" y="312" font-size="12" font-weight="700">How the cause was found</text>
+          <text x="566" y="332" font-size="12" class="m">Submerged O-rings and caps in a test plan, used safety</text>
+          <text x="566" y="349" font-size="12" class="m">data sheets to test material incompatibility, and brought</text>
+          <text x="566" y="366" font-size="12" class="m">in a polymer specialist from the failure-analysis lab.</text>
+          <text x="566" y="392" font-size="12" class="m">The first hypothesis was wrong; fluid alone did not</text>
+          <text x="566" y="409" font-size="12" class="m">cause the swelling.</text>
+        </svg></div><figcaption class="mono"><span class="prov">Conceptual diagram</span>Fig. 2 · O-ring swelling: from symptom to TPE caps. Conceptual diagram, not proprietary CAD.</figcaption></figure>
   </article>
 
   <article class="work" id="zoox-case">
     <div class="work-copy">
-      <div class="eyebrow mono"><span class="sta">Zoox</span><span>Process design</span></div>
-      <h3>Created the Engineering Test Asset Committee (ETAC)</h3>
-      <div class="cols">
-        <div>
-          <p>Requests for test assets, such as lighting rigs, sensor-contamination bots, and vehicle-level builds, arrived ad hoc from sister teams. Asks added mid-build caused scope creep and put timelines for downstream work at risk.</p>
-          <p>I created ETAC to centralize the requests. Every asset now starts with one Jira intake and a one-pager covering the capability, timeline, and milestone.</p>
-        </div>
-        <div>
-          <p>A standing forum brings prototyping, controller validation, EMC, optics, supply chain, and HW/SW integration to one table. The committee challenges whether each requirement is needed, looks for existing assets to reuse, and splits big builds into phases. That is how knowledge moves between teams.</p>
-          <p>Each build is scheduled and tracked with Gantt charts, weekly updates, and epics, for current and new assets alike.</p>
-        </div>
-      </div>
+      <div class="eyebrow mono"><span class="sta">Case 03</span><span>Zoox · L5 program · test infrastructure</span></div>
+      <h3>Test-asset demand across a robotaxi program</h3>
+      <div class="steps"><div class="step"><h4>Context</h4><p>Zoox test assets, such as lighting rigs, sensor-contamination bots, and vehicle-level builds, serve many teams across integration, system, and component testing.</p></div><div class="step"><h4>Problem</h4><p>Requests came in ad hoc. Sister teams added requirements mid-build, which caused scope creep and put downstream timelines at risk.</p></div><div class="step"><h4>Investigation</h4><p>Compared requested against actual asset time by team, week by week, and found assets underused and teams overrunning their slots.</p></div><div class="step"><h4>Decision</h4><p>Replace case-by-case negotiation with one intake and a standing committee, so every request is challenged and every team has a voice.</p></div><div class="step"><h4>Execution</h4><p>Created a Jira intake and a one-pager (capability, timeline, milestone), a forum of prototyping, controller validation, EMC, optics, supply chain, and HW/SW integration, phased builds, and Gantt charts, weekly updates, and epics.</p></div><div class="step"><h4>Result</h4><p>3 system-level assets on the roadmap, a sensor-contamination bench for a new sensor generation in about 2 weeks against a typical 4 to 6, a Drive Module bench that cut supplier bring-up by 3 weeks, and 20% faster issue triage.</p></div></div>
       <ul class="chips"><li>Process design</li><li>Requirements</li><li>Cross-functional forum</li><li>Jira + Smartsheet</li><li>Phased delivery</li></ul>
     </div>
     <figure class="fig"><div class="viz"><svg viewBox="0 0 910 360" role="img" aria-label="Before ETAC: many teams send ad hoc requests to prototyping. With ETAC: request, review, build, track, resting on three pillars: centralized requests, shared knowledge, scheduled progress">
@@ -514,21 +639,18 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
             <rect x="470" y="296" width="210" height="50" rx="10" class="box"/><text x="575" y="317" font-weight="700">Drive Module test bench</text><text x="575" y="335" class="m">3 weeks off supplier bring-up</text>
             <rect x="700" y="296" width="200" height="50" rx="10" class="box"/><text x="800" y="317" font-weight="700">Jira workflow redesign</text><text x="800" y="335" class="m">20% faster issue triage</text>
           </g>
-        </svg></div><figcaption class="mono">Fig. 2 · ETAC: from ad hoc asks to one process and one forum</figcaption></figure>
+        </svg></div><figcaption class="mono"><span class="prov">Conceptual diagram</span>Fig. 3 · ETAC: from ad hoc asks to one process and one forum. Conceptual diagram.</figcaption></figure>
   </article>
 </section>
 
-<section class="section" id="skills" aria-labelledby="sk-h">
-  <div class="section-head">
-    <h2 id="sk-h">Toolkit</h2>
-    <p>What I use to plan, build, and ship.</p>
+<section class="section compact" id="skills" aria-labelledby="sk-h">
+  <p class="mono-label" id="sk-h">Toolkit</p>
+  <div class="toolkit-row">
+    <span><b>AI</b>Claude · Cursor · ChatGPT</span>
+    <span><b>Product</b>Jira · Smartsheet · Notion · Figma · Vanta · Lucidchart · Asana</span>
+    <span><b>Engineering</b>CATIA / 3DX · Siemens NX · SolidWorks · Ansys · FEA · GD&amp;T · DFMEA · DVP&amp;R · SAP · GitHub</span>
+    <span><b>Education</b>B.S. Mechanical Engineering, Virginia Tech, 2020</span>
   </div>
-  <table class="spec wide-spec">
-    <tr><th class="mono">AI tools</th><td>Claude · Cursor · ChatGPT. Daily use for prototyping, shipping working artifacts, and bug fixes.</td></tr>
-    <tr><th class="mono">Product &amp; GTM</th><td>Jira · Smartsheet · Lucidchart · Asana · Notion · Lightfield · Attio · Vanta · Figma</td></tr>
-    <tr><th class="mono">Engineering</th><td>GitHub · CATIA / 3DX · Siemens NX · Enovia · SAP · SolidWorks · Ansys · FEA · GD&amp;T · DFMEA · DVP&amp;R</td></tr>
-    <tr><th class="mono">Education</th><td>B.S. Mechanical Engineering, Virginia Tech, May 2020</td></tr>
-  </table>
 </section>
 
 <section class="section" id="contact" aria-labelledby="ct-h">
@@ -545,8 +667,8 @@ footer{padding-inline:clamp(16px,4vw,56px); padding-block:28px 40px; color:var(-
 </main>
 
 <footer>
-  <span>Draft. Built from Rohit's resume and project notes; details still being refined.</span>
-  <span id="concept-note">The car is an original concept modeled in Blender and rendered with Three.js. It is not a production vehicle.</span>
+  <span>© 2026 Rohit Tadikamalla</span>
+  <span id="concept-note">3D models are public Sketchfab models used under their licenses, credited below. Diagrams are conceptual recreations, not proprietary CAD, and not to scale.</span>
 </footer>
 
 <template id="fig-nomadic"><div class="fig fig-slide">
@@ -625,7 +747,12 @@ function setStatus(msg, pct, asPill) {
 window.__setStatus = (...a) => setStatus(...a);   // debug handle for previewing the loader
 function setStatusError(msg) { statusEl.hidden = false; statusEl.classList.remove("pill"); statusText.textContent = msg; statusBarWrap.hidden = true; }
 function hideStatus() { statusEl.hidden = true; }
-function setCaption(cfg) { if (cfg && cfg.caption) { capName.textContent = cfg.caption; capSub.textContent = cfg.sub || ""; } }
+function setCaption(cfg, focusLabel) {
+  if (!cfg || !cfg.caption) return;
+  capName.textContent = cfg.caption; capSub.textContent = "";
+  if (cfg.tag) { const b = document.createElement("span"); b.className = "prov"; b.textContent = cfg.tag; capSub.appendChild(b); }
+  capSub.appendChild(document.createTextNode((cfg.sub || "") + (focusLabel ? " · Highlighted: " + focusLabel : "")));
+}
 
 /* ---------------- theme tokens ---------------- */
 function tokens() {
@@ -638,10 +765,10 @@ let T = tokens();
 /* ---------------- chapters (camera keyframes) ---------------- */
 const CH = [
   { name: "Studio",             model: "bmw",          az: 38,  el: 11, dist: 8.8,  ty: 0.62, explode: 0,    mode: "paint" },
-  { name: "Sta 1 · BMW",        model: "bmw",          az: 90,  el: 3,  dist: 9.8,  ty: 0.62, explode: 0,    mode: "wire"  },
-  { name: "Sta 2 · Daimler",    model: "freightliner", az: 125, el: 14, dist: 9.4,  ty: 0.55, explode: 0,    mode: "paint" },
-  { name: "Sta 3 · Rivian",     model: "rivian",       az: 48,  el: 24, dist: 9.4,  ty: 0.5,  explode: 0.45, mode: "paint" },
-  { name: "Sta 4 · Tesla",      model: "cybertruck",   az: 30,  el: 14, dist: 9.6,  ty: 0.85, explode: 0,    mode: "paint" },
+  { name: "Sta 1 · BMW",        model: "bmw",          az: 90,  el: 3,  dist: 9.8,  ty: 0.62, explode: 0,    mode: "paint", focus: "body",      focusLabel: "body shell and paint" },
+  { name: "Sta 2 · Daimler",    model: "freightliner", az: 125, el: 14, dist: 9.4,  ty: 0.55, explode: 0,    mode: "paint", focus: "under",     focusLabel: "chassis, brackets and air suspension" },
+  { name: "Sta 3 · Rivian",     model: "rivian",       az: 48,  el: 24, dist: 9.4,  ty: 0.5,  explode: 0.45, mode: "paint", focus: "hydraulic", focusLabel: "hydraulic lines and pump" },
+  { name: "Sta 4 · Tesla",      model: "cybertruck",   az: 30,  el: 14, dist: 9.6,  ty: 0.85, explode: 0,    mode: "paint", focus: "wheel",     focusLabel: "drive axle area (illustrative)" },
   { name: "Sta 5 · Zoox",       model: "zoox",         az: -28, el: 34, dist: 9.4,  ty: 1.1,  explode: 0,    mode: "paint" },
   { name: "Sta 6 · Nomadic",    model: "media",        az: 215, el: 22, dist: 10.4, ty: 0.55, explode: 0,    mode: "paint" },
 ];
@@ -763,6 +890,9 @@ const zebraMat = new THREE.ShaderMaterial({
       gl_FragColor = vec4(mix(uA,uB,s),1.); }`,
 });
 const zebraDark = new THREE.MeshStandardMaterial({ color: 0x151617, roughness: 0.6 });
+const ghostMat = new THREE.MeshStandardMaterial({ color: 0x6f7878, transparent: true, opacity: 0.26, roughness: 0.9, depthWrite: false });
+const focusMat = new THREE.MeshStandardMaterial({ color: T.signal, emissive: T.signal, emissiveIntensity: 0.28, roughness: 0.42, metalness: 0.25 });
+let currentFocus = null;       // group name to highlight on the active model (everything else ghosts); null = off
 const tapeFill = new THREE.MeshBasicMaterial({ color: T.paper, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1, transparent: true, opacity: 0.88 });
 const tapeLine = new THREE.LineBasicMaterial({ color: T.ink, transparent: true, opacity: 0.32 });
 const tapeEdge = new THREE.LineBasicMaterial({ color: T.ink, transparent: true, opacity: 0.7 });
@@ -777,7 +907,7 @@ const MODELS = {
     lengthMm: 4938, wheelbaseMm: 2975, heightMm: 1747, dims: true,             // published X5 M Competition (G05/F95) figures
     paintMaterials: ["marina_bay_blue"], paintColor: "#1B3A66",                // this file's paint exports as pure white; restores Marina Bay Blue
     fit: { dist: 1, ty: 1 },
-    caption: "2020 BMW X5 M Competition (G05)", sub: "3D model by David_Holiday · CC BY 4.0",
+    caption: "2020 BMW X5 M Competition (G05)", sub: "3D model by David_Holiday · CC BY 4.0", tag: "Public model",
   },
   freightliner: {
     url: "freightliner-cascadia-2020.glb", name: "Freightliner Cascadia (2020)",
@@ -785,19 +915,19 @@ const MODELS = {
     lengthMm: null,                                                            // keep the file's own scale (about 10 m)
     paintMaterials: ["azul"], paintColor: null,
     fit: { dist: 2.0, ty: 1.55 },
-    caption: "2020 Freightliner Cascadia", sub: "3D model by liebherr996litronic · CC BY 4.0",
+    caption: "2020 Freightliner Cascadia", sub: "3D model by liebherr996litronic · CC BY 4.0", tag: "Public model",
   },
   cybertruck: {
     url: "tesla-cybertruck.glb", name: "Tesla Cybertruck",
     credit: 'Model "Tesla Cybertruck" by Lexyc16 (CC BY 4.0), sketchfab.com/3d-models/tesla-cybertruck-f12e67159f75486bb21213e573520612.',
     lengthMm: 5680, paintColor: "#B9BDBF", finish: { metalness: 1, roughness: 0.38, clearcoat: 0 }, wheelRe: "circle",
     fit: { dist: 1.0, ty: 1.15 }, spin: true, explode: false,                   // turntable only: no exploded view
-    caption: "2024 Tesla Cybertruck", sub: "3D model by Lexyc16 · CC BY 4.0",
+    caption: "2024 Tesla Cybertruck", sub: "3D model by Lexyc16 · CC BY 4.0", tag: "Public model",
   },
   rivian: {                                                                    // no Rivian model exists: an original schematic of the R1 suspension architecture (built in code)
     procedural: "suspension", name: "R1 suspension schematic · not Rivian CAD",
     fit: { dist: 0.98, ty: 0.9 }, labelFrom: 0.1, labelSpan: 0.3,
-    caption: "2022+ Rivian R1T / R1S · suspension schematic", sub: "Original schematic after Rivian's service guideline · not Rivian CAD",     // labels appear at a gentler explode than the vehicles'
+    caption: "2022+ Rivian R1T / R1S · suspension schematic", sub: "Original schematic after Rivian's service guideline · not Rivian CAD", tag: "Conceptual diagram",     // labels appear at a gentler explode than the vehicles'
   },
   zoox: {                                                                      // no 3D file yet (only SolidWorks .SLDPRT): the stage shows renders of a Zoox robotaxi model
     media: true, interval: 3600,
@@ -809,13 +939,13 @@ const MODELS = {
       { src: "img/zoox/zoox-809.jpg", alt: "Render of a purple Zoox robotaxi at steps" },
       { src: "img/zoox/zoox-821.jpg", alt: "Render of a rose Zoox robotaxi in a field" },
     ],
-    caption: "Zoox robotaxi · purpose-built, bidirectional", sub: "Renders of a 3D model · credit to be added",
+    caption: "Zoox robotaxi · purpose-built, bidirectional", sub: "Renders of a Zoox robotaxi 3D model", tag: "3D renders",
   },
   concept: { embedded: true, name: "Original concept car", fit: { dist: 1, ty: 1 } },
   media: {                                                                     // no 3D model: the stage shows a GIF from Nomadic AI's examples page
     media: true, interval: 9000, figure: "fig-nomadic",
     slides: [{ src: "video/nomadic.mp4", poster: "video/nomadic-poster.jpg", alt: "Screen recording of the Nomadic AI platform analysing driving footage" }],
-    caption: "Nomadic AI · video intelligence platform", sub: "Platform demo, then an overview of what I worked on",
+    caption: "Nomadic AI · video intelligence platform", sub: "Platform demo, then an overview of what I worked on", tag: "Platform demo",
   },
 };
 const urlQ = new URLSearchParams(location.search);
@@ -973,12 +1103,12 @@ function setupSuspension(R) {
   [["FL", 1, -1], ["FR", 1, 1], ["RL", -1, -1], ["RR", -1, 1]].forEach(([id, a, s]) => corner(id, a, s));
 
   // hydraulic system (active dampers + roll control): pump and reservoir, hard lines to all four dampers
-  const pump = centred("pump", [box(0.17, 0.1, 0.14, -1.15, 0.3, 0.42, M.hyd), cyl(V(-1.15, 0.34, 0.42), V(-1.15, 0.5, 0.42), 0.06, M.dark)]);
+  const pump = centred("pump", [box(0.24, 0.14, 0.2, -1.15, 0.3, 0.42, M.hyd), cyl(V(-1.15, 0.37, 0.42), V(-1.15, 0.58, 0.42), 0.085, M.dark)]);
   const hydLines = centred("hyd", [
-    tube([V(-1.15, 0.28, 0.42), V(-0.2, 0.26, 0.42), V(1.45, 0.28, 0.42), V(1.62, 0.3, 0.5), V(WB, 0.33, 0.6)], 0.014, M.hyd),
-    tube([V(1.45, 0.28, 0.42), V(1.45, 0.28, -0.42), V(1.62, 0.3, -0.5), V(WB, 0.33, -0.6)], 0.014, M.hyd),
-    tube([V(-1.15, 0.28, 0.42), V(-1.45, 0.28, 0.42), V(-1.62, 0.3, 0.5), V(-WB, 0.33, 0.6)], 0.014, M.hyd),
-    tube([V(-1.45, 0.28, 0.42), V(-1.45, 0.28, -0.42), V(-1.62, 0.3, -0.5), V(-WB, 0.33, -0.6)], 0.014, M.hyd),
+    tube([V(-1.15, 0.28, 0.42), V(-0.2, 0.26, 0.42), V(1.45, 0.28, 0.42), V(1.62, 0.3, 0.5), V(WB, 0.33, 0.6)], 0.024, M.hyd),
+    tube([V(1.45, 0.28, 0.42), V(1.45, 0.28, -0.42), V(1.62, 0.3, -0.5), V(WB, 0.33, -0.6)], 0.024, M.hyd),
+    tube([V(-1.15, 0.28, 0.42), V(-1.45, 0.28, 0.42), V(-1.62, 0.3, 0.5), V(-WB, 0.33, 0.6)], 0.024, M.hyd),
+    tube([V(-1.45, 0.28, 0.42), V(-1.45, 0.28, -0.42), V(-1.62, 0.3, -0.5), V(-WB, 0.33, -0.6)], 0.024, M.hyd),
   ]);
   root.add(pump, hydLines); register(pump, [0, -0.55, 0.15], 0.3); register(hydLines, [0, -0.45, 0], 0.3);
 
@@ -986,22 +1116,24 @@ function setupSuspension(R) {
   const comp = centred("comp", [box(0.15, 0.1, 0.12, -0.95, 0.56, -0.44, M.air), cyl(V(-0.95, 0.61, -0.44), V(-0.95, 0.74, -0.44), 0.04, M.dark)]);
   const tank = centred("tank", [cyl(V(-0.62, 0.56, -0.44), V(-0.2, 0.56, -0.44), 0.075, M.air)]);
   const airLines = centred("air", [
-    tube([V(-0.95, 0.56, -0.44), V(-0.6, 0.6, -0.44), V(0.2, 0.63, -0.44), V(1.45, 0.65, -0.42), V(1.62, 0.8, -0.4), V(WB, 0.9, -0.4)], 0.012, M.air),
-    tube([V(1.45, 0.65, -0.42), V(1.45, 0.65, 0.42), V(1.62, 0.8, 0.4), V(WB, 0.9, 0.4)], 0.012, M.air),
-    tube([V(-0.95, 0.56, -0.44), V(-1.45, 0.62, -0.42), V(-1.62, 0.8, -0.4), V(-WB, 0.9, -0.4)], 0.012, M.air),
-    tube([V(-1.45, 0.62, -0.42), V(-1.45, 0.62, 0.42), V(-1.62, 0.8, 0.4), V(-WB, 0.9, 0.4)], 0.012, M.air),
+    tube([V(-0.95, 0.56, -0.44), V(-0.6, 0.6, -0.44), V(0.2, 0.63, -0.44), V(1.45, 0.65, -0.42), V(1.62, 0.8, -0.4), V(WB, 0.9, -0.4)], 0.018, M.air),
+    tube([V(1.45, 0.65, -0.42), V(1.45, 0.65, 0.42), V(1.62, 0.8, 0.4), V(WB, 0.9, 0.4)], 0.018, M.air),
+    tube([V(-0.95, 0.56, -0.44), V(-1.45, 0.62, -0.42), V(-1.62, 0.8, -0.4), V(-WB, 0.9, -0.4)], 0.018, M.air),
+    tube([V(-1.45, 0.62, -0.42), V(-1.45, 0.62, 0.42), V(-1.62, 0.8, 0.4), V(-WB, 0.9, 0.4)], 0.018, M.air),
   ]);
   root.add(comp, tank, airLines); register(comp, [0, 0.9, 0], 0.35); register(tank, [0, 0.9, 0], 0.35); register(airLines, [0, 0.55, 0], 0.3);
 
   // meshes for the mode system (paint / clay / zebra / tape)
-  root.traverse((o) => { if (o.isMesh) meshes.push({ mesh: o, kind: KIND.get(o.material) || "other", orig: o.material, lines: null }); });
+  const PART_GROUP = [[/^sub_/, "subframe"], [/^wheel_/, "wheel"], [/^arm_/, "arms"], [/^damper_/, "damper"], [/^spring_/, "spring"], [/^sensor_/, "sensor"], [/^(hyd|pump)$/, "hydraulic"], [/^(air|comp|tank)$/, "air"]];
+  const groupOfPart = (o) => { for (let q = o; q; q = q.parent) { const g = PART_GROUP.find(([re]) => re.test(q.name || "")); if (g) return g[1]; } return "other"; };
+  root.traverse((o) => { if (o.isMesh) meshes.push({ mesh: o, kind: KIND.get(o.material) || "other", orig: o.material, lines: null, group: groupOfPart(o) }); });
   R.group.add(root);
   const LBL = [["sub_f", "Subframe, front", [0.3, -0.05, 0.3]], ["sub_r", "Subframe, rear", [-0.3, -0.05, 0.3]], ["damper_FR", "Active damper", [0.05, 0.05, 0.25]],
     ["spring_FR", "Air spring", [0.05, 0.28, 0.2]], ["sensor_RR", "Ride height sensor", [-0.1, -0.12, 0.3]], ["hyd", "Hydraulic lines", [0, -0.18, 0.25]],
     ["pump", "Pump & reservoir", [0, -0.3, 0.25]], ["air", "Air lines", [0, 0.22, -0.2]], ["tank", "Accumulator tank", [0, 0.3, -0.2]], ["comp", "Air compressor", [-0.25, 0.3, -0.2]]];
   for (const [part, text, o] of LBL) {
     const el = document.createElement("div"); el.className = "tag mono"; el.textContent = text; labelsEl.appendChild(el);
-    tagEls.push({ el, part, off: V(...o), kind: "part" });
+    tagEls.push({ el, part, off: V(...o), kind: "part", group: groupOfPart(parts[part].obj) });
   }
 }
 
@@ -1080,7 +1212,7 @@ function setupGeneric(root, R, rotParam) {
     return "body";
   };
   const layers = {};
-  meshes.forEach((r) => (layers[groupOf(r)] ||= []).push(r));
+  meshes.forEach((r) => { r.group = groupOf(r); (layers[r.group] ||= []).push(r); });
   const toLocal = (obj, w) => w.applyMatrix3(new THREE.Matrix3().setFromMatrix4(new THREE.Matrix4().copy(obj.parent.matrixWorld).invert()));
   const layerBox = {}, frontWheel = new THREE.Box3();
   let k = 0;
@@ -1152,7 +1284,7 @@ function activate(key) {
   if (active) { active.group.visible = false; active.tagEls.forEach((t) => { t.el.style.opacity = 0; }); }
   active = R; R.group.visible = true; R.group.scale.setScalar(reduceMotion ? 1 : 0.9);
   parts = R.parts; meshes = R.meshes; modelLines = R.modelLines; tagEls = R.tagEls; modelReady = true;
-  hideStatus(); setCaption(R.cfg);
+  currentFocus = null; hideStatus(); setCaption(R.cfg);
   $("#explode-wrap").style.display = R.cfg.explode === false ? "none" : "";
   applyMode(currentMode(), true);
 }
@@ -1205,6 +1337,10 @@ function applyMode(mode, force) {
     else if (mode === "clay") r.mesh.material = r.kind === "light" ? r.orig : (r.kind === "glass" || r.kind === "tire" ? clayDark : clayMat);
     else if (mode === "zebra") r.mesh.material = (r.kind === "paint" || r.kind === "glass") ? zebraMat : (r.kind === "light" ? r.orig : zebraDark);
     else r.mesh.material = tapeFill;
+    if (currentFocus && !userMode && !wire) {
+      const on = r.group === currentFocus;
+      r.mesh.material = on ? focusMat : ghostMat; r.mesh.castShadow = on;
+    }
   }
   document.querySelectorAll("[data-mode]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === mode)));
 }
@@ -1219,7 +1355,7 @@ function syncFollow() { followBtn.hidden = userMode === null && userExplode === 
 function retheme() {
   T = tokens();
   paintMats.Paint.color.set(T.paint); paintMats.Caliper.color.set(T.signal); paintMats.Module.color.set(T.signal);
-  clayMat.color.set(T.clay); tapeFill.color.set(T.paper); tapeLine.color.set(T.ink); tapeEdge.color.set(T.ink);
+  focusMat.color.set(T.signal); focusMat.emissive.set(T.signal); clayMat.color.set(T.clay); tapeFill.color.set(T.paper); tapeLine.color.set(T.ink); tapeEdge.color.set(T.ink);
   gridMat.uniforms.uColor.value.set(T.line); gridMat.uniforms.uAccent.value.set(T.ink);
   dimMat.color.set(T.ink); ringMats.forEach((m) => m.color.set(T.signal)); sweepMat.color.set(T.signal);
   const dark = new THREE.Color(T.paper).getHSL({}).l < 0.5;
@@ -1267,7 +1403,8 @@ new ResizeObserver(resize).observe(stage); resize();
 const ease = (x) => x * x * (3 - 2 * x);
 const lerp = (a, b, t) => a + (b - a) * t;
 const smooth = { az: CH[0].az, el: CH[0].el, dist: CH[0].dist, ty: CH[0].ty, explode: 0, fd: 1, ft: 1 };
-let explodeNow = 0, spinAngle = 0;
+let explodeNow = 0, spinAngle = 0, lastArc = -99;
+const arcStations = [...document.querySelectorAll(".arc-st")];
 const clock = new THREE.Clock();
 const v = new THREE.Vector3();
 
@@ -1292,6 +1429,11 @@ function tick() {
     else if (!R || (!R.loading && !R.failed)) loadModel(wantKey);
     if (R && R.loading) setStatus(R.phase === "build" ? "Building " + R.cfg.name + "…" : "Loading " + R.cfg.name + "…", R.phase === "build" ? null : R.pct, !!active);
   }
+  const chNow = CH[Math.min(CH.length - 1, Math.round(chapterPos))];
+  const focusWant = (active && chNow.model === active.key && chNow.focus) ? chNow.focus : null;
+  if (active && focusWant !== currentFocus) { currentFocus = focusWant; applyMode(currentMode(), true); setCaption(active.cfg, focusWant ? chNow.focusLabel : null); }
+  const arcIdx = Math.round(chapterPos) - 1;
+  if (arcIdx !== lastArc) { lastArc = arcIdx; arcStations.forEach((a, i) => { a.classList.toggle("current", i === arcIdx); a.classList.toggle("passed", i < arcIdx); }); }
   const fit = (active && active.cfg.fit) || { dist: 1, ty: 1 };
   target.fd = fit.dist; target.ft = fit.ty;
   if (active && !reduceMotion) { const sc = active.group.scale.x; active.group.scale.setScalar(sc + (1 - sc) * (1 - Math.pow(0.002, dt))); }
@@ -1342,6 +1484,7 @@ function tick() {
       const p = parts[tg.part]; if (!p) continue;
       p.obj.getWorldPosition(v); v.add(tg.off);
       op = Math.min(1, Math.max(0, (explodeNow - lblFrom) / lblSpan));
+      if (currentFocus && tg.group && tg.group !== currentFocus) op *= 0.2;   // labels outside the highlighted subsystem recede
     } else if (tg.kind === "group") {
       const e = ease(Math.min(Math.max((explodeNow - tg.delay) / (1 - tg.delay || 1), 0), 1));
       v.copy(tg.base).addScaledVector(tg.off, e).applyAxisAngle(new THREE.Vector3(0, 1, 0), car.rotation.y);
