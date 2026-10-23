@@ -4,7 +4,7 @@ An interactive portfolio that tells a career story through the machines I've wor
 
 **Live site:** https://rohittad.github.io/workportfolio/
 
-The six machines from my career stand in a row as live 3D models, each in a three-quarter front view. Hover one and it grows a little; click it and a panel opens with the role, the numbers, the achievements and, for three of them, a case study.
+The six products from my career stand in a row as live 3D models, each in a three-quarter front view. Hover one and it grows a little; click it and a panel opens with the role, the numbers, the achievements and, for three of them, a case study.
 
 | Stop | Years | Company | Vehicle shown |
 |---|---|---|---|

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rohit Tadikamalla | Work Portfolio</title>
-<meta name="description" content="Rohit Tadikamalla: mechanical engineer turned program builder turned product manager. Six stops, six machines: BMW, Daimler Trucks, Rivian, Tesla, Zoox and Nomadic AI.">
+<meta name="description" content="Rohit Tadikamalla: mechanical engineer turned program builder turned product manager. Six stops, six products: BMW, Daimler Trucks, Rivian, Tesla, Zoox and Nomadic AI.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&display=swap">
@@ -105,7 +105,7 @@ p{margin:0}
 .metrics li{border-top:2px solid var(--ink); padding-top:10px}
 .metrics b{display:block; font-weight:700; font-size:clamp(1.5rem,2.4vw,2.2rem); line-height:1.05; color:var(--signal); letter-spacing:-.02em; font-variant-numeric:tabular-nums}
 .metrics span{display:block; font-size:15px; line-height:1.35; color:var(--muted); margin-top:6px}
-.role-body{display:grid; grid-template-columns:minmax(0,7fr) minmax(0,4fr); gap:24px 48px; margin-top:34px}
+.role-body{margin-top:34px; max-width:72ch}
 .role-body h4,.case h4.label{font-size:15px; color:var(--signal); margin-bottom:10px; letter-spacing:0}
 .ach-list{margin:0; padding:0; list-style:none; display:grid; gap:12px}
 .ach-list li{padding-left:18px; position:relative; color:color-mix(in srgb, var(--ink) 85%, var(--paper))}
@@ -214,7 +214,7 @@ footer{margin-top:clamp(56px,8vw,96px); padding:24px var(--pad) 40px; color:var(
 
 <section class="garage" id="work" aria-labelledby="work-h">
   <div class="garage-head">
-    <h2 id="work-h">Six stops, six machines</h2>
+    <h2 id="work-h">Six stops, six products</h2>
     <p><span class="on-hover">Hover a vehicle, then click it to open the work.</span><span class="on-touch">Tap a vehicle to open the work.</span></p>
   </div>
   <ul class="lineup" id="lineup">
@@ -282,49 +282,46 @@ footer{margin-top:clamp(56px,8vw,96px); padding:24px var(--pad) 40px; color:var(
 <canvas id="gl" aria-hidden="true"></canvas>
 
 <template id="role-bmw">
-  <div class="role-head"><h3 id="panel-h" tabindex="-1">2018 · BMW Manufacturing</h3><p class="role-line">Paint Shop &amp; Quality Engineering Co-op · Jan – Dec 2018</p></div>
+  <div class="role-head"><h3 id="panel-h" tabindex="-1">BMW Manufacturing</h3><p class="role-line">Paint Shop &amp; Quality Engineering Co-op · Jan – Dec 2018</p></div>
   <p class="summary">Validated paint processes and traced fit-and-finish defects on the plant floor.</p>
   <ul class="metrics"><li><b>8–10 s</b><span>saved per vehicle on the line</span></li><li><b>400+</b><span>visual aids for new models</span></li><li><b>4</b><span>quarters of paint wax tests</span></li></ul>
   <div class="role-body">
-    <div><h4>Achievements</h4><ul class="ach-list">
+    <h4>Achievements</h4><ul class="ach-list">
       <li><b>Paint process validation:</b> supervised four quarters of wax tests that validated paint-process specifications for upcoming and existing vehicle models.</li>
         <li><b>Gap and squeak root cause:</b> ran root-cause analysis on gap and squeak issues using 3D measurement scans of parts fitted to vehicle bodies, and presented PQM reports on gap and flush.</li>
         <li><b>Supplier fitment testing:</b> checked gap and flush on supplier parts fitted to machined aluminum bodies, using 3D scans on geometrically perfect X5, X6, and X7 bodies.</li>
         <li><b>Shop-floor tooling:</b> designed and prototyped casters in CATIA V5 to move overweight X7s around the plant.</li>
         <li><b>Takt time:</b> made 400+ visual aids of new vehicle models so line workers could spot design changes faster, saving 8–10 seconds per vehicle.</li>
-    </ul></div>
-    <div><h4>The work</h4><p class="context">A year inside new vehicle programs, where design intent meets paint, fit, and finish.</p><p class="vehicle-note">2020 BMW X5 M Competition (G05). Public 3D model by David_Holiday, CC BY 4.0.</p></div>
+    </ul>
   </div>
 </template>
 <template id="role-daimler">
-  <div class="role-head"><h3 id="panel-h" tabindex="-1">2020 · Daimler Trucks North America</h3><p class="role-line">Mechanical Design Engineer, Freightliner · Aug 2020 – Oct 2021</p></div>
+  <div class="role-head"><h3 id="panel-h" tabindex="-1">Daimler Trucks North America</h3><p class="role-line">Mechanical Design Engineer, Freightliner · Aug 2020 – Oct 2021</p></div>
   <p class="summary">Designed Freightliner service, suspension, and towing hardware.</p>
   <ul class="metrics"><li><b>$20k</b><span>saved per quarter by one towing provision</span></li><li><b>3.5 kg</b><span>removed from subsystems</span></li><li><b>15+</b><span>custom BOM creations with install drawings</span></li></ul>
   <div class="role-body">
-    <div><h4>Achievements</h4><ul class="ach-list">
+    <h4>Achievements</h4><ul class="ach-list">
       <li><b>Decking-towing provision:</b> designed a provision that streamlined service and transport of vocational and highway trucks, saving about $20,000 per quarter.</li>
         <li><b>Mass reduction:</b> took 3.5 kg out of vocational-team subsystems by consolidating 2- and 3-piece bracket attachments.</li>
         <li><b>Air suspension routing:</b> routed airlines and wire harnesses on next-generation electric trucks with the electrical, systems, and supply chain teams.</li>
         <li><b>Lift axle system:</b> implemented a customer-requested auto raise-lower lift axle, with airline assembly diagrams for 6 air suspension variants and 15+ custom BOM creations with install drawings.</li>
         <li><b>Internship (2019):</b> redesigned a failed mounting bracket in NX with FEA, built a matrix to fix BOM selection errors, and updated drawings for 10+ parts across 20+ BOMs to ASME Y14.5.</li>
-    </ul></div>
-    <div><h4>The work</h4><p class="context">Hardware for the people who service and transport the truck, plus air suspension routing for next-generation electric trucks.</p><p class="vehicle-note">2020 Freightliner Cascadia. Public 3D model by liebherr996litronic, CC BY 4.0.</p></div>
+    </ul>
   </div>
 </template>
 <template id="role-rivian">
-  <div class="role-head"><h3 id="panel-h" tabindex="-1">2021 · Rivian</h3><p class="role-line">Mechanical Engineer II, Brakes &amp; Suspension · Nov 2021 – Apr 2023</p></div>
+  <div class="role-head"><h3 id="panel-h" tabindex="-1">Rivian</h3><p class="role-line">Mechanical Engineer II, Brakes &amp; Suspension · Nov 2021 – Apr 2023</p></div>
   <p class="summary">Owned 20+ brake and suspension components from early concepts through production launch.</p>
   <ul class="metrics"><li><b>20+</b><span>components owned end to end</span></li><li><b>50%</b><span>durability gain, jounce lines</span></li><li><b>20+</b><span>production issues resolved</span></li></ul>
   <div class="role-body">
-    <div><h4>Achievements</h4><ul class="ach-list">
+    <h4>Achievements</h4><ul class="ach-list">
       <li><b>Component ownership:</b> owned design, development, and validation of 20+ brake and suspension components across the R1T and R1S programs, working in CATIA.</li>
         <li><b>Design reviews:</b> led cross-functional reviews against cost, NVH, durability, assembly, and service targets with internal teams and outside suppliers.</li>
         <li><b>Jounce-line durability:</b> improved suspension jounce-line durability by 50% through cyclic vibration and pressure testing on prototype designs.</li>
         <li><b>R1S launch:</b> resolved 20+ in-plant production issues with engineering releases, including high-severity issues closed within three weeks.</li>
         <li><b>Validation:</b> authored validation plans for 4 brake and 3 hydraulic components, and built 3D models and GD&amp;T drawings for 15 components.</li>
         <li><b>Field feedback:</b> turned service-technician feedback on 10+ fleet-reported issues into design changes that reduced future warranty claims.</li>
-    </ul></div>
-    <div><h4>The work</h4><p class="context">Design reviews, validation, and plant production support on both R1 programs, then field issues fed back into the design.</p><p class="vehicle-note">Rivian R1T. An original model built in code from public photos, not Rivian CAD.</p></div>
+    </ul>
   </div>
   <section class="case" aria-label="Case study">
       <div class="eyebrow"><span class="sta">Case 02</span><span>Rivian · R1T / R1S · suspension hydraulics</span></div>
@@ -378,19 +375,18 @@ footer{margin-top:clamp(56px,8vw,96px); padding:24px var(--pad) 40px; color:var(
   </section>
 </template>
 <template id="role-tesla">
-  <div class="role-head"><h3 id="panel-h" tabindex="-1">2023 · Tesla</h3><p class="role-line">Technical Program Manager II, Cybertruck Chassis · Sep 2023 – Jun 2024</p></div>
+  <div class="role-head"><h3 id="panel-h" tabindex="-1">Tesla</h3><p class="role-line">Technical Program Manager II, Cybertruck Chassis · Sep 2023 – Jun 2024</p></div>
   <p class="summary">Owned the Cybertruck chassis roadmap from concept to serial production.</p>
   <ul class="metrics"><li><b>20+</b><span>stakeholders aligned to design freeze</span></li><li><b>0</b><span>production downtime through a 2-month shortage</span></li><li><b>48 hrs</b><span>test downtime saved per cycle</span></li></ul>
   <div class="role-body">
-    <div><h4>Achievements</h4><ul class="ach-list">
+    <h4>Achievements</h4><ul class="ach-list">
       <li><b>Integrated roadmap:</b> aligned 20+ engineering, finance, supply chain, and manufacturing stakeholders to design freeze and production readiness for the chassis sub-systems.</li>
         <li><b>Half-shaft installation issue:</b> ran containment and the permanent fix in parallel on a production-critical half-shaft problem, validated on 10 vehicles.</li>
         <li><b>Component shortage:</b> held zero production downtime through a 2-month component shortage with an expedited shipment and build plan.</li>
         <li><b>Tire/wheel option:</b> coordinated 6 cross-functional teams to validate and sign off a new option 3 months before start of production.</li>
         <li><b>Launch issues:</b> closed 13+ launch issues in 6 weeks with a resolution process across design and manufacturing, and mitigated 15+ critical program risks.</li>
         <li><b>Test downtime:</b> saved an average of 48 hours per cycle with a centralized part-request method in Jira, and built service-issue dashboards that sped up diagnosis by about 20%.</li>
-    </ul></div>
-    <div><h4>The work</h4><p class="context">Chassis sub-systems across design, finance, supply chain, and manufacturing, with launch issues closed in weeks, not months.</p><p class="vehicle-note">Tesla Cybertruck. Public 3D model by Lexyc16, CC BY 4.0.</p></div>
+    </ul>
   </div>
   <section class="case" aria-label="Case study">
       <div class="eyebrow"><span class="sta">Case 01</span><span>Tesla · Cybertruck · production</span></div>
@@ -476,19 +472,18 @@ footer{margin-top:clamp(56px,8vw,96px); padding:24px var(--pad) 40px; color:var(
   </section>
 </template>
 <template id="role-zoox">
-  <div class="role-head"><h3 id="panel-h" tabindex="-1">2024 · Zoox</h3><p class="role-line">Technical Program Manager, Autonomous Vehicles · Nov 2024 – Mar 2026</p></div>
+  <div class="role-head"><h3 id="panel-h" tabindex="-1">Zoox</h3><p class="role-line">Technical Program Manager, Autonomous Vehicles · Nov 2024 – Mar 2026</p></div>
   <p class="summary">Owned the plan for the test assets behind a robotaxi program.</p>
   <ul class="metrics"><li><b>10+</b><span>teams served by the asset roadmap</span></li><li><b>3 weeks</b><span>cut from supplier bring-up</span></li><li><b>20%</b><span>faster issue triage</span></li></ul>
   <div class="role-body">
-    <div><h4>Achievements</h4><ul class="ach-list">
+    <h4>Achievements</h4><ul class="ach-list">
       <li><b>Engineering Test Asset Committee (ETAC):</b> created the intake process, one-pager template, and standing forum that centralized asset requests, shared knowledge between teams, and tracked current and new builds; roadmap for 3 system-level assets.</li>
         <li><b>Asset requirements and roadmap:</b> served 10+ stakeholder teams across hardware, software, and operations, and carried risks and tradeoffs to executive leadership.</li>
         <li><b>Drive Module test bench:</b> led a new bench with a Tier 1 supplier that cut supplier bring-up by 3 weeks.</li>
         <li><b>Sensor contamination bench:</b> stood up test capability for a new sensor generation in about 2 weeks against a typical 4–6, carrying over roughly 70% of existing parts in a phased build.</li>
         <li><b>Workflow redesign:</b> rebuilt the Jira workflow for lab technicians and cut issue-triage time by 20%.</li>
         <li><b>Utilization and demand planning:</b> tracked scheduled versus actual asset time by team to show leadership where assets were underused, and built a consolidated parts-demand tracker for upcoming builds.</li>
-    </ul></div>
-    <div><h4>The work</h4><p class="context">Requirements, schedules, and process for the vehicle- and system-level assets that carry a robotaxi from prototype to validation.</p><p class="vehicle-note">Zoox robotaxi. An original model built in code from public photos and video, not Zoox CAD.</p></div>
+    </ul>
   </div>
   <section class="case" aria-label="Case study">
       <div class="eyebrow"><span class="sta">Case 03</span><span>Zoox · L5 program · test infrastructure</span></div>
@@ -558,19 +553,18 @@ footer{margin-top:clamp(56px,8vw,96px); padding:24px var(--pad) 40px; color:var(
   </section>
 </template>
 <template id="role-nomadic">
-  <div class="role-head"><h3 id="panel-h" tabindex="-1">2026 · Nomadic AI</h3><p class="role-line">Member of Product Staff · Jun 2026 – present</p></div>
+  <div class="role-head"><h3 id="panel-h" tabindex="-1">Nomadic AI</h3><p class="role-line">Member of Product Staff · Jun 2026 – present</p></div>
   <p class="summary">From vehicles to intelligence: building the software that helps teams understand complex machines.</p>
   <ul class="metrics"><li><b>366 → ~35</b><span>vulnerability findings to root causes</span></li><li><b>15+</b><span>security PRs merged for SOC 2</span></li><li><b>3</b><span>enterprise POCs owned</span></li></ul>
   <div class="role-body">
-    <div><h4>Achievements</h4><ul class="ach-list">
+    <h4>Achievements</h4><ul class="ach-list">
       <li><b>SOC 2 audit readiness:</b> triaged 366 flagged vulnerabilities down to about 35 root-cause packages and closed every critical and high CVE across 11 JS lockfiles and 3 Python manifests in 15+ merged PRs.</li>
         <li><b>Server-side search:</b> shipped search over customers' full analysis history, spanning two database backends and a 7-category footage classifier.</li>
         <li><b>Quickstart-first SDK docs:</b> restructured the SDK and API documentation so customer engineering teams run their first analysis without support.</li>
         <li><b>Benchmark dataset pipeline:</b> built a cloud workflow that downloads, transcodes, and loads external benchmark datasets into the shared library for demos.</li>
         <li><b>Enterprise POC adoption:</b> own adoption for three POC-stage accounts, with targeted customer decks and industry-specific examples.</li>
         <li><b>Building with AI tools:</b> prototype and ship daily with Claude and Cursor as the company's product hire.</li>
-    </ul></div>
-    <div><h4>The work</h4><p class="context">After years working on the machines, programs, and infrastructure behind vehicles, I now build the software that helps teams understand them.</p><p class="vehicle-note">The Nomadic AI mark, extruded from the logo on nomadicai.com.</p></div>
+    </ul>
   </div>
   <div class="nomadic-media">
     <figure class="fig"><video src="video/nomadic.mp4" poster="video/nomadic-poster.jpg" muted loop playsinline data-autoplay aria-label="Screen recording of the Nomadic AI platform analysing driving footage"></video>
@@ -597,7 +591,7 @@ footer{margin-top:clamp(56px,8vw,96px); padding:24px var(--pad) 40px; color:var(
   <g font-size="12">
     <rect x="44" y="236" width="392" height="52" rx="10" class="box"/>
     <text x="60" y="258" font-weight="700">Video language models</text><text x="60" y="276" class="m">find anomalies and edge cases in raw footage</text>
-    <rect x="44" y="298" width="392" height="52" rx="10" class="box"/>
+    <rect x="44" y="298" width="392" height="52" rx="10" class="box hl"/>
     <text x="60" y="320" font-weight="700">7-category footage classifier</text><text x="60" y="338" class="m">driving, robotics, aerial, construction</text>
     <rect x="44" y="360" width="392" height="52" rx="10" class="box hl"/>
     <text x="60" y="382" font-weight="700">Server-side search</text><text x="60" y="400" class="m">full analysis history across two database backends</text>
@@ -651,6 +645,27 @@ footer{margin-top:clamp(56px,8vw,96px); padding:24px var(--pad) 40px; color:var(
       <button class="pbtn" type="button" data-close aria-label="Close">Close</button>`;
     panel.append(bar, tpl.content.cloneNode(true));
     panel.querySelectorAll("video[data-autoplay]").forEach((v) => { v.muted = true; v.play().catch(() => {}); });
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(() => fitFigureText(panel)));
+  }
+  /* Figure labels were drawn for a narrower typeface: shrink any label that would run past the edge of the box it sits in. */
+  function fitFigureText(root) {
+    root.querySelectorAll(".fig svg").forEach((svg) => {
+      const boxes = [...svg.querySelectorAll("rect")].map((r) => ({ r, b: r.getBoundingClientRect() })).filter(({ b }) => b.width > 20 && b.height > 12);
+      svg.querySelectorAll("text").forEach((t) => {
+        const tb = t.getBoundingClientRect(); if (!tb.width) return;
+        const cx = tb.left + tb.width / 2, cy = tb.top + tb.height / 2;
+        let best = null;
+        for (const x of boxes) { const b = x.b; if (cx > b.left && cx < b.right && cy > b.top && cy < b.bottom && (!best || b.width * b.height < best.width * best.height)) best = b; }
+        if (!best) return;
+        const pad = Math.max(4, best.width * 0.04), L = best.left + pad, R = best.right - pad;
+        const anchor = getComputedStyle(t).textAnchor;
+        let k = 1;
+        if (anchor === "middle") k = Math.min(1, (cx - L) / (tb.width / 2), (R - cx) / (tb.width / 2));
+        else if (anchor === "end") k = Math.min(1, (tb.right - L) / tb.width);
+        else k = Math.min(1, (R - tb.left) / tb.width);
+        if (k < 0.995) t.style.fontSize = parseFloat(getComputedStyle(t).fontSize) * Math.max(k, 0.6) + "px";   // computed size is in SVG user units
+      });
+    });
   }
   function setOpen(key, opts = {}) {
     open = key; window.__lineup.open = key;
