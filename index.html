@@ -47,6 +47,11 @@ p{margin:0}
 .hero-path{margin-top:22px; font-size:clamp(1.05rem,1.4vw,1.25rem); font-weight:500}
 .hero-path i{font-style:normal; color:var(--signal); padding-inline:4px}
 .hero-thesis{margin-top:8px; font-size:clamp(1.05rem,1.4vw,1.25rem); color:var(--muted); max-width:34ch}
+.hero-cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:24px}
+.btn{display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:999px; border:1px solid var(--ink); text-decoration:none; font-weight:600; font-size:16px; line-height:1; transition:background .2s, color .2s, border-color .2s}
+.btn:hover{background:var(--ink); color:var(--paper)}
+.btn-primary{background:var(--signal); border-color:var(--signal); color:var(--on-signal)}
+.btn-primary:hover{background:#155C34; border-color:#155C34; color:var(--on-signal)}
 .arc{margin:0; background:var(--paper-2); border-radius:18px; padding:22px 24px 18px}
 .arc h2{font-size:1.15rem; margin-bottom:10px}
 .arc svg{width:100%; height:auto; display:block; overflow:visible}
@@ -88,7 +93,7 @@ p{margin:0}
 .on-touch{display:none}
 @media (hover:none){ .on-hover{display:none} .on-touch{display:inline} }
 .hint{margin-top:12px; color:var(--muted); font-size:14px}
-#gl{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:5}
+.slot-canvas{position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none}
 
 /* role panel */
 .panel{margin-top:16px; border-radius:22px; background:var(--paper); border:1px solid var(--line); padding:clamp(20px,3.4vw,44px); scroll-margin-top:calc(var(--header-h) + 12px); animation:rise .35s ease}
@@ -183,6 +188,10 @@ footer{margin-top:clamp(56px,8vw,96px); padding:24px var(--pad) 40px; color:var(
     <p class="hero-city">San Francisco, CA</p>
     <p class="hero-path">Mechanical Engineer<i>→</i>Program Builder<i>→</i>Product Manager</p>
     <p class="hero-thesis">I build the systems that turn complex hardware into products.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="mailto:rohit.tadikamalla@gmail.com">Email</a>
+      <a class="btn" href="https://www.linkedin.com/in/rohittadikamalla" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
   </div>
   <figure class="arc" id="arc">
     <h2>Six years. Six environments. One expanding scope.</h2>
@@ -278,8 +287,6 @@ footer{margin-top:clamp(56px,8vw,96px); padding:24px var(--pad) 40px; color:var(
   <span>3D models: "2020 BMW X5 M Competition" by David_Holiday, "FREIGHTLINER CASCADIA 2020" by liebherr996litronic and "Tesla Cybertruck" by Lexyc16, all on Sketchfab under CC BY 4.0, compressed for the web. The Rivian R1T and Zoox robotaxi are original models built in code from public photos, not manufacturer CAD. The Nomadic AI mark is from nomadicai.com.</span>
   <span>Diagrams are conceptual, not proprietary drawings. Brand names are trademarks of their owners; this site is not affiliated with or endorsed by them.</span>
 </footer>
-
-<canvas id="gl" aria-hidden="true"></canvas>
 
 <template id="role-bmw">
   <div class="role-head"><h3 id="panel-h" tabindex="-1">BMW Manufacturing</h3><p class="role-line">Paint Shop &amp; Quality Engineering Co-op · Jan – Dec 2018</p></div>
@@ -715,12 +722,13 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
 
-/* One fixed, transparent canvas draws every vehicle into its own slot (scissor viewports), so the lineup can reflow like any grid. */
-const canvas = document.getElementById("gl");
+/* One off-screen WebGL renderer draws each vehicle, then copies the picture into a plain canvas inside that vehicle's own cell.
+   The pictures are part of the cells, so they scroll exactly with them on every device. */
+const DPR = Math.min(window.devicePixelRatio || 1, 2);
 let renderer;
-try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" }); }
+try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" }); }
 catch (e) { document.querySelectorAll(".slot-load").forEach((n) => { n.textContent = ""; }); throw e; }
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.setPixelRatio(1);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
@@ -752,7 +760,8 @@ function makeSlot(key) {
   const pivot = new THREE.Group(); scene.add(pivot);
   const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
   shadow.rotation.x = -Math.PI / 2; shadow.position.y = 0.002; scene.add(shadow);
-  return SLOTS[key] = { key, el, view: el.querySelector(".slot-view"), load: el.querySelector(".slot-load"), scene, camera, pivot, shadow, ready: false, h: 0, sel: 0, t: Math.random() * 10, fit: null };
+  const view = el.querySelector(".slot-view"), out = document.createElement("canvas"); out.className = "slot-canvas"; view.prepend(out);
+  return SLOTS[key] = { key, el, view, out, ctx: out.getContext("2d"), dirty: true, onScreen: true, load: el.querySelector(".slot-load"), scene, camera, pivot, shadow, ready: false, h: 0, sel: 0, t: Math.random() * 10, fit: null };
 }
 
 /* centre on the ground, scale to a common size, aim the camera so the vehicle fills its slot */
@@ -769,17 +778,23 @@ function place(S, obj, opts = {}) {
   const sz = box.getSize(new THREE.Vector3());
   S.shadow.scale.set(sz.x * 1.25 + 0.4, sz.z * 1.9 + 0.4, 1);
   if (opts.noShadow) S.shadow.visible = false;
-  const sphere = box.getBoundingSphere(new THREE.Sphere());
-  S.fit = { center: V(0, sz.y * (opts.aimY ?? 0.42), 0), radius: sphere.radius };
-  S.ready = true; if (S.load) S.load.hidden = true;
+  const sphere = box.getBoundingSphere(new THREE.Sphere()), pts = [];
+  for (const a of [-0.24, 0, 0.24]) for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z])
+    pts.push(V(x, y, z).applyAxisAngle(V(0, 1, 0), a).multiplyScalar(1.1));            // hover grows the model 10% and the open one sways
+  S.fit = { center: V(0, sz.y * (opts.aimY ?? 0.42), 0), radius: sphere.radius, pts, cache: new Map() };
+  S.ready = true; if (S.load) S.load.hidden = true; S.dirty = true;
 }
 function aim(S, aspect) {
-  const { center, radius } = S.fit;
-  const vfov = THREE.MathUtils.degToRad(FOV), hfov = 2 * Math.atan(Math.tan(vfov / 2) * aspect);
-  const d = radius * (S.fitK || 0.86) / Math.sin(Math.min(vfov, hfov) / 2);
-  S.camera.aspect = aspect;
-  S.camera.position.set(Math.cos(AZ) * Math.cos(EL) * d, center.y + Math.sin(EL) * d, Math.sin(AZ) * Math.cos(EL) * d);
-  S.camera.lookAt(center); S.camera.updateProjectionMatrix();
+  const { center, radius, pts, cache } = S.fit, key = aspect.toFixed(3);
+  const put = (d) => { S.camera.position.set(Math.cos(AZ) * Math.cos(EL) * d, center.y + Math.sin(EL) * d, Math.sin(AZ) * Math.cos(EL) * d); S.camera.lookAt(center); S.camera.updateMatrixWorld(); };
+  S.camera.aspect = aspect; S.camera.updateProjectionMatrix();
+  if (!cache.has(key)) {                     // walk the camera in until the farthest corner sits at 92% of the box, so nothing leaves it
+    const vfov = THREE.MathUtils.degToRad(FOV), hfov = 2 * Math.atan(Math.tan(vfov / 2) * aspect);
+    let d = radius / Math.sin(Math.min(vfov, hfov) / 2), p = new THREE.Vector3();
+    for (let k = 0; k < 6; k++) { put(d); let m = 0; for (const q of pts) { p.copy(q).project(S.camera); m = Math.max(m, Math.abs(p.x), Math.abs(p.y)); } d *= Math.max(0.7, Math.min(1.4, m / 0.92)); }
+    cache.set(key, d);
+  }
+  put(cache.get(key));
 }
 
 /* ---------------- downloaded vehicles ---------------- */
@@ -1000,46 +1015,52 @@ const CONFIG = {
   rivian:  { build: buildR1T },
   tesla:   { url: "tesla-cybertruck.glb", paintColor: "#B9BDBF", finish: { metalness: 1, roughness: 0.38, clearcoat: 0 } },
   zoox:    { build: buildZoox },
-  nomadic: { build: buildNomadic, place: { size: 2.7, lift: 0.3, aimY: 0.5 }, float: true, fitK: 1.05 },
+  nomadic: { build: buildNomadic, place: { size: 2.7, lift: 0.3, aimY: 0.5 }, float: true },
 };
 const urlQ = new URLSearchParams(location.search);
 for (const [key, cfg] of Object.entries(CONFIG)) {
-  const S = makeSlot(key); S.fitK = cfg.fitK;
+  const S = makeSlot(key);
   if (urlQ.has("rot_" + key)) cfg.rotY = +urlQ.get("rot_" + key);
   if (cfg.build) place(S, cfg.build(), cfg.place);
   else loadGLB(S, cfg).catch((e) => { console.error(key, e); if (S.load) S.load.textContent = "Model unavailable"; });
 }
 
-/* ---------------- render loop ---------------- */
-let visible = true;
-new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { rootMargin: "120px" }).observe(document.getElementById("lineup"));
-function resize() { renderer.setSize(window.innerWidth, window.innerHeight, false); }
-window.addEventListener("resize", resize); resize();
+/* ---------------- render loop ----------------
+   Each cell is redrawn only when it changes: its size, a hover or tap, the open vehicle's sway, or its model arriving.
+   Scrolling never triggers a redraw. */
+const io = new IntersectionObserver((es) => { for (const e of es) { const S = Object.values(SLOTS).find((q) => q.view === e.target); if (S) { S.onScreen = e.isIntersecting; if (S.onScreen) S.dirty = true; } } }, { rootMargin: "200px" });
+const ro = new ResizeObserver((es) => { for (const e of es) { const S = Object.values(SLOTS).find((q) => q.view === e.target); if (S) S.dirty = true; } });
+for (const S of Object.values(SLOTS)) { io.observe(S.view); ro.observe(S.view); }
+let bufW = 0, bufH = 0;
+function draw(S) {
+  const w = Math.max(1, Math.round(S.view.clientWidth * DPR)), h = Math.max(1, Math.round(S.view.clientHeight * DPR));
+  if (S.out.width !== w || S.out.height !== h) { S.out.width = w; S.out.height = h; }
+  if (w > bufW || h > bufH) { bufW = Math.max(w, bufW); bufH = Math.max(h, bufH); renderer.setSize(bufW, bufH, false); }
+  S.pivot.scale.setScalar(1 + 0.1 * S.h);
+  S.pivot.rotation.y = -0.1 * S.h + (reduceMotion ? 0 : S.sel * Math.sin(S.t * 0.8) * 0.22);
+  S.pivot.position.y = CONFIG[S.key].float && !reduceMotion ? Math.sin(S.t * 1.4) * 0.06 * Math.max(S.h, S.sel) : 0;
+  S.shadow.material.opacity = 1 - 0.25 * S.h;
+  aim(S, w / h);
+  renderer.setScissorTest(true); renderer.setViewport(0, 0, w, h); renderer.setScissor(0, 0, w, h);
+  renderer.clear(); renderer.render(S.scene, S.camera);
+  S.ctx.clearRect(0, 0, w, h);
+  S.ctx.drawImage(renderer.domElement, 0, bufH - h, w, h, 0, 0, w, h);      // the GL picture sits in the bottom-left of the buffer
+}
 const clock = new THREE.Clock();
 function tick() {
   requestAnimationFrame(tick);
   const dt = Math.min(clock.getDelta(), 0.05);
-  if (!visible) { renderer.setScissorTest(false); renderer.clear(); return; }
-  if (canvas.width !== Math.floor(window.innerWidth * renderer.getPixelRatio())) resize();
-  renderer.setScissorTest(false); renderer.clear(); renderer.setScissorTest(true);
-  const H = window.innerHeight, hov = window.__lineup?.hover, open = window.__lineup?.open;
+  const hov = window.__lineup?.hover, open = window.__lineup?.open;
   for (const S of Object.values(SLOTS)) {
     if (!S.ready) continue;
-    const r = S.view.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > H || r.width < 2) continue;
-    const want = S.key === hov || S.key === open ? 1 : 0;
-    S.h += (want - S.h) * (reduceMotion ? 1 : 1 - Math.exp(-dt * 10));
-    S.sel += ((S.key === open ? 1 : 0) - S.sel) * (1 - Math.exp(-dt * 4));
-    S.t += dt;
-    const sway = reduceMotion ? 0 : S.sel * Math.sin(S.t * 0.8) * 0.22;
-    S.pivot.scale.setScalar(1 + 0.1 * S.h);
-    S.pivot.rotation.y = -0.1 * S.h + sway;
-    S.pivot.position.y = CONFIG[S.key].float && !reduceMotion ? Math.sin(S.t * 1.4) * 0.06 : 0;
-    S.shadow.material.opacity = 1 - 0.25 * S.h;
-    aim(S, r.width / r.height);
-    renderer.setViewport(r.left, H - r.bottom, r.width, r.height);
-    renderer.setScissor(r.left, H - r.bottom, r.width, r.height);
-    renderer.render(S.scene, S.camera);
+    const want = S.key === hov || S.key === open ? 1 : 0, wantSel = S.key === open ? 1 : 0;
+    const k1 = reduceMotion ? 1 : 1 - Math.exp(-dt * 10), k2 = reduceMotion ? 1 : 1 - Math.exp(-dt * 4);
+    const h0 = S.h, s0 = S.sel;
+    S.h = Math.abs(want - S.h) < 0.002 ? want : S.h + (want - S.h) * k1;
+    S.sel = Math.abs(wantSel - S.sel) < 0.002 ? wantSel : S.sel + (wantSel - S.sel) * k2;
+    const live = !reduceMotion && (S.sel > 0 || (CONFIG[S.key].float && S.h > 0));     // idle motion only on the open or hovered one
+    if (live) S.t += dt;
+    if ((S.h !== h0 || S.sel !== s0 || live || S.dirty) && S.onScreen) { S.dirty = false; draw(S); }
   }
 }
 tick();
